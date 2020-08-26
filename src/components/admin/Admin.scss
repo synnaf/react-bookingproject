@@ -1,0 +1,11 @@
+@import '../../styles/component-style.scss';
+
+.placeholder {
+    @include content-container; 
+    background-color: whitesmoke;
+
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+}
