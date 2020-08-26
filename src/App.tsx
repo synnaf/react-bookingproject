@@ -14,8 +14,7 @@ function App() {
   return (
     <div className="App">
       <React.Fragment>
-        <Home></Home>>
-    <Router>
+      <Router>
       <div>
         <nav>
           <ul>
@@ -23,7 +22,7 @@ function App() {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/booking">Bookings></Link>
+              <Link to="/booking">Bookings</Link>
             </li>
             <li>
               <Link to="/admin">Admin</Link>
@@ -51,17 +50,5 @@ function App() {
     </div>
   );
 }
-
-// function Home() {
-//   return <h2>Home</h2>;
-// }
-
-// function Booking() {
-//   return <h2>Bookings</h2>;
-// }
-
-// function Admin() {
-//   return <h2>Admin</h2>;
-// }
 export default App;
 
