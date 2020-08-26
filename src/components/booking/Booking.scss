@@ -1,70 +1,78 @@
 @import '../../styles/component-style.scss';
 
-.placeholder {
-    @include content-container; 
-    display: flex;
-    flex-direction: column; 
-    justify-content: center;
+.main-container{
+    display:flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
 
-    form {
-        width:80%;
-        display:flex;
-        flex-direction: row;
-        flex-wrap: wrap;
+   
+    .placeholder {
+        @include content-container; 
+        display: flex;
+        flex-direction: column; 
         justify-content: center;
-        text-align: left;
-
-        fieldset.input-container {
-            width:100%;
-            margin-bottom: 10px;
-            border:none;
-            label {
-                font-size: 14pt;
-                margin-top:20px;
-                margin-bottom: 10px;
-                font-weight: bold;
-            }
-            input {
-                padding:10px;
-                border-radius:8px;
-                border:none;
-                width:100%;
-            }
-        }
-        fieldset.select-container{
-            width: 35%;
-            margin-bottom: 30px;
-            border:none;
+        align-items: center;
+    
+        form {
+            width:80%;
             display:flex;
-            flex-direction: column;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            text-align: left;
 
-            label {
-                font-size: 14pt;
-                margin-top:20px;
-                margin-bottom: 10px;
-                font-weight: bold;
-            }
-            select {
-                padding:10px;
-                border-radius:8px;
-                border:none;
+            fieldset.input-container {
                 width:100%;
+                margin-bottom: 10px;
+                border:none;
+                label {
+                    font-size: 14pt;
+                    margin-top:20px;
+                    margin-bottom: 10px;
+                    font-weight: bold;
+                }
+                input {
+                    padding:10px;
+                    border-radius:8px;
+                    border:none;
+                    width:100%;
+                }
             }
-        }
-        button {
-            padding:15px;
-            background-color:rgba(247, 66, 0, 0.925);
-            color:white;
-            border:none;
-            font-family: sans-serif;
-            font-size: 14pt;
-            font-weight: bold;
-            width:30%;
-            box-shadow:5pt 1pt 9pt gray;
-            transition: background-color 0.7s, transform 0.7s;
-        } button:hover {
-            background-color: lightsalmon; 
+            fieldset.select-container{
+                width: 35%;
+                margin-bottom: 30px;
+                border:none;
+                display:flex;
+                flex-direction: column;
+
+                label {
+                    font-size: 14pt;
+                    margin-top:20px;
+                    margin-bottom: 10px;
+                    font-weight: bold;
+                }
+                select {
+                    padding:10px;
+                    border-radius:8px;
+                    border:none;
+                    width:100%;
+                }
+            }
+            button {
+                padding:15px;
+                background-color:rgba(247, 66, 0, 0.925);
+                color:white;
+                border:none;
+                font-family: sans-serif;
+                font-size: 14pt;
+                font-weight: bold;
+                width:30%;
+                box-shadow:5pt 1pt 9pt gray;
+                transition: background-color 0.7s, transform 0.7s;
+            } button:hover {
+                background-color: lightsalmon; 
+            }
         }
     }
 }

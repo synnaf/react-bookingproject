@@ -3,7 +3,7 @@ import Home from "./components/home/Home";
 import Booking from "./components/booking/Booking";
 import Admin from "./components/admin/Admin";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import "./App.css";
+import "./App.scss";
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
             
       <React.Fragment>        
         <Router>           
-          <div>                   
+          <div className="menu">                   
             <nav>                       
               <ul>                            
                 <li>
