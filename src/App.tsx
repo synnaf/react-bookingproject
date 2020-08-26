@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 function App() {
   return (
     <div className="App">
+      <h1>Hej... del 2</h1>
             
       <React.Fragment>        
         <Router>           
