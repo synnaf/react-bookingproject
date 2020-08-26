@@ -11,7 +11,6 @@ function App() {
             
       <React.Fragment>        
         <Router>           
-<<<<<<< HEAD
           <div>                   
             <nav className="nav">                       
                 <ul>                            
@@ -24,20 +23,6 @@ function App() {
                   <li>
                     <button><Link to="/admin">Admin</Link></button>                  
                   </li>                  
-=======
-          <div className="menu">                   
-            <nav>                       
-              <ul>                            
-                <li>
-                   <Link to="/">Home</Link>                             
-                </li>                         
-                <li>
-                   <Link to="/booking">Bookings</Link>                          
-                </li>                         
-                <li>
-                   <Link to="/admin">Admin</Link>                      
-                </li>                  
->>>>>>> c2a36856507811d8b0f1c351fe8c6bca5fe7911e
               </ul>              
             </nav> 
             <Switch>   
