@@ -3,29 +3,28 @@ import Home from "./components/home/Home";
 import Booking from "./components/booking/Booking";
 import Admin from "./components/admin/Admin";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import "./App.css";
+import "./App.scss";
 
 function App() {
   return (
     <div className="App">
-      <h1>Hej... del 2</h1>
             
       <React.Fragment>        
         <Router>           
           <div>                   
-            <nav>                       
-              <ul>                            
-                <li>
-                   <Link to="/">Home</Link>                             
-                </li>                         
-                <li>
-                   <Link to="/booking">Bookings</Link>                          
-                </li>                         
-                <li>
-                   <Link to="/admin">Admin</Link>                      
-                </li>                  
+            <nav className="nav">                       
+                <ul>                            
+                  <li>
+                    <button><Link to="/">Home</Link></button>                       
+                  </li>                         
+                  <li>
+                    <button><Link to="/booking">Bookings</Link></button>                         
+                  </li>                         
+                  <li>
+                    <button><Link to="/admin">Admin</Link></button>                  
+                  </li>                  
               </ul>              
-            </nav>             
+            </nav> 
             <Switch>   
               <Route path="/home">                           
                 <Home />                         
