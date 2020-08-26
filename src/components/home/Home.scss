@@ -1,25 +1,33 @@
 @import '../../styles/component-style.scss';
 
-.placeholder {
-@include content-container; 
-    position:relative;
-    height:auto;
-    img {
-        width:100%;
-        height:auto;
-        opacity: 0.6;
-    }
-    button {
-        @include button-link; 
-        position:absolute;
-        top:50%;
-        left:40%;
-    } button:hover {
-        background-color: lightsalmon; 
-    }
-    p {
-        font-style: italic;
-        font-size: 12pt;
-        padding:0px 20px 0px 20px;
-    }
+.main-container{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    width:100%;
+
+    .placeholder {
+        @include content-container; 
+            position:relative;
+            height:auto;
+    
+            img {
+                width:100%;
+                height:auto;
+                opacity: 0.6;
+            }
+            button {
+                @include button-link; 
+                position:absolute;
+                top:50%;
+                left:40%;
+            } button:hover {
+                background-color: lightsalmon; 
+            }
+            p {
+                font-style: italic;
+                font-size: 12pt;
+                padding:0px 20px 0px 20px;
+            }
+        }
 }

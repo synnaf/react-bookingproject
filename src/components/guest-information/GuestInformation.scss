@@ -1,59 +1,66 @@
 @import '../../styles/component-style.scss';
 
-.placeholder {
-    @include content-container; 
-    display: flex;
-    flex-direction: column; 
-    justify-content: center;
+.main-container{
+    display:flex;
+    flex-direction: column;
     align-items: center;
-    form {
-        width:80%;
-        display:flex;
-        flex-direction: row;
-        flex-wrap: wrap;
+    width:100%;
+    
+    .placeholder {
+        @include content-container; 
+        display: flex;
+        flex-direction: column; 
         justify-content: center;
-        text-align: left;
+        align-items: center;
+        form {
+            width:80%;
+            display:flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            text-align: left;
 
-        fieldset.input-container {
-            width:60%;
-            margin-bottom: 10px;
-            border:none;
-            label {
-                font-size: 14pt;
-                margin-top:20px;
-                margin-bottom:10px;
-                font-weight: bold;
-            }
-            input {
-                padding:10px;
-                border-radius:8px;
+            fieldset.input-container {
+                width:60%;
+                margin-bottom: 10px;
                 border:none;
-                width:100%;
+                label {
+                    font-size: 14pt;
+                    margin-top:20px;
+                    margin-bottom:10px;
+                    font-weight: bold;
+                }
+                input {
+                    padding:10px;
+                    border-radius:8px;
+                    border:none;
+                    width:100%;
+                }
             }
-        }
-        .additional-info {
-            width:60%;
-            margin-bottom: 10px;
-            border:none;
-            label {
-                font-size: 14pt;
-                margin-top:20px;
-                margin-bottom: 20px;
-                font-weight: bold;
-            }
-            textarea {
-                padding:10px;
-                border-radius:8px;
+            .additional-info {
+                width:60%;
+                margin-bottom: 10px;
                 border:none;
-                width:100%;
+                label {
+                    font-size: 14pt;
+                    margin-top:20px;
+                    margin-bottom: 20px;
+                    font-weight: bold;
+                }
+                textarea {
+                    padding:10px;
+                    border-radius:8px;
+                    border:none;
+                    width:100%;
+                }
             }
-        }
-        button {
-            @include button-link; 
-            margin:10px;
-            width:50%;
-        } button:hover {
-            background-color: lightsalmon; 
+            button {
+                @include button-link; 
+                margin:10px;
+                width:50%;
+            } button:hover {
+                background-color: lightsalmon; 
+            }
         }
     }
 }

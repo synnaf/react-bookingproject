@@ -1,11 +1,19 @@
 @import '../../styles/component-style.scss';
 
-.placeholder {
-    @include content-container; 
-    background-color: whitesmoke;
-
-    display: flex;
-    flex-direction: column; 
-    justify-content: center;
+.main-container {
+    display:flex;
+    flex-direction: column;
     align-items: center;
+    width:100%;
+    
+    .placeholder {
+        @include content-container; 
+        background-color: whitesmoke;
+    
+        display: flex;
+        flex-direction: column; 
+        justify-content: center;
+        align-items: center;
+    }
 }
+

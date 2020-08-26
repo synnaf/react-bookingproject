@@ -3,6 +3,7 @@ import './Booking.scss';
 
 export default function Booking() {
   return (
+    <div className="main-container">
     <div className="placeholder">
       <form>
         <fieldset className="input-container">
@@ -29,8 +30,9 @@ export default function Booking() {
         </fieldset>
         <button type="button">Sök</button>
       </form>
-    
 
   </div>
+    </div>
+
   );
 }

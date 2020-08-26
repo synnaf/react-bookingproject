@@ -4,10 +4,8 @@ import Sushi from './sushi.jpg';
 
 export default function Home() {
   return (
+    <div className="main-container">
     <div className="placeholder">
-
-      
-
       <div className="image-container">
         <img src={Sushi} alt="Placeholder img" />
       </div>
@@ -26,5 +24,7 @@ export default function Home() {
       </p>
 
     </div>
+    </div>
+
   );
 }
