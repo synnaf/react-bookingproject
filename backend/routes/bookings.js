@@ -13,7 +13,7 @@ router.route("/availability").get((req, res) => {
 
   let requiredDate = "2020-08-27";
 
-  Booking.find({
+  let bookingsFilteredByDate = Booking.find({
     date: requiredDate /* req.body.date */,
   })
     .then((bookings) => res.json(bookings))

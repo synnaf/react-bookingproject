@@ -14,18 +14,18 @@ const dbOptions = {
   useCreateIndex: true,
 };
 
-//cors config 
+//cors config
 let corsOptions = {
-  origin: '*', //tillåter alla requests, ändra till rätt frontEnd api
-  optionsSuccessStatus: 200
-}; 
+  origin: "*", //tillåter alla requests, ändra till rätt frontEnd api
+  optionsSuccessStatus: 200,
+};
 
-//när vi sedan gör requests så kan vi välja att skicka med vårt cors-objekt. 
+//när vi sedan gör requests så kan vi välja att skicka med vårt cors-objekt.
 /* 
 app.get('/', cors(corsOptions), (req, res) => {
   // för get vill vi tillåta requests från vår frontend route  
 }); 
-app.post('/availability/booking', cors(corsOptions), (req, res) => {
+app.post('/availability/addbooking', cors(corsOptions), (req, res) => {
   // för post vill vi tillåta requests från en särskild frontend route
 }); 
 app.delete('/delete', cors(corsOptions), (req, res) => {
@@ -37,11 +37,10 @@ app.update('/admin/guests', cors(corsOptions), (req, res) => {
 
 */
 
-
 app.use(cors());
 
 app.use(express.json());
-app.use("/guests", cors(corsOptions), guestsRouter.allGuests);
+app.use("/guests", cors(corsOptions), guestsRouter);
 app.use("/bookings", cors(corsOptions), bookingsRouter);
 /* app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
