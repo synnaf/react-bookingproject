@@ -1,6 +1,5 @@
 let Booking = require("../models/booking.model");
 let Guest = require("../models/guest.model");
-const { getDefaultSettings } = require("http2");
 const router = require("express").Router();
 
 router.route("/").get((req, res) => {
