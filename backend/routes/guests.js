@@ -1,7 +1,7 @@
 let Guest = require("../models/guest.model");
 const router = require("express").Router();
 
-let allGuests = [{}];
+let allGuests = [];
 
 router.route("/").get((req, res) => {
   allGuests = Guest.find()
