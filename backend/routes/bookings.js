@@ -2,63 +2,77 @@ let Booking = require("../models/booking.model");
 let Guest = require("../models/guest.model");
 const router = require("express").Router();
 
+// HÅRDKODADE VÄRDEN ENDAST FÖR TEST.
+let name = "Förnamn";
+let lName = "Efternamn";
+let email = "mail@mail.se";
+let phoneNo = 0o70555444555;
+let gId = 2;
+let requiredDate = "2020-08-27";
+
+let requiredTimeSlot = "18";
+let allBookings = [];
+// HÄMTA ALLA BOKNINGAR (BOOKINGS) I DB
 router.route("/").get((req, res) => {
   Booking.find()
     .then((bookings) => res.json(bookings))
     .catch((err) => res.status(400).json("Error:" + err));
+  //console.log(allBookings);
 });
 
+// HÄMTA ALLA BOOKINGS FÖR ETT SPECIFIKT DATUM
 router.route("/availability").get((req, res) => {
-  /* get lista med bokningar filtrerat på datum */
-
-  let requiredDate = "2020-08-27";
-
-  let bookingsFilteredByDate = Booking.find({
+  Booking.find({
     date: requiredDate /* req.body.date */,
   })
     .then((bookings) => res.json(bookings))
     .catch((err) => res.status(400).json("Error:" + err));
 });
 
+// HÄMTA ALLA BOOKINGS FÖR ETT SPECIFIKT DATUM OCH VALD TID
+router.route("/availability/time").get((req, res) => {
+  Booking.find({
+    date: requiredDate /* req.body.date */,
+    time: requiredTimeSlot,
+  })
+    .then((bookings) => res.json(bookings))
+    .catch((err) => res.status(400).json("Error:" + err));
+});
+
+// SKICKA DATA HÄMTAD FRÅN REQ BODY TILL DB
 router.route("/availability/addbooking").post((req, res) => {
-  const name = req.body.name;
-  const lName = req.body.lName;
-  const email = req.body.email;
+  //const name = req.body.name;
+  //const lName = req.body.lName;
+  //const email = req.body.email;
 
   //req.body.bookingId;
 
-  /* get lista med bokningar för att generera bookingId */
-
-  /* get lista med gäster för att generera guestId */
-
-  /* get lista med gäster filtrera med email */
-
   const newGuest = new Guest({
-    guestId: 2,
-    firstName: "Förnamn",
-    lastName: "Efternamn",
-    email: "mail@mail.se",
-    phoneNumber: 123,
+    guestId: gId,
+    firstName: name,
+    lastName: lName,
+    email: email,
+    phoneNumber: phoneNo,
   });
   const newBooking = new Booking({
     bookingId: 13,
     date: "2020-08-27T00:00:00.000Z" /* Date().toString() */,
-    time: "18",
+    time: "21",
     seats: 2,
-    notes: "Vegan",
+    notes: "NO CARBS",
     guestId: 2,
   });
 
-  /* spara bokning med värden hämtat från req.body */
+  // SPARA BOKNING MED VÄRDEN SOM HÄMTAS FRÅN REQ BODY
   newBooking
     .save()
     .then(() => res.json(newBooking))
     .catch((err) => res.status(400).json("Error:" + err));
 
-  /* spara gäst med värden hämtat från formulär */
+  /* SPARA GÄST MED INFO HÄMTAD FRÅN FORMULÄRETS BODY*/
   newGuest
     .save()
-    .then(() => res.json("Guest added"))
+    .then(() => res.json(newGuest))
     .catch((err) => res.status(400).json("Error:" + err));
 });
 

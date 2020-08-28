@@ -40,7 +40,12 @@ app.update('/admin/guests', cors(corsOptions), (req, res) => {
 app.use(cors());
 
 app.use(express.json());
-app.use("/guests", cors(corsOptions), guestsRouter);
+app.use(
+  "/guests",
+  cors(corsOptions),
+  guestsRouter.allGuests,
+  guestsRouter.router
+);
 app.use("/bookings", cors(corsOptions), bookingsRouter);
 /* app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
