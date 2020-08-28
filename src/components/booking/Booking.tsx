@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent, useReducer } from "react";
 import './Booking.scss'; 
+import FindTime from '../findTime/FindTime';
 import axios from "axios";
 
 
@@ -9,22 +10,27 @@ export interface BookingForm {
   time: string;  
 }
 
-export default function Booking() {
+export default function Booking(props: any) {
+  //props värdet från parents state, innehåller alla current bokningar
+  console.log(props)  
 
-  //vi sätter formulärets defaultvalues, vi behöver använda useReducer eftersom dessa ska kunna uppdateras individuellt? 
+  // //vi sätter formulärets defaultvalues, vi behöver använda useReducer eftersom dessa ska kunna uppdateras individuellt? 
   let defautValue: BookingForm = {date:'', seats: 0, time: ''}; 
   const [available, setAvailable] = useReducer(
     (state: BookingForm, newState: BookingForm) => 
     ({...state, ...newState}), 
     defautValue); 
 
-  //set state ska göras med värden från db, så första anropet borde göras här.
+  // //set state ska göras med värden från db, så första anropet borde göras här.
   function findTable(e: ChangeEvent<any>) {
     let element = e.target.name; 
     let value = e.target.value;  
-    
-    //här vill vi köra funktionen som hämtar lediga bord i vår förälder 
-    setAvailable({[element]: value} as any); //vi vill uppdatera kompopnentens state med värden ifrån formuläret 
+    setAvailable({[element]: value} as any); 
+    console.log(available); //värdet här vill vi skicka upp till parent 
+  }
+
+  function handleInput(e: ChangeEvent<any>) {
+    // props.test(e.target.value); 
     console.log(available); 
   }
 
@@ -39,7 +45,7 @@ export default function Booking() {
        
         <fieldset className="select-container">
           <label>Välj antal</label>
-          <select onChange={findTable} name="seats">
+          <select name="seats" onChange={findTable}>
             <option>1</option>
             <option>2</option>
             <option>3</option>
@@ -48,7 +54,7 @@ export default function Booking() {
             <option>6</option>
           </select>
         </fieldset>
-        <button type="button" onClick={findTable}>Sök</button> 
+        <button type="button" onClick={handleInput}>Sök</button> 
       </form>
     </div>
   </div>

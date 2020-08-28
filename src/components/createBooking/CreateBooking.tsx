@@ -1,47 +1,63 @@
 import React, { useState, useEffect } from 'react'; 
 import GuestInformation from '../guest-information/GuestInformation';
 import Booking from '../booking/Booking';
-import FindTime from '../findTime/FindTime';
 import axios from 'axios'; 
+
+export interface Bookings { 
+    guestId: string; 
+    bookingId: string; 
+    date: string;  
+    seats: number; 
+    time: string;  
+  }
 
 export default function CreateBooking() {
 
     //detta är vår föräldrakomponent som kommunicerar mot databasen när sökningar görs i booking, 
     //och när det finns lediga bokningar så renderas GuestInformation.
     //När guestinformation är ifyllt kommer createBooking att skicka en post-request med sitt state till databasen! 
-    
-    // const [newBooking, setNewBooking] = useState([]); //state är från början en tom lista när komponenten laddas
 
+    //listan över bokningar finns i vårt state 
+    let defaultValue: Bookings[] = [{guestId: "1", bookingId:'T7', date: 'hhhh', seats: 3, time: '18'}]; 
+    const [currentBookings, setCurrentBookings] = useState(defaultValue);
 
-    // useEffect(() => {
-    //     axios.get('http://localhost:3001/bookings/')
-    //     .then(currentBookings => { 
-    //         //kör funktionen som ska mappa ut objektet 
-    //         presentAvailable(currentBookings.data); 
-    //     }); 
-    // }, []); 
-
-
-    //här är funktionen som ska rendera komponenten findTime 
-    function presentAvailable(availableTimes: any) {
-        let newList = availableTimes.map((listitem: any) => {
+    //hämta bookings från vår databas 
+    useEffect(() => {
+        axios.get('http://localhost:3001/bookings/')
+        .then(currentBookings => { 
+            // //kör funktionen som ska mappa ut objektet 
+            // presentAvailable(currentBookings.data); 
+            let newList = currentBookings.data.filter((t: Bookings) => { return t}); 
             console.log(newList); 
-            // setNewBooking(listitem);
-     });  }
+            //vi sparar nya listan i vårt state
+            setCurrentBookings([...newList]); 
+        }); 
+    }, []); 
 
+    // //här är funktionen som ska rendera komponenten findTime 
+    function presentAvailable(availableTimes: Bookings[]) {
 
-    //en funktion som uppdaterar state baserat på vad gästen fyller i formuläret?
- 
+        // vi kör en filterfunktion som filtrerar vår lista, och returnerar alla objekt utöver den med rätt id 
+        // här kan vi välja att filtrera ut i frontend om vi vill? 
+        let newList = availableTimes.filter((t: Bookings) => { return t}); 
+        console.log(newList)
+        //vi sparar nya listan i vårt state
+        setCurrentBookings([...newList]); 
+    }; 
 
-        return(
-            <div>
-                {/* findTable är en funktion innuti Boooking */}
-                <Booking ></Booking> 
+    function test(data: any) {
+        console.log(data)
+    }
 
-                <FindTime></FindTime>
+    console.log(currentBookings); //currentbookings finns i state i vår komponent 
 
+            return(
+                <div>
+                    {/* findTable är en funktion innuti Boooking */}
+                    {/* vi skickar med värdet på current state */}
+                    <Booking presentAvailable={currentBookings}></Booking> 
+                    {/* <GuestInformation></GuestInformation> */}
+                </div>
+            );
 
-                <GuestInformation></GuestInformation>
-            </div>
-        );
 }

@@ -3,7 +3,10 @@ import './GuestInformation.scss';
 
 export default function GuestInformation() {
 
-  //gästen fyller i sin information, sedan skickas datan till föräldraelementet CreateBookings som gör en post. 
+  //gästen fyller i sin information, sedan skickas datan till föräldraelementet CreateBookings som gör en post.
+  function disable() {
+    console.log("checked"); 
+  } 
 
   return (
 
@@ -14,6 +17,7 @@ export default function GuestInformation() {
           <p>Tid: XXXX</p>
         </div>
         <h2>Kontaktuppgifter</h2>
+        
         <form>
           <fieldset className="input-container">
             <label>Förnamn</label>
@@ -29,8 +33,9 @@ export default function GuestInformation() {
             <label>Övrig information:</label>
             <textarea></textarea>
           </fieldset>
-          {/* <input type="checkbox">Gdpr text</input> */}
-          {/* skicka datan till föräldern */}
+          <input type="checkbox" name="gdpr" onChange={disable} checked={false} />Gdpr text
+
+          {/* skicka datan till föräldern vid knapptryckning */}
           <button type="button">Boka</button> 
         </form>
     </div>
