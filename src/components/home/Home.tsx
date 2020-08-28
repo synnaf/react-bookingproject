@@ -10,7 +10,7 @@ export default function Home() {
         <img src={Sushi} alt="Placeholder img" />
       </div>
   
-      <button>Boka</button>
+      <button type="button">Boka</button>
 
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 

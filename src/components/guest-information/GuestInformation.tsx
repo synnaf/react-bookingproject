@@ -2,7 +2,11 @@ import React from "react";
 import './GuestInformation.scss'; 
 
 export default function GuestInformation() {
+
+  //gästen fyller i sin information, sedan skickas datan till föräldraelementet CreateBookings som gör en post. 
+
   return (
+
     <div className="main-container">
       <div className="placeholder">
         <div>
@@ -25,7 +29,9 @@ export default function GuestInformation() {
             <label>Övrig information:</label>
             <textarea></textarea>
           </fieldset>
-          <button type="button">Boka</button>
+          {/* <input type="checkbox">Gdpr text</input> */}
+          {/* skicka datan till föräldern */}
+          <button type="button">Boka</button> 
         </form>
     </div>
   </div>

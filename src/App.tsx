@@ -1,9 +1,10 @@
 import React from "react";
 import Home from "./components/home/Home";
-import Booking from "./components/booking/Booking";
 import Admin from "./components/admin/Admin";
+import CreateBooking from "./components/createBooking/CreateBooking";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.scss";
+
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
                     <button><Link to="/">Home</Link></button>                       
                   </li>                         
                   <li>
-                    <button><Link to="/booking">Bookings</Link></button>                         
+                    <button><Link to="/booking">Booking</Link></button>                         
                   </li>                         
                   <li>
                     <button><Link to="/admin">Admin</Link></button>                  
@@ -30,7 +31,7 @@ function App() {
                 <Home />                         
               </Route>                       
               <Route path="/booking">                           
-                <Booking />                      
+                <CreateBooking />                     
               </Route>                    
               <Route path="/admin">                         
                 <Admin />                    
