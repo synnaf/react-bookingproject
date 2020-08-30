@@ -12,16 +12,25 @@ export interface BookingForm {
 
 export default function Booking(props: any) {
   //props värdet från parents state, innehåller alla current bokningar
-  console.log(props)  
+  console.log(props) 
 
-  // //vi sätter formulärets defaultvalues, vi behöver använda useReducer eftersom dessa ska kunna uppdateras individuellt? 
+  //vi använder state för att rendera vår komponent findtime! 
+  const [findTime, setFindTime] = useState(false); 
+  
+  function showTimeSlots(e: ChangeEvent<any>) {
+    // props.test(e.target.value);
+    setFindTime(true);  
+    console.log(findTime); 
+  }
+
+  //vi sätter formulärets defaultvalues, vi behöver använda useReducer eftersom dessa ska kunna uppdateras individuellt? 
   let defautValue: BookingForm = {date:'', seats: 0, time: ''}; 
   const [available, setAvailable] = useReducer(
     (state: BookingForm, newState: BookingForm) => 
     ({...state, ...newState}), 
     defautValue); 
 
-  // //set state ska göras med värden från db, så första anropet borde göras här.
+  //set state ska göras med värden från db, så första anropet borde göras här.
   function findTable(e: ChangeEvent<any>) {
     let element = e.target.name; 
     let value = e.target.value;  
@@ -53,11 +62,14 @@ export default function Booking(props: any) {
             <option>6</option>
           </select>
         </fieldset>
-        <div className="cta-search" onClick={handleInput}>
+        <div className="cta-search" onClick={showTimeSlots}>
           <button type="button" onClick={handleInput}>Sök</button> 
         </div>
       </form>
-        <FindTime></FindTime>
+      {findTime ?
+           <FindTime /> :
+           null
+        }
       </div>
     </div>
   );

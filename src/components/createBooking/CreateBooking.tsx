@@ -55,8 +55,8 @@ export default function CreateBooking() {
                 <div>
                     {/* findTable är en funktion innuti Boooking */}
                     {/* vi skickar med värdet på current state */}
-                    {/* <Booking presentAvailable={currentBookings}></Booking>  */}
-                    <GuestInformation></GuestInformation>
+                    <Booking presentAvailable={currentBookings}></Booking> 
+                    {/* <GuestInformation></GuestInformation> */}
                 </div>
             );
 
