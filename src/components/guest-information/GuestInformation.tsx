@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import './GuestInformation.scss'; 
 
 export default function GuestInformation() {
 
-  //gästen fyller i sin information, sedan skickas datan till föräldraelementet CreateBookings som gör en post.
-  function disable() {
-    console.log("checked"); 
+  const [gdpr, setGdpr] = useState(false); 
+
+  function forceUpdate(e: any) {
+    if(e.target.checked === true) {
+      return setGdpr(true)
+    } else {
+      return setGdpr(false) }; 
   } 
+
+  function enableBooking() {
+    console.log("GDPR is approved"); 
+  }
 
   return (
       <div className="placeholder">
@@ -34,12 +42,12 @@ export default function GuestInformation() {
             <fieldset className="additional-info">
               <label>Övrig information:</label>
               <textarea></textarea>
-              <input type="checkbox" name="gdpr" onChange={disable} checked={false} />
+              <input type="checkbox" name="gdpr" onChange={forceUpdate}/>
                 <span>Gdpr text</span>
             </fieldset>
             {/* skicka datan till föräldern vid knapptryckning */}
             <div className="cta-book">
-              <button type="button">Boka</button>
+              <button type="button" disabled={gdpr === false} onClick={enableBooking}>Boka</button>
             </div>
              
           </form>
