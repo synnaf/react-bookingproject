@@ -9,23 +9,23 @@ import "./App.scss";
 function App() {
   return (
     <div className="App">
-            
-      <React.Fragment>        
         <Router>           
-          <div>                   
+          <header className="navbar">                   
             <nav className="nav">                       
                 <ul>                            
                   <li>
-                    <button><Link to="/">Home</Link></button>                       
+                    <Link to="/">Home</Link>                      
                   </li>                         
                   <li>
-                    <button><Link to="/booking">Booking</Link></button>                         
+                    <Link to="/booking">Booking</Link>                       
                   </li>                         
                   <li>
-                    <button><Link to="/admin">Admin</Link></button>                  
+                    <Link to="/admin">Admin</Link>                 
                   </li>                  
               </ul>              
-            </nav> 
+            </nav>       
+          </header> 
+          <main>
             <Switch>   
               <Route path="/home">                           
                 <Home />                         
@@ -39,10 +39,9 @@ function App() {
               <Route path="/">                       
                 <Home />                         
               </Route>                     
-            </Switch>                
-          </div>            
-        </Router>           
-      </React.Fragment>         
+            </Switch>          
+          </main>           
+        </Router>  
     </div>
   );
 }

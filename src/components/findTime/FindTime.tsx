@@ -1,5 +1,6 @@
 import React, { useReducer, ChangeEvent } from "react";
 import axios from 'axios';
+import './FindTime.scss'; 
 
 
 export interface BookingForm { 
@@ -25,12 +26,9 @@ export default function FindTime() {
   }
 
   return (
-    <div className="main-container">
-    <div className="placeholder">
-      <form>
-        <fieldset className="select-container">         
+    <>
+        <fieldset className="select-time">         
           <label>Lediga tider:</label>
-          
           <div>
             <input type="radio" id="18" name="time" value="18" onChange={findTime}/>
             <label htmlFor="18">18.00</label>
@@ -39,10 +37,12 @@ export default function FindTime() {
             <input type="radio" id="21" name="time" value="21" onChange={findTime}/>
             <label htmlFor="21">21.00</label>
           </div>
-        </fieldset> 
-        <button type="button" onClick={findTime}>Nästa</button> 
-      </form>
-    </div>
-  </div>
+        </fieldset>
+
+        <div className="cta-form">
+          <button type="button" onClick={findTime}>Nästa</button> 
+        </div> 
+
+    </>
   );
 }

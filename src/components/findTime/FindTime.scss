@@ -1,0 +1,47 @@
+.select-time{
+    border:none;
+    text-align: center;
+    label {
+        font-size: 14pt;
+        font-weight: bold;
+        padding-bottom: 5px;
+    }
+    div {
+        text-align: center;
+        padding: 5px;
+        label {
+           text-align: right;
+           font-weight: lighter;
+           margin-left: 5px;
+        }
+        input {
+            padding:10px;
+        }
+    }
+}
+
+.cta-form{
+    margin-bottom:50px;
+    padding:0px;
+    // margin-top:10px;
+    transition: background-color 0.7s, transform 0.7s;
+    width:30%;
+    text-align: center;
+    height:35px;
+    background-color: #4e6096;
+    border-radius:42px;
+    cursor:pointer;
+    text-decoration:none;
+    button {
+        cursor:pointer;
+        height:100%;
+        font-size: 12pt;
+        font-weight: bold;
+        border:none;
+        text-decoration: none;
+        background-color:transparent;
+        color:white; 
+    }
+}.cta-form:hover {
+    background-color: lightsalmon;
+}

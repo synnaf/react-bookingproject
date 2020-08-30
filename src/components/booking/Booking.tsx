@@ -35,14 +35,13 @@ export default function Booking(props: any) {
   }
 
   return (
-    <div className="main-container">
     <div className="placeholder">
+      <div className="form-container">
       <form>
         <fieldset className="input-container">
           <label>Välj datum</label>
             <input type="date" onChange={findTable} name="date"/>
         </fieldset>
-       
         <fieldset className="select-container">
           <label>Välj antal</label>
           <select name="seats" onChange={findTable}>
@@ -54,10 +53,13 @@ export default function Booking(props: any) {
             <option>6</option>
           </select>
         </fieldset>
-        <button type="button" onClick={handleInput}>Sök</button> 
+        <div className="cta-search" onClick={handleInput}>
+          <button type="button" onClick={handleInput}>Sök</button> 
+        </div>
       </form>
+        <FindTime></FindTime>
+      </div>
     </div>
-  </div>
   );
 } 
   
