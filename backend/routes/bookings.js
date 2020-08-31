@@ -90,4 +90,18 @@ router.route("/availability/:date/:time/addbooking").post((req, res) => {
     .catch((err) => res.status(400).json("Error:" + err));
 });
 
+router.route("/delete/:bookingId").delete((req, res) => {
+  Booking.find({
+    bookingId: req.params.bookingId
+  })
+    .then(() => res.redirect('/'))
+    .catch((err) => res.status(400).json("Error:" + err));
+});
+router.route("/delete/:bookingId").delete((req, res) => {
+  Booking.find({
+    bookingId: req.params.bookingId
+  })
+    .then(() => res.redirect('/'))
+    .catch((err) => res.status(400).json("Error:" + err));
+});
 module.exports = router;
