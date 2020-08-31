@@ -6,10 +6,11 @@ export default function Admin() {
 
 
   function deleteBooking(e: MouseEvent<HTMLButtonElement>) {
-    console.log(e)
 
-    // useEffect(() => {
-      axios.delete("http://localhost:3001/delete/:bookingId")
+    const hej = e;
+
+    console.log(e)
+      axios.delete(`http://localhost:3001/delete/${hej}`)
       .then(res => {
         console.log(res);
         console.log(res.data);
