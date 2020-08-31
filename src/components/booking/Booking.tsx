@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, useReducer } from "react";
 import './Booking.scss'; 
-import FindTime from '../findTime/FindTime';
-import axios from "axios";
+import axios from 'axios'; 
+import { Bookings } from "../createBooking/CreateBooking";
 
 
 export interface BookingForm { 
@@ -11,14 +11,15 @@ export interface BookingForm {
 }
 
 export default function Booking(props: any) {
-  //props värdet från parents state, innehåller alla current bokningar
   console.log(props) 
-
-  //vi använder state för att rendera vår komponent findtime! 
   const [findTime, setFindTime] = useState(false); 
+  const [isAvailable, setIsAvailable] = useState(true);
   
   function showTimeSlots(e: ChangeEvent<any>) {
     // props.test(e.target.value);
+
+
+
     setFindTime(true);  
     console.log(findTime); 
   }
@@ -31,7 +32,7 @@ export default function Booking(props: any) {
     defautValue); 
 
   //set state ska göras med värden från db, så första anropet borde göras här.
-  function findTable(e: ChangeEvent<any>) {
+  function findAvailableTable(e: ChangeEvent<any>) {
     let element = e.target.name; 
     let value = e.target.value;  
     setAvailable({[element]: value} as any); 
@@ -39,9 +40,32 @@ export default function Booking(props: any) {
   }
 
   function handleInput(e: ChangeEvent<any>) {
-    // props.test(e.target.value); 
-    console.log(available); 
-  }
+    //här vill vi köra hämtningen 
+    findAvailableTable(e); 
+    let selectedDate = available.date; 
+    console.log("selected date = " + selectedDate); 
+    //vi mappar ut för kl.18 och kl.21 
+        //hämta bookings från vår databas 
+        axios.get('http://localhost:3001/bookings/')
+        .then(currentBookings => { 
+          let allBookings = currentBookings.data;  
+
+            let bookingsSelectedDate = allBookings.filter((t: Bookings) => t.date = selectedDate); 
+        
+            bookingsSelectedDate.length > 29 ? setFindTime(false) : setFindTime(true); 
+
+            let timeSlotEarly = bookingsSelectedDate.filter((t: Bookings)=> t.time !== '21') 
+           
+            let timeSlotLate = bookingsSelectedDate.filter((t: Bookings)=> t.time !== '18') 
+
+            timeSlotLate.length > 14 ? setIsAvailable(false) :  setIsAvailable(true);
+            timeSlotEarly.length > 14 ? console.log("inga lediga tider") :  console.log("18 är ledigt");  
+            
+            }); 
+
+            console.log(isAvailable); 
+  
+        }; 
 
   return (
     <div className="placeholder">
@@ -49,11 +73,11 @@ export default function Booking(props: any) {
       <form>
         <fieldset className="input-container">
           <label>Välj datum</label>
-            <input type="date" onChange={findTable} name="date"/>
+            <input type="date" onChange={findAvailableTable} name="date"/>
         </fieldset>
         <fieldset className="select-container">
           <label>Välj antal</label>
-          <select name="seats" onChange={findTable}>
+          <select name="seats" onChange={findAvailableTable}>
             <option>1</option>
             <option>2</option>
             <option>3</option>
@@ -66,9 +90,39 @@ export default function Booking(props: any) {
           <button type="button" onClick={handleInput}>Sök</button> 
         </div>
       </form>
+      
       {findTime ?
-           <FindTime /> :
-           null
+        <div className="find-time">
+          <fieldset className="select-time">         
+              <label>Lediga tider:</label>
+              
+              {isAvailable ? 
+              
+              <div>
+                <input type="radio" id="18" name="time" value="18" onChange={findAvailableTable}/>
+                <label htmlFor="18">18.00</label>
+              </div>
+            : <div>
+              <h4>SORRY</h4>
+            </div>  }
+            {isAvailable ? 
+
+              <div>
+                <input type="radio" id="21" name="time" value="21" onChange={findAvailableTable}/>
+                <label htmlFor="21">21.00</label>
+              </div>
+
+            : <div>
+                <h4>SORRY 21</h4>
+              </div> }
+
+
+            </fieldset>
+            <div className="cta-form">
+              <button type="button" onClick={findAvailableTable}>Nästa</button> 
+            </div> 
+          </div> 
+            : null
         }
       </div>
     </div>
