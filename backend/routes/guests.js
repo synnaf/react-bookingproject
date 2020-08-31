@@ -1,5 +1,4 @@
 let Guest = require("../models/guest.model");
-const { all } = require("./bookings");
 const router = require("express").Router();
 
 let allGuests = [];

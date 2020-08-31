@@ -11,7 +11,6 @@ let gId = 2;
 let requiredDate = "2020-08-27";
 
 let requiredTimeSlot = "18";
-let allBookings = [];
 // HÄMTA ALLA BOKNINGAR (BOOKINGS) I DB
 router.route("/").get((req, res) => {
   Booking.find()
@@ -30,17 +29,32 @@ router.route("/availability").get((req, res) => {
 });
 
 // HÄMTA ALLA BOOKINGS FÖR ETT SPECIFIKT DATUM OCH VALD TID
-router.route("/availability/time").get((req, res) => {
+router.route("/availability/:date").get((req, res) => {
   Booking.find({
-    date: requiredDate /* req.body.date */,
-    time: requiredTimeSlot,
+    date: requiredDate /* req.params.date */,
+    time: requiredTimeSlot /* req.body.time */,
+  })
+
+    // NÄR SVARET KOMMER FRÅN DATABAS REDIRECT TILL URL SOM INNEHÅLLER BOKNINGENS VALDA DATUM OCH TID.
+    .then((bookings) =>
+      res.json(bookings).redirect("/availability/:date/:time")
+    )
+    .catch((err) => res.status(400).json("Error:" + err));
+});
+
+// VISA BOKNINGEN FÖR VALD DATUM OCH TID
+router.route("/availability/:date/:time").get((req, res) => {
+  Booking.find({
+    date: requiredDate /* req.params.date */,
+    time: requiredTimeSlot /* req.params.time */,
   })
     .then((bookings) => res.json(bookings))
     .catch((err) => res.status(400).json("Error:" + err));
 });
 
 // SKICKA DATA HÄMTAD FRÅN REQ BODY TILL DB
-router.route("/availability/addbooking").post((req, res) => {
+// ENDPOINT ÄR DYNAMISK MED VÄRDEN SOM GÄSTEN MATAR IN
+router.route("/availability/:date/:time/addbooking").post((req, res) => {
   //const name = req.body.name;
   //const lName = req.body.lName;
   //const email = req.body.email;
@@ -56,8 +70,8 @@ router.route("/availability/addbooking").post((req, res) => {
   });
   const newBooking = new Booking({
     bookingId: 13,
-    date: "2020-08-27T00:00:00.000Z" /* Date().toString() */,
-    time: "21",
+    date: "2020-08-27T00:00:00.000Z" /* req.params.date */,
+    time: "21" /* req.params.time */,
     seats: 2,
     notes: "NO CARBS",
     guestId: 2,
