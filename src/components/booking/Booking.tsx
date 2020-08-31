@@ -11,17 +11,12 @@ export interface BookingForm {
 }
 
 export default function Booking(props: any) {
-  console.log(props) 
+  // console.log(props) 
   const [findTime, setFindTime] = useState(false); 
   const [isAvailable, setIsAvailable] = useState(true);
   
-  function showTimeSlots(e: ChangeEvent<any>) {
-    // props.test(e.target.value);
-
-
-
+  function showTimeSlots() {
     setFindTime(true);  
-    console.log(findTime); 
   }
 
   //vi sätter formulärets defaultvalues, vi behöver använda useReducer eftersom dessa ska kunna uppdateras individuellt? 
@@ -40,10 +35,12 @@ export default function Booking(props: any) {
   }
 
   function handleInput(e: ChangeEvent<any>) {
-    //här vill vi köra hämtningen 
+    showTimeSlots(); 
     findAvailableTable(e); 
+
     let selectedDate = available.date; 
     console.log("selected date = " + selectedDate); 
+    
     //vi mappar ut för kl.18 och kl.21 
         //hämta bookings från vår databas 
         axios.get('http://localhost:3001/bookings/')
@@ -59,7 +56,7 @@ export default function Booking(props: any) {
             let timeSlotLate = bookingsSelectedDate.filter((t: Bookings)=> t.time !== '18') 
 
             timeSlotLate.length > 14 ? setIsAvailable(false) :  setIsAvailable(true);
-            timeSlotEarly.length > 14 ? console.log("inga lediga tider") :  console.log("18 är ledigt");  
+            timeSlotEarly.length > 14 ? setIsAvailable(false) :  setIsAvailable(true);  
             
             }); 
 
@@ -86,7 +83,7 @@ export default function Booking(props: any) {
             <option>6</option>
           </select>
         </fieldset>
-        <div className="cta-search" onClick={showTimeSlots}>
+        <div className="cta-search" onClick={handleInput}>
           <button type="button" onClick={handleInput}>Sök</button> 
         </div>
       </form>
@@ -103,7 +100,7 @@ export default function Booking(props: any) {
                 <label htmlFor="18">18.00</label>
               </div>
             : <div>
-              <h4>SORRY</h4>
+              <h4>SORRY 18</h4>
             </div>  }
             {isAvailable ? 
 
