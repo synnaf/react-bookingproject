@@ -10,7 +10,7 @@ export default function Admin() {
     const hej = e;
 
     console.log(e)
-      axios.delete(`http://localhost:3001/delete/${hej}`)
+      axios.delete(`http://localhost:3001/bookings/delete/${hej}`)
       .then(res => {
         console.log(res);
         console.log(res.data);
