@@ -7,8 +7,16 @@ export default function Admin() {
 
   function deleteBooking(e: MouseEvent<HTMLButtonElement>) {
     console.log(e)
-  }
 
+    // useEffect(() => {
+      axios.delete("http://localhost:3001/delete/:bookingId")
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
+      // });
+  }
+  
    const [bookings, setBookings] = useState([]);
 
    useEffect(() => {
@@ -18,7 +26,6 @@ export default function Admin() {
         allBookings.data.map((booking: any) => {
           return (<ul key={booking._id}>
           <button id="delete" onClick={() => deleteBooking(booking.bookingId)}>Delete</button>
-          <button id="delete">Delete</button>
           <li>Booking Id: {booking.bookingId}</li>
           <li>Seats: {booking.seats}</li> 
           <li>Date: {booking.date.split('T')[0]}</li>
@@ -39,3 +46,4 @@ export default function Admin() {
     </div>
   );
 }
+
