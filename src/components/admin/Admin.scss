@@ -6,14 +6,30 @@
     align-items: center;
     width:100%;
     
-    .placeholder {
-        @include content-container; 
-        background-color: whitesmoke;
+    // .placeholder {
+    //     @include content-container; 
+    //     background-color: whitesmoke;
     
+    //     display: flex;
+    //     flex-direction: column; 
+    //     justify-content: center;
+    //     align-items: center;
+    // }
+}
+
+.ulContainer {
+    display: flex;
+    // flex-direction: row;
+    width: 90%;
+
+    .ulBooking {
         display: flex;
-        flex-direction: column; 
-        justify-content: center;
-        align-items: center;
+        display: inline-block;
+        color: red;
     }
+}
+
+#id {
+    background-color: grey;
 }
 
