@@ -7,15 +7,14 @@ export default function Admin() {
 
   function deleteBooking(e: MouseEvent<HTMLButtonElement>) {
 
-    const hej = e;
+    const bookingToDelete = e;
 
     console.log(e)
-      axios.delete(`http://localhost:3001/bookings/delete/${hej}`)
+      axios.delete(`http://localhost:3001/bookings/delete/${bookingToDelete}`)
       .then(res => {
         console.log(res);
         console.log(res.data);
       })
-      // });
   }
   
    const [bookings, setBookings] = useState([]);
