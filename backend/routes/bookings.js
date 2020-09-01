@@ -29,21 +29,19 @@ router.route("/availability").get((req, res) => {
 });
 
 // HÄMTA ALLA BOOKINGS FÖR ETT SPECIFIKT DATUM OCH VALD TID
-router.route("/availability/:date").get((req, res) => {
+router.route("/availability/date").get((req, res) => {
   Booking.find({
     date: requiredDate /* req.params.date */,
     time: requiredTimeSlot /* req.body.time */,
   })
 
     // NÄR SVARET KOMMER FRÅN DATABAS REDIRECT TILL URL SOM INNEHÅLLER BOKNINGENS VALDA DATUM OCH TID.
-    .then((bookings) =>
-      res.json(bookings).redirect("/availability/:date/:time")
-    )
+    .then((bookings) => res.json(bookings).redirect("/availability/date/time"))
     .catch((err) => res.status(400).json("Error:" + err));
 });
 
 // VISA BOKNINGEN FÖR VALD DATUM OCH TID
-router.route("/availability/:date/:time").get((req, res) => {
+router.route("/availability/date/time").get((req, res) => {
   Booking.find({
     date: requiredDate /* req.params.date */,
     time: requiredTimeSlot /* req.params.time */,
@@ -54,7 +52,7 @@ router.route("/availability/:date/:time").get((req, res) => {
 
 // SKICKA DATA HÄMTAD FRÅN REQ BODY TILL DB
 // ENDPOINT ÄR DYNAMISK MED VÄRDEN SOM GÄSTEN MATAR IN
-router.route("/availability/:date/:time/addbooking").post((req, res) => {
+router.route("/availability/addbooking").post((req, res) => {
   //const name = req.body.name;
   //const lName = req.body.lName;
   //const email = req.body.email;
@@ -62,19 +60,19 @@ router.route("/availability/:date/:time/addbooking").post((req, res) => {
   //req.body.bookingId;
 
   const newGuest = new Guest({
-    guestId: gId,
-    firstName: name,
-    lastName: lName,
-    email: email,
-    phoneNumber: phoneNo,
+    guestId: gId /* req.body.guestId*/,
+    firstName: name /* req.body.name */,
+    lastName: lName /* req.body.lName*/,
+    email: email /* req.body.email*/,
+    phoneNumber: phoneNo /* req.body.phone*/,
   });
   const newBooking = new Booking({
-    bookingId: 13,
-    date: "2020-08-27T00:00:00.000Z" /* req.params.date */,
-    time: "21" /* req.params.time */,
-    seats: 2,
-    notes: "NO CARBS",
-    guestId: 2,
+    bookingId: 46,
+    date: "2020-08-26T00:00:00.000Z" /* req.body.date */,
+    time: "18" /* req.body.time */,
+    seats: 4,
+    notes: "",
+    guestId: 1,
   });
 
   // SPARA BOKNING MED VÄRDEN SOM HÄMTAS FRÅN REQ BODY
