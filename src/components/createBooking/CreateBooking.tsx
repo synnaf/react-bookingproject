@@ -15,10 +15,6 @@ export default function CreateBooking() {
     function saveBooking(test: Booking) {
         console.log(test); 
     }
-
-
-    const [reservation, setReservation] = useState(new Booking());
-    const [guest, setGuest] = useState(new Guest());
   
     function saveGuest() {
       console.log("Gäst sparad i db");
