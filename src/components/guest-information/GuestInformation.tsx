@@ -43,7 +43,7 @@ export default function GuestInformation() {
               <label>Övrig information:</label>
               <textarea></textarea>
               <input type="checkbox" name="gdpr" onChange={forceUpdate}/>
-                <span>Gdpr text</span>
+                <span>Jag godkänner att mina kontaktuppgifter lagras och sparas enligt GDPR. <a href="https://www.datainspektionen.se/lagar--regler/dataskyddsforordningen/">Läs mer</a></span>
             </fieldset>
             {/* skicka datan till föräldern vid knapptryckning */}
             <div className="cta-book">
