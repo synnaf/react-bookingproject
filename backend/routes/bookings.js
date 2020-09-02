@@ -8,46 +8,13 @@ let lName = "Efternamn";
 let email = "mail@mail.se";
 let phoneNo = 0o70555444555;
 let gId = 2;
-let requiredDate = "2020-08-27";
 
-let requiredTimeSlot = "18";
 // HÄMTA ALLA BOKNINGAR (BOOKINGS) I DB
 router.route("/").get((req, res) => {
   Booking.find()
     .then((bookings) => res.json(bookings))
     .catch((err) => res.status(400).json("Error:" + err));
   //console.log(allBookings);
-});
-
-// HÄMTA ALLA BOOKINGS FÖR ETT SPECIFIKT DATUM
-router.route("/availability").get((req, res) => {
-  Booking.find({
-    date: requiredDate /* req.body.date */,
-  })
-    .then((bookings) => res.json(bookings))
-    .catch((err) => res.status(400).json("Error:" + err));
-});
-
-// HÄMTA ALLA BOOKINGS FÖR ETT SPECIFIKT DATUM OCH VALD TID
-router.route("/availability/date").get((req, res) => {
-  Booking.find({
-    date: requiredDate /* req.params.date */,
-    time: requiredTimeSlot /* req.body.time */,
-  })
-
-    // NÄR SVARET KOMMER FRÅN DATABAS REDIRECT TILL URL SOM INNEHÅLLER BOKNINGENS VALDA DATUM OCH TID.
-    .then((bookings) => res.json(bookings).redirect("/availability/date/time"))
-    .catch((err) => res.status(400).json("Error:" + err));
-});
-
-// VISA BOKNINGEN FÖR VALD DATUM OCH TID
-router.route("/availability/date/time").get((req, res) => {
-  Booking.find({
-    date: requiredDate /* req.params.date */,
-    time: requiredTimeSlot /* req.params.time */,
-  })
-    .then((bookings) => res.json(bookings))
-    .catch((err) => res.status(400).json("Error:" + err));
 });
 
 // SKICKA DATA HÄMTAD FRÅN REQ BODY TILL DB
@@ -88,18 +55,20 @@ router.route("/availability/addbooking").post((req, res) => {
     .catch((err) => res.status(400).json("Error:" + err));
 });
 
-router.route("/delete/:bookingId").delete((req, res) => {
-  Booking.find({
-    bookingId: req.params.bookingId
-  })
-    .then(() => res.redirect('/'))
-    .catch((err) => res.status(400).json("Error:" + err));
-});
-router.route("/delete/:bookingId").delete((req, res) => {
-  Booking.find({
-    bookingId: req.params.bookingId
-  })
-    .then(() => res.redirect('/'))
-    .catch((err) => res.status(400).json("Error:" + err));
+router.route("/delete/:bookingId").delete(async(req, res) => {
+  /// .then ersatt av async/await
+  try {
+    const booking = await Booking.deleteOne({
+      bookingId: req.params.bookingId  
+    })
+    console.log(booking) 
+     res.status(200).json("Success!")
+  } catch (e) {
+     res.status(400).json("Error:" + e)
+  }
+
+
+    // .then(() => res.redirect('/'))
+    // .catch((err) => res.status(400).json("Error:" + err));
 });
 module.exports = router;
