@@ -1,49 +1,24 @@
-import React, { useState, useEffect } from 'react'; 
-import GuestInformation from '../guest-information/GuestInformation';
-import Booking from '../booking/Booking';
+import React, { useState } from 'react'; 
+import BookingInformation from '../bookingInformation/BookingInformation';
+import Guest from '../../models/Guest';
+import Booking from '../../models/Booking';
 
-
-export interface Bookings { 
-    guestId: string; 
-    bookingId: string; 
-    date: string;  
-    seats: number; 
-    time: string;  
-  }
 
 export default function CreateBooking() {
+    
+    const [reservation, setReservation] = useState(new Booking()); 
+    const [guest, setGuest] = useState(new Guest()); 
 
-    //detta är vår föräldrakomponent som kommunicerar mot databasen när sökningar görs i booking, 
-    //och när det finns lediga bokningar så renderas GuestInformation.
-    //När guestinformation är ifyllt kommer createBooking att skicka en post-request med sitt state till databasen! 
 
-    //listan över bokningar finns i vårt state 
-    let defaultValue: Bookings[] = [{guestId: "1", bookingId:'T7', date: 'hhhh', seats: 3, time: '18'}]; 
-    const [currentBookings, setCurrentBookings] = useState(defaultValue);
-
-    // //här är funktionen som ska rendera komponenten findTime 
-    function presentAvailable(availableTimes: Bookings[]) {
-        // vi kör en filterfunktion som filtrerar vår lista, och returnerar alla objekt utöver den med rätt id 
-        // här kan vi välja att filtrera ut i frontend om vi vill? 
-        let newList = availableTimes.filter((t: Bookings) => { return t}); 
-        console.log(newList)
-        //vi sparar nya listan i vårt state
-        setCurrentBookings([...newList]); 
-    }; 
-
-    function test(data: any) {
-        console.log(data)
+    //FUNKTION FÖR ATT SPARA BOKNINGEN
+    function saveBooking(test: Booking) {
+        console.log(test); 
     }
 
-    console.log(currentBookings); //currentbookings finns i state i vår komponent 
-
-            return(
-                <div>
-                    {/* findTable är en funktion innuti Boooking */}
-                    {/* vi skickar med värdet på current state */}
-                    <Booking presentAvailable={currentBookings}></Booking> 
-                    {/* <GuestInformation></GuestInformation> */}
-                </div>
-            );
+    return(
+        <div>
+            <BookingInformation addBooking={saveBooking}></BookingInformation> 
+        </div>
+    );
 
 }
