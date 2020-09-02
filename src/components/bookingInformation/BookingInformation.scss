@@ -1,0 +1,132 @@
+@import '../../styles/component-style.scss';
+   
+    .placeholder {
+        display:flex;
+        flex-direction: column; 
+        justify-content: center;
+        align-content: center;
+        .form-container{
+            align-self: center;
+            display:flex;
+            flex-direction: column; 
+            background-color: whitesmoke;
+            width:90%;
+            form {
+                padding-top: 50px;
+                width:80%;
+                align-self: center;
+                display: flex;
+                align-items:center;
+                padding-bottom: 50px;
+                .input-container {
+                    width:80%;
+                    border:none;
+                    label {
+                        font-size: 14pt;
+                        font-weight: bold;
+                    }
+                    input {
+                        padding:10px;
+                        border-radius:8px;
+                        border:none;
+                        width:100%;
+                    }
+                }
+                .select-container{
+                    width: 25%;
+                    border:none;
+                    label {
+                        font-size: 14pt;
+                        font-weight: bold;
+                    }
+                    select {
+                        padding:10px;
+                        border-radius:8px;
+                        border:none;
+                        width:100%;
+                    }
+                }
+                .cta-search{
+                    padding:0px;
+                    margin-top:15px; //remove 
+                    transition: background-color 0.7s, transform 0.7s;
+                    width:30%;
+                    text-align: center;
+                    height:35px;
+                    background-color: #4e6096;
+                    border-radius:42px;
+                    cursor:pointer;
+                    text-decoration:none;
+                    button {
+                        cursor:pointer;
+                        height:100%;
+                        font-size: 12pt;
+                        font-weight: bold;
+                        border:none;
+                        text-decoration: none;
+                        background-color:transparent;
+                        color:white; 
+                    }
+                }.cta-search:hover {
+                    background-color: lightsalmon;
+                }
+                .select-time {
+                    width:100%;
+                }
+            }
+            .cta-form {
+                align-self: center;
+            }
+        }
+    }
+
+    @media only screen and (max-width: 600px) {
+        .placeholder {
+            display:flex;
+            flex-direction: column; 
+            justify-content: center;
+            .form-container{
+                width:100%;
+                form {
+                    align-self: center;
+                    display:flex;
+                    flex-direction: column; 
+                    align-self: center;
+                    display: flex;
+                    align-items:center;
+                    .input-container {
+                        width:100%;
+                        label {
+                            font-size: 16pt;
+                        }
+                        input {
+                            width:100%;
+                        }
+                    }
+                    .select-container{
+                        width: 100%;
+                        border:none;
+                        label {
+                            font-size: 16pt;
+                        }
+                    }
+                    .cta-search{
+                        width:100%;
+                        height:55px;
+                        cursor:touch;
+                        text-decoration:none;
+                        button {
+                            cursor:touch;
+                            height:100%;
+                            font-size: 16pt;
+                        }
+                    }
+
+                }
+
+            }
+        }
+
+    }
+
+
