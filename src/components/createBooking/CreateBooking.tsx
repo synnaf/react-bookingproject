@@ -7,23 +7,16 @@ import axios from "axios";
 
 export default function CreateBooking() {
   //VÅRT TABLE-STATE, kommer bestå av ett boka-objekt.
-  const [reservation, setReservation] = useState({
-    bookingId: 0,
-    time: "",
-    date: "",
-    seats: 0,
-    notes: "",
-    guestId: 33,
-  });
+  const [reservation, setReservation] = useState(new Booking());
 
   //VÅR GUEST-STATE, kommer bestå av ett gäst-objekt
   const [guest, setGuest] = useState(new Guest());
 
   // FINNS GÄSTEN REDAN I DB?
   const [guestExist, setGuestExist] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
 
   //FUNKTION FÖR ATT SPARA BOKNINGEN
-  // vår funktion tar emotr ett objekt som är som interfacet
   function saveBooking(booking: Booking) {
     setReservation(booking);
   }
@@ -32,31 +25,51 @@ export default function CreateBooking() {
   function saveGuest(g: Guest, ge: boolean) {
     setGuestExist(ge);
     setGuest(g);
-    console.log("GÄST ATT SPARA ÄR", g);
-    console.log(ge);
+    setIsSaved(true);
+  }
 
-    //efter att gästen blivit sparad i statet: 
-    if(reservation && guest) {
-        //skapa ett objekt får vår gäst och dennes bokning, skicka med det till API
-      let newGuestWithBooking = {
-          //sätt egenskaperna utifrån det som finns i staten
-          guest: guest, 
-          reservation: reservation
-        }
-        axios.post('http://localhost:3001/availability/:date/:time/addbooking', newGuestWithBooking).then(sendData => {
-            //check if booking-objekt is correct
-            console.log(sendData); 
+  function createReservation() {
+    if (reservation && guest) {
+      let newReservation = {
+        guest: guest,
+        reservation: reservation,
+        guestExist: guestExist,
+      };
+      console.log("NYTT OBJEKT ÄR", newReservation);
+      axios
+        .post(
+          "http://localhost:3001/bookings/availability/addbooking",
+          newReservation
+        )
+        .then(() => {
+          console.log(newReservation.guest.email, "has been sent");
         });
     }
   }
-
-
-
-
   return (
     <div>
       <BookingInformation addBooking={saveBooking}></BookingInformation>
       {<GuestInformation addGuest={saveGuest}></GuestInformation>}
+      {isSaved ? (
+        <div className="confirmation-container">
+          <h3>Stämmer dessa uppgifter?</h3>
+
+          <p>Datum: {reservation.date} </p>
+          <p>Tid: {reservation.time} </p>
+          <p>Antal gäster: {reservation.seats} </p>
+          <p>
+            Gäst: {guest.firstName} {guest.lastName}
+          </p>
+          <p>Telefonnummer: {guest.phoneNumber}</p>
+          <p>Email: {guest.email}</p>
+
+          <button type="button" onClick={createReservation}>
+            BEKRÄFTA!
+          </button>
+        </div>
+      ) : (
+        console.log("BOOKING YET TO BE CONFIRMED")
+      )}
     </div>
   );
 }

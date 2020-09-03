@@ -63,6 +63,7 @@ export default function GuestInformation(props: IGuestInformationProps) {
     setNewGuest({
       [element]: value,
       guestId: gId,
+      email: emailInput,
     } as any);
   }
 

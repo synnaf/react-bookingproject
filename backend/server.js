@@ -18,9 +18,8 @@ const dbOptions = {
 let corsOptions = {
   origin: "*", //tillåter alla requests, ändra till rätt frontEnd api
   optionsSuccessStatus: 200,
+  browsersupport: "get, put, delete",
 };
-
-
 
 app.use(cors());
 
@@ -36,6 +35,6 @@ app.use("/bookings", cors(corsOptions), bookingsRouter);
 const uri = process.env.MONGO_DB;
 mongoose.connect(uri, dbOptions).then(() => {
   app.listen(PORT, () =>
-    console.log(`App listening on port ${PORT} and MongooDb connection OK!`)
+    console.log(`App listening on port ${PORT} and MongoDb connection OK!`)
   );
 });
