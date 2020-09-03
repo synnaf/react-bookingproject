@@ -3,6 +3,7 @@ import BookingInformation from "../bookingInformation/BookingInformation";
 import Guest from "../../models/Guest";
 import Booking from "../../models/Booking";
 import GuestInformation from "../guest-information/GuestInformation";
+import axios from "axios";
 
 export default function CreateBooking() {
   //VÅRT TABLE-STATE, kommer bestå av ett boka-objekt.
@@ -31,11 +32,25 @@ export default function CreateBooking() {
   function saveGuest(g: Guest, ge: boolean) {
     setGuestExist(ge);
     setGuest(g);
-    console.log("Gäst sparad i db");
     console.log("GÄST ATT SPARA ÄR", g);
     console.log(ge);
+
+    //efter att gästen blivit sparad i statet: 
+    if(reservation && guest) {
+        //skapa ett objekt får vår gäst och dennes bokning, skicka med det till API
+      let newGuestWithBooking = {
+          //sätt egenskaperna utifrån det som finns i staten
+          test: test 
+        }
+        axios.post('', newGuestWithBooking).then(sendData => {
+            //check if booking-objekt is correct
+            console.log(sendData); 
+        });
+    }
   }
-  console.log(reservation);
+
+
+
 
   return (
     <div>

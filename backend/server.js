@@ -20,21 +20,7 @@ let corsOptions = {
   optionsSuccessStatus: 200,
 };
 
-//när vi sedan gör requests så kan vi välja att skicka med vårt cors-objekt.
-/* 
-app.get('/', cors(corsOptions), (req, res) => {
-  // för get vill vi tillåta requests från vår frontend route  
-}); 
-app.post('/availability/addbooking', cors(corsOptions), (req, res) => {
-  // för post vill vi tillåta requests från en särskild frontend route
-}); 
-app.delete('/delete', cors(corsOptions), (req, res) => {
-  // för delete vill vi tillåta requests från en särskild frontend route
-}); 
-app.update('/admin/guests', cors(corsOptions), (req, res) => {
-  // för update vill vi tillåta requests från en särskild frontend route
-}); 
-*/
+
 
 app.use(cors());
 
