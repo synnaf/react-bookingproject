@@ -40,9 +40,10 @@ export default function CreateBooking() {
         //skapa ett objekt får vår gäst och dennes bokning, skicka med det till API
       let newGuestWithBooking = {
           //sätt egenskaperna utifrån det som finns i staten
-          test: test 
+          guest: guest, 
+          reservation: reservation
         }
-        axios.post('', newGuestWithBooking).then(sendData => {
+        axios.post('http://localhost:3001/availability/:date/:time/addbooking', newGuestWithBooking).then(sendData => {
             //check if booking-objekt is correct
             console.log(sendData); 
         });

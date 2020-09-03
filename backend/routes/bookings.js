@@ -54,40 +54,46 @@ router.route("/availability/:date/:time").get((req, res) => {
 
 // SKICKA DATA HÄMTAD FRÅN REQ BODY TILL DB
 // ENDPOINT ÄR DYNAMISK MED VÄRDEN SOM GÄSTEN MATAR IN
-router.route("/availability/:date/:time/addbooking").post((req, res) => {
+router.route("/availability/:date/:time/addbooking").post( async (req, res) => {
   //const name = req.body.name;
   //const lName = req.body.lName;
   //const email = req.body.email;
 
   //req.body.bookingId;
+  const guest = await Guest.findOne({
+    email: req.body.email
+  })
 
-  const newGuest = new Guest({
-    guestId: gId,
-    firstName: name,
-    lastName: lName,
-    email: email,
-    phoneNumber: phoneNo,
-  });
-  const newBooking = new Booking({
-    bookingId: 13,
-    date: "2020-08-27T00:00:00.000Z" /* req.params.date */,
-    time: "21" /* req.params.time */,
-    seats: 2,
-    notes: "NO CARBS",
-    guestId: 2,
-  });
+  if(!guest) {
+    const newGuest = new Guest({
+      guestId: req.body.newGuestWithBooking.guest.guestId,
+      firstName: req.body.newGuestWithBooking.guest.firstName,
+      lastName: req.body.newGuestWithBooking.guest.lastName,
+      email: req.body.newGuestWithBooking.guest.email,
+      phoneNumber: req.body.newGuestWithBooking.guest.phoneNumber,
+    });
+      /* SPARA GÄST MED INFO HÄMTAD FRÅN FORMULÄRETS BODY*/
+      await newGuest
+      .save()
+      .then(() => res.json(newGuest))
+      .catch((err) => res.status(400).json("Error:" + err));
 
-  // SPARA BOKNING MED VÄRDEN SOM HÄMTAS FRÅN REQ BODY
-  newBooking
-    .save()
-    .then(() => res.json(newBooking))
-    .catch((err) => res.status(400).json("Error:" + err));
+    const newBooking = new Booking({
+      bookingId: 13,
+      date: req.body.newGuestWithBooking.reservation.date /* req.params.date */,
+      time: req.body.newGuestWithBooking.reservation.time /* req.params.time */,
+      seats: req.body.newGuestWithBooking.reservation.seats,
+      notes: req.body.newGuestWithBooking.reservation.notes,
+      guestId: newGuest.guestId,
+    });
+      // SPARA BOKNING MED VÄRDEN SOM HÄMTAS FRÅN REQ BODY
+      await newBooking
+        .save()
+        .then(() => res.json(newBooking))
+        .catch((err) => res.status(400).json("Error:" + err));
+  }   //här skickas sedan mailet! 
 
-  /* SPARA GÄST MED INFO HÄMTAD FRÅN FORMULÄRETS BODY*/
-  newGuest
-    .save()
-    .then(() => res.json(newGuest))
-    .catch((err) => res.status(400).json("Error:" + err));
+
 });
 
 module.exports = router;
