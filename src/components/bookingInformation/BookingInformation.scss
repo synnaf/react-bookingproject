@@ -70,13 +70,72 @@
                 }.cta-search:hover {
                     background-color: lightsalmon;
                 }
-                .select-time {
-                    width:100%;
+                .time-container {
+                    padding-top: 50px;
+                    width:80%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items:center;
+                    justify-content: center;
+                    .find-time {
+                        border:none;
+                        h4 {
+                            text-align: center;
+                            margin:0;
+                            font-size:16pt;
+                        }
+                        label {
+                            font-size: 14pt;
+                            font-weight: bold;
+                        }
+                        .available-time {
+                            background-color:white;
+                            padding: 10px;
+                            border-radius:8px;
+                            margin:5px;
+                            label {
+                                padding-left:10px;
+                            }
+                            input {
+                                align-self: left;
+                                padding:10px;
+                            }
+                        }
+                        .not-available {
+                            h4 {
+                                padding:10px;
+                                text-decoration: line-through;
+                                width:100%;
+                                color:darkblue;
+                            }
+                        }
+                    }
+                    .cta-form {
+                        padding:0px;
+                        transition: background-color 0.7s, transform 0.7s;
+                        width:30%;
+                        text-align: center;
+                        height:35px;
+                        background-color: #4e6096;
+                        border-radius:42px;
+                        cursor:pointer;
+                        text-decoration:none;
+                        button {
+                            cursor:pointer;
+                            height:100%;
+                            font-size: 12pt;
+                            font-weight: bold;
+                            border:none;
+                            text-decoration: none;
+                            background-color:transparent;
+                            color:white; 
+                        }
+                    }.cta-form:hover {
+                        background-color: lightsalmon;
+                    }
                 }
             }
-            .cta-form {
-                align-self: center;
-            }
+
         }
     }
 

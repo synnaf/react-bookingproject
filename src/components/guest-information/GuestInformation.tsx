@@ -100,13 +100,16 @@ export default function GuestInformation(props: IGuestInformationProps) {
             onKeyPress={checkIfEnterPressed}
           />
         </fieldset>
-        <button type="button" onClick={findGuest}>
-          Nästa
-        </button>
+        <div>
+          <button type="button" onClick={findGuest}>
+            Nästa
+          </button>
+        </div>
       </form>
+
       <div className="form-container">
         <div className="booking-info">
-          <p>Datum: XXX</p>
+          <p>Datum:</p>
           <p>Tid: XXXX</p>
         </div>
 

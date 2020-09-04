@@ -10,8 +10,9 @@ export default function Home() {
       </div>
   
       <div className="cta-startpage">
-        <button type="button">Boka</button> 
+        <button type="button" onClick={()=>  window.location.href='/booking'}>Boka</button> 
       </div>
+      
       
     <div className="text-container">
       <p>
