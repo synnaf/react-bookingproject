@@ -12,9 +12,9 @@ export default function CreateBooking() {
   //VÅR GUEST-STATE, kommer bestå av ett gäst-objekt
   const [guest, setGuest] = useState(new Guest());
 
-  // FINNS GÄSTEN REDAN I DB?
   const [guestExist, setGuestExist] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+  const [isConfirmed, setIsConfirmed] = useState(false);
 
   //FUNKTION FÖR ATT SPARA BOKNINGEN
   function saveBooking(booking: Booking) {
@@ -44,16 +44,25 @@ export default function CreateBooking() {
         .then(() => {
           console.log(newReservation.guest.email, "has been sent");
         });
+      setIsConfirmed(true);
+      setIsSaved(!isSaved);
     }
   }
   return (
-    <div>
-      <BookingInformation addBooking={saveBooking}></BookingInformation>
-      {<GuestInformation addGuest={saveGuest}></GuestInformation>}
+    <React.Fragment>
+      {isConfirmed ? (
+        <div>
+          <h2>Tack för din bokning {guest.firstName}!</h2>
+        </div>
+      ) : (
+        <div>
+          <BookingInformation addBooking={saveBooking}></BookingInformation>
+          <GuestInformation addGuest={saveGuest}></GuestInformation>
+        </div>
+      )}
       {isSaved ? (
         <div className="confirmation-container">
           <h3>Stämmer dessa uppgifter?</h3>
-
           <p>Datum: {reservation.date} </p>
           <p>Tid: {reservation.time} </p>
           <p>Antal gäster: {reservation.seats} </p>
@@ -70,6 +79,6 @@ export default function CreateBooking() {
       ) : (
         console.log("BOOKING YET TO BE CONFIRMED")
       )}
-    </div>
+    </React.Fragment>
   );
 }
