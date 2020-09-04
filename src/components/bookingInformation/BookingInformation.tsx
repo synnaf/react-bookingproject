@@ -11,7 +11,8 @@ export default function BookinInformation(props: IBookingInformationProps) {
   // TVÅ ST STATES VARS UPPDRAG ÄR ATT villkora rendering
   const [isAvailable18, setIsAvailable18] = useState(true);
   const [isAvailable21, setIsAvailable21] = useState(true);
-  const [findTime, setFindTime] = useState(true);
+  const [findTime, setFindTime] = useState(false);
+  const [fullyBooked, setFullyBooked] = useState(false); 
 
   let defaultValue: Booking = {
     bookingId: 0,
@@ -35,14 +36,12 @@ export default function BookinInformation(props: IBookingInformationProps) {
     setTest({ [element]: value } as any);
   }
 
-  // FUNKTION FÖR: att villkora rendering
-  function showTimeSlots() {
-    setFindTime(true);
-  }
 
   //FUNKTION FÖR: hantera värdena när man trycker på knappen
   function createSearch() {
-    showTimeSlots(); //uppdatera state för 18 och 21
+
+    setFindTime(true); 
+   
     let selectedDate = test.date;
     let selectedSeats = test.seats;
 
@@ -55,11 +54,13 @@ export default function BookinInformation(props: IBookingInformationProps) {
 
       // kontrollera längden för valt datum
       if (newArr.length > 29) {
+        setFindTime(false);
         console.log("fullbokat!!!");
         console.log(newArr);
-        return setFindTime(false);
+        setFullyBooked(true); 
       } else {
         setFindTime(true);
+        setFullyBooked(false);
         let timeSlotEarly = newArr.filter((t: Booking) =>
           t.time.includes("18")
         );
@@ -104,55 +105,53 @@ export default function BookinInformation(props: IBookingInformationProps) {
               Sök
             </button>
           </div>
-        </form>
 
-        {findTime ? (
-          <div className="find-time">
-            <fieldset className="select-time">
-              <label>Välj tid:</label>
 
-              {isAvailable18 ? (
-                <div>
-                  <input
-                    type="radio"
-                    id="18"
-                    name="time"
-                    value="18"
-                    onChange={update}
-                  />
-                  <label htmlFor="18">18.00</label>
-                </div>
-              ) : (
-                <div>
-                  <h4>18.00 FULLT</h4>
-                </div>
-              )}
-              {isAvailable21 ? (
-                <div>
-                  <input
-                    type="radio"
-                    id="21"
-                    name="time"
-                    value="21"
-                    onChange={update}
-                  />
-                  <label htmlFor="21">21.00</label>
-                </div>
-              ) : (
-                <div>
-                  <h4>21.00 FULLT</h4>
-                </div>
-              )}
-            </fieldset>
-            <div className="cta-form">
-              <button type="button" onClick={() => sendBooking()}>
-                Nästa
-              </button>
+          { fullyBooked //hämta in bokningslistan? 
+          ? <h1>fullbokat</h1>
+          : findTime ? (
+            <div className="time-container">
+              <fieldset className="find-time">
+                <h4>Välj tid:</h4>
+                {isAvailable18 && findTime ? (
+                  <div className="available-time">
+                    <input
+                      type="radio"
+                      id="18"
+                      name="time"
+                      value="18"
+                      onChange={update}
+                      onInput={() => sendBooking()}
+                    />
+                    <label htmlFor="18">18.00</label>
+                  </div>
+                ) : (
+                  <div className="not-available">
+                    <h4>18.00 FULLT</h4>
+                  </div>
+                )}
+                {isAvailable21 && findTime ? (
+                  <div className="available-time">
+                    <input
+                      type="radio"
+                      id="21"
+                      name="time"
+                      value="21"
+                      onChange={update}
+                      onInput={() => sendBooking()}
+                    />
+                    <label htmlFor="21">21.00</label>
+                  </div>
+                ) : (
+                  <div className="not-available">
+                    <h4>21.00 FULLT</h4>
+                  </div>
+                )}
+              </fieldset>
             </div>
-          </div>
-        ) : (
-          <h1>FULLT</h1>
-        )}
+          ) : <p>test</p>
+          }
+        </form>
       </div>
     </div>
   );

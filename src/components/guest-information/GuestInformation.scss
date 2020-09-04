@@ -5,6 +5,49 @@
         flex-direction: column; 
         justify-content: center;
         align-content: center;
+        .email-input-form {
+            fieldset {
+                width:80%;
+                border:none;
+                label {
+                    font-size: 14pt;
+                    font-weight: bold;
+                }
+                input {
+                    padding:10px;
+                    border-radius:8px;
+                    border:1px solid blue;
+                    width:100%;
+                }
+            } 
+            div {
+                padding:0px;
+                margin-top:15px; //remove 
+                transition: background-color 0.7s, transform 0.7s;
+                width:30%;
+                text-align: center;
+                height:35px;
+                background-color: #4e6096;
+                border-radius:42px;
+                cursor:pointer;
+                text-decoration:none;
+                button {
+                    cursor:pointer;
+                    align-self: center;
+                    height:100%;
+                    width:100%;
+                    font-size: 12pt;
+                    font-weight: bold;
+                    border:none;
+                    text-decoration: none;
+                    background-color:transparent;
+                    color:white; 
+                }
+            }
+
+        }
+
+
         .form-container{
             align-self: center;
             display:flex;

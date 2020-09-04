@@ -71,5 +71,15 @@ export default function CreateBooking() {
         console.log("BOOKING YET TO BE CONFIRMED")
       )}
     </div>
-  );
-}
+  ); 
+
+  {/* return (
+    <div>
+      <BookingInformation addBooking={saveBooking}></BookingInformation>
+      {reservation.seats > 0
+      ? <GuestInformation addGuest={saveGuest}></GuestInformation>
+      : null
+      }
+    </div>
+  ); */}
+/* } */}
