@@ -58,4 +58,13 @@ router.route("/delete/:bookingId").delete(async (req, res) => {
   }
 });
 
+router.route("/:bookingId").get((req, res) => {
+  const selectedBooking = Booking.findOne({
+    bookingId: req.params.bookingId,
+  })
+    .then((booking) => res.json(booking))
+    .catch((err) => res.status(400).json("Error in get bookingId: " + err));
+  console.log(selectedBooking);
+});
+
 module.exports = router;
