@@ -2,6 +2,13 @@ let Booking = require("../models/booking.model");
 let Guest = require("../models/guest.model");
 const router = require("express").Router();
 
+//mailet för bokningen 
+const nodemailer = require("nodemailer");
+const sendgridTransport = require("nodemailer-sendgrid-transport");
+const transport = nodemailer.createTransport(sendgridTransport({
+  auth: {api_key: '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'}
+})); 
+
 // HÄMTA ALLA BOKNINGAR (BOOKINGS) I DB
 router.route("/").get((req, res) => {
   Booking.find()
@@ -40,13 +47,30 @@ router.route("/availability/addbooking").post((req, res) => {
   newBooking
     .save()
     .then((data) => res.send(data))
+    .then(transport.sendMail({
+      to: 'fanny.varnbrinkforsman@medieinstitutet.se',
+      from: "f.vforsman@gmail.com",
+      subject: "Ändra ditt lösenord!",
+      html: `
+      <h2>Tack för din bokning!<h2>
+      <p>Du är välkommen: </p>
+      <h5>Klicka på länken för att avboka!<h5>
+      http://localhost:3000/bookings/${newBooking.bookingId} 
+      `
+    }))
     .catch((err) => res.status(400).json("Error:" + err));
-
-  //här skickas sedan mailet!
 });
 
 // RADERA EN BOKNING
 router.route("/delete/:bookingId").delete(async (req, res) => {
+  //lägg in här så att den tar bort 
+  /* if() ett email finns
+  
+    else() {
+
+    }
+
+  */ 
   try {
     const booking = await Booking.deleteOne({
       bookingId: req.params.bookingId,
