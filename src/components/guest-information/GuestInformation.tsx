@@ -1,3 +1,4 @@
+/* eslint-disable no-fallthrough */
 import React, { useState, ChangeEvent, KeyboardEvent, useReducer } from "react";
 import "./GuestInformation.scss";
 import axios from "axios";
@@ -15,6 +16,7 @@ export default function GuestInformation(props: IGuestInformationProps) {
 
   const [emailInput, setEmailInput] = useState("");
   const [gId, setGId] = useState(0);
+  const [isValid, setIsvalid] = useState(false);
 
   const [newGuest, setNewGuest] = useReducer(
     (state: Guest, newState: Guest) => ({ ...state, ...newState }),
@@ -32,7 +34,6 @@ export default function GuestInformation(props: IGuestInformationProps) {
       if (selectedGuest) {
         setRegisteredGuest({ ...selectedGuest });
         setIsGuest(true);
-        setEmailInput("");
         console.log(selectedGuest);
         return;
       }
@@ -57,14 +58,40 @@ export default function GuestInformation(props: IGuestInformationProps) {
   }
 
   function updateInputValue(e: ChangeEvent<HTMLInputElement>) {
-    let element = e.target.name;
-    let value = e.target.value;
+    e.preventDefault();
+    const { name, value } = e.target;
+
+    let errors = newGuest.errors;
+
+    switch (name) {
+      case "firstName":
+        errors.errFirstName =
+          value.length < 2 ? "Förnamn ska innehålla minst 2 bostäver!" : " ";
+        break;
+      case "lastName":
+        errors.errLastName =
+          value.length < 2 ? "Efternamn ska innehålla minst 2 bokstäver!" : " ";
+        break;
+      case "phoneNumber":
+        errors.errPhoneNumber =
+          /^[0-9]*$/.test(value) && value.length > 9
+            ? " "
+            : "Mobilnummer får endast innehålla siffror och vara minst 10 siffror långt";
+      default:
+        break;
+    }
 
     setNewGuest({
-      [element]: value,
+      [name]: value,
       guestId: gId,
       email: emailInput,
     } as any);
+
+    errors.errFirstName &&
+    errors.errLastName &&
+    errors.errPhoneNumber === (" " || undefined)
+      ? setIsvalid(true)
+      : setIsvalid(false);
   }
 
   function handleGdpr(e: any) {
@@ -122,7 +149,7 @@ export default function GuestInformation(props: IGuestInformationProps) {
                 type="text"
                 name="firstName"
                 defaultValue={registeredGuest.firstName}
-                readOnly
+                disabled
               />
 
               <label>Efternamn</label>
@@ -130,23 +157,22 @@ export default function GuestInformation(props: IGuestInformationProps) {
                 type="text"
                 name="lastName"
                 defaultValue={registeredGuest.lastName}
-                readOnly
+                disabled
               />
 
               <label>Telefonnr</label>
               <input
-                type="number"
+                type="text"
                 name="phoneNumber"
                 defaultValue={registeredGuest.phoneNumber}
-                readOnly
+                disabled
               />
-
               <label>Mail</label>
               <input
                 type="email"
                 name="email"
                 defaultValue={registeredGuest.email}
-                readOnly
+                disabled
               />
             </fieldset>
           ) : (
@@ -156,25 +182,31 @@ export default function GuestInformation(props: IGuestInformationProps) {
                 type="text"
                 name="firstName"
                 value={newGuest.firstName}
+                formNoValidate
                 onChange={updateInputValue}
+                //onBlur={handleValidation}
               />
-
+              <p>{newGuest.errors.errFirstName}</p>
               <label>Efternamn</label>
               <input
                 type="text"
                 name="lastName"
                 value={newGuest.lastName}
+                formNoValidate
                 onChange={updateInputValue}
+                //onBlur={handleValidation}
               />
-
+              <p>{newGuest.errors.errLastName}</p>
               <label>Mobilnummer</label>
               <input
-                type="number"
+                type="text"
                 name="phoneNumber"
                 value={newGuest.phoneNumber}
+                formNoValidate
                 onChange={updateInputValue}
+                //onBlur={handleValidation}
               />
-
+              <p>{newGuest.errors.errPhoneNumber}</p>
               <label>Mail</label>
               <input
                 type="email"
@@ -190,16 +222,23 @@ export default function GuestInformation(props: IGuestInformationProps) {
             <input type="checkbox" name="gdpr" onChange={handleGdpr} />
             <span>Gdpr text</span>
           </fieldset>
-          {/* skicka datan till föräldern vid knapptryckning */}
-          <div className="cta-book">
-            <button
-              type="button"
-              disabled={gdpr === false}
-              onClick={() => createGuest()}
-            >
-              Boka
-            </button>
-          </div>
+          {isValid ? (
+            /* skicka datan till föräldern vid knapptryckning */
+
+            <div className="cta-book">
+              <button
+                type="button"
+                disabled={gdpr === false}
+                onClick={() => createGuest()}
+              >
+                Boka
+              </button>
+            </div>
+          ) : (
+            <div className="unvalid-form-msg">
+              <p>Formuläret är ej korrekt ifyllt!</p>
+            </div>
+          )}
         </form>
       </div>
     </div>

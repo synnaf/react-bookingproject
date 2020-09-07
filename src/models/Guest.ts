@@ -4,4 +4,5 @@ export default class Guest {
   lastName: string = "";
   email: string = "";
   phoneNumber: number = 0;
+  errors = { errFirstName: "", errLastName: "", errPhoneNumber: "" };
 }

@@ -19,7 +19,7 @@ router.route("/availability/addbooking").post((req, res) => {
       firstName: req.body.guest.firstName,
       lastName: req.body.guest.lastName,
       email: req.body.guest.email,
-      phoneNumber: req.body.guest.phoneNumber,
+      phoneNumber: Number(req.body.guest.phoneNumber),
     });
 
     newGuest
@@ -29,7 +29,7 @@ router.route("/availability/addbooking").post((req, res) => {
   }
 
   const newBooking = new Booking({
-    bookingId: 13,
+    bookingId: Math.floor(Math.random() * 10000) + 1,
     date: req.body.reservation.date,
     time: req.body.reservation.time,
     seats: req.body.reservation.seats,
