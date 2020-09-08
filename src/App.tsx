@@ -4,6 +4,7 @@ import Admin from "./components/admin/Admin";
 import CreateBooking from "./components/createBooking/CreateBooking";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.scss";
+import DeletedBooking from "./components/deletedBooking/DeletedBooking";
 
 
 function App() {
@@ -35,7 +36,10 @@ function App() {
               </Route>                    
               <Route path="/admin">                         
                 <Admin />                    
-              </Route>                   
+              </Route> 
+              <Route path="/delete/:bookingId">                       
+                <DeletedBooking />                         
+              </Route>                               
               <Route path="/">                       
                 <Home />                         
               </Route>                     

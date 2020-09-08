@@ -6,6 +6,7 @@ import Guest from "../../models/Guest";
 
 export interface IGuestInformationProps {
   addGuest(guest: Guest, isGuest: boolean): void;
+  addNotes(notes: string): void;  
 }
 
 export default function GuestInformation(props: IGuestInformationProps) {
@@ -114,6 +115,10 @@ export default function GuestInformation(props: IGuestInformationProps) {
     }
   }
 
+  function addNotes(e: any) {
+    props.addNotes(e.target.value); 
+  }
+
   return (
     <div className="placeholder">
       <form className="email-input-form">
@@ -126,7 +131,7 @@ export default function GuestInformation(props: IGuestInformationProps) {
             onChange={updateEmailInputValue}
             onKeyPress={checkIfEnterPressed}
           />
-        </fieldset>
+        </fieldset> 
         <div>
           <button type="button" onClick={findGuest}>
             Nästa
@@ -134,16 +139,24 @@ export default function GuestInformation(props: IGuestInformationProps) {
         </div>
       </form>
 
+       {/* Rendera resten av formuläret om email finns */}
+
       <div className="form-container">
         <div className="booking-info">
-          <p>Datum:</p>
-          <p>Tid: XXXX</p>
-        </div>
-
         <h2>Kontaktuppgifter</h2>
+        </div>
         <form>
           {isGuest ? (
             <fieldset className="input-container">
+
+              <label>Mail</label>
+                <input
+                  type="email"
+                  name="email"
+                  defaultValue={registeredGuest.email}
+                 disabled
+                />
+
               <label>Förnamn</label>
               <input
                 type="text"
@@ -167,16 +180,18 @@ export default function GuestInformation(props: IGuestInformationProps) {
                 defaultValue={registeredGuest.phoneNumber}
                 disabled
               />
+
+            </fieldset>
+          ) : (
+            <fieldset className="input-container">
               <label>Mail</label>
               <input
                 type="email"
                 name="email"
-                defaultValue={registeredGuest.email}
+                defaultValue={emailInput}
                 disabled
               />
-            </fieldset>
-          ) : (
-            <fieldset className="input-container">
+
               <label>Förnamn</label>
               <input
                 type="text"
@@ -207,24 +222,16 @@ export default function GuestInformation(props: IGuestInformationProps) {
                 //onBlur={handleValidation}
               />
               <p>{newGuest.errors.errPhoneNumber}</p>
-              <label>Mail</label>
-              <input
-                type="email"
-                name="email"
-                defaultValue={emailInput}
-                disabled
-              />
             </fieldset>
           )}
           <fieldset className="additional-info">
             <label>Övrig information:</label>
-            <textarea></textarea>
+            <textarea onChange={addNotes}></textarea>
             <input type="checkbox" name="gdpr" onChange={handleGdpr} />
-            <span>Gdpr text</span>
+            <span>Jag godkänner att mina uppgifter sparas enligt GDPR</span>
           </fieldset>
           {isValid ? (
             /* skicka datan till föräldern vid knapptryckning */
-
             <div className="cta-book">
               <button
                 type="button"
@@ -235,9 +242,18 @@ export default function GuestInformation(props: IGuestInformationProps) {
               </button>
             </div>
           ) : (
-            <div className="unvalid-form-msg">
-              <p>Formuläret är ej korrekt ifyllt!</p>
-            </div>
+            <div className="cta-book">
+            <button
+              type="button"
+              disabled={gdpr === false}
+              onClick={() => createGuest()}
+            >
+              Boka
+            </button>
+          </div>
+            // <div className="unvalid-form-msg">
+            //   <p>Formuläret är ej korrekt ifyllt!</p>
+            // </div>
           )}
         </form>
       </div>
