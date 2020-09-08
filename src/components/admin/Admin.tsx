@@ -5,43 +5,41 @@ export default function Admin() {
 
   function deleteBooking(e: MouseEvent<HTMLButtonElement>) {
     const id = e;
-    console.log(e)
       try{
         axios.delete(`http://localhost:3001/bookings/delete/${id}`)
       .then(res => {
         console.log(res);
         console.log(res.data);
       })
-      } catch (e){
-        console.log(e)
-      }  
+      } catch (e){}  
   }
   
    const [bookings, setBookings] = useState([]);
 
-   useEffect(() => {
-    axios.get("/bookings/").then((allBookings) => {
+  useEffect(() => {
+    axios.get("http://localhost:3001/bookings/").then((allBookings) => {
     console.log(allBookings.data);
     setBookings(
-        allBookings.data.map((booking: any) => {
-          return (<ul key={booking._id}>
+      allBookings.data.map((booking: any) => {
+        return (<li key={booking._id}>
           <button id="delete" onClick={() => deleteBooking(booking.bookingId)}>Delete</button>
-          <li>Booking Id: {booking.bookingId}</li>
-          <li>Seats: {booking.seats}</li> 
-          <li>Date: {booking.date.split('T')[0]}</li>
-          </ul>);
+          <div>Booking Id: {booking.bookingId}</div>
+          <div>Seats: {booking.seats}</div>
+          {booking.date && (
+            <div>Date: {booking.date.split('T')[0]}</div>
+          )}
+          </li>);
         })
       );
     });
    }, []);
-  
 
   return (
     <div className="main-container">
       <div className="ulContainer">
-        <li className="ulBooking">
+        <ul className="ulBooking">
           {bookings}
-        </li>
+        </ul>
       </div>
     </div>
   );
