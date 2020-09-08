@@ -4,7 +4,7 @@ const router = require("express").Router();
 const mail_api = process.env.MAIL_KEY; 
 require("dotenv").config();
 
-//mailet för bokningen 
+//mailet för bokningen
 const nodemailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 const transport = nodemailer.createTransport(sendgridTransport({
@@ -49,22 +49,41 @@ router.route("/availability/addbooking").post((req, res) => {
   newBooking
     .save()
     .then((data) => res.send(data))
-    .then(transport.sendMail({
-      to: req.body.guest.email,
-      from: "<noreply>@restaurang.se",
-      subject: "Bokningsbekräftelse",
-      html: `
+    .then(
+      transport.sendMail({
+        to: req.body.guest.email,
+        from: "<noreply>@restaurang.se",
+        subject: "Bokningsbekräftelse",
+        html: `
       <h2>Tack för din bokning!<h2>
       <p>Du har bokat: ${req.body.reservation.date}, för: ${newBooking.seats} personer<p>
       <h5>Klicka på länken för att avboka:<h5>
       <a href="http://localhost:3000/delete/${newBooking.bookingId}">Avboka :(</a> 
-      `
-    }))
+      `,
+      })
+    )
     .catch((err) => res.status(400).json("Error:" + err));
+});
+
+// HÄMTA EN BOKNING MED ANGIVEN BOOKINGID
+router.route("/:bookingId").get((req, res) => {
+  Booking.findOne({
+    bookingId: req.params.bookingId,
+  })
+    .then((booking) => res.json(booking))
+    .catch((err) => res.status(400).json("Error in get bookingId: " + err));
 });
 
 // RADERA EN BOKNING
 router.route("/delete/:bookingId").delete(async (req, res) => {
+  //lägg in här så att den tar bort
+  /* if() ett email finns
+  
+    else() {
+
+    }
+
+  */
   try {
     const booking = await Booking.deleteOne({
       bookingId: req.params.bookingId,
@@ -76,14 +95,20 @@ router.route("/delete/:bookingId").delete(async (req, res) => {
   }
 });
 
-router.route("/:bookingId").get((req, res) => {
-  const selectedBooking = Booking.findOne({
+// UPPDATERA EN BOKNING
+router.put("/update/:bookingId", (req, res, next) => {
+  Booking.findOne({
     bookingId: req.params.bookingId,
   })
-    .then((booking) => res.json(booking))
-    .catch((err) => res.status(400).json("Error in get bookingId: " + err));
-  console.log(selectedBooking);
+    .then(
+      (foundBooking) =>
+        foundBooking.updateOne({
+          seats: req.body.booking.seats,
+          notes: req.body.booking.notes,
+        }),
+      console.log(req.body.booking.notes)
+    )
+    .catch((e) => res.status(400).json("Error:" + e));
 });
-
 
 module.exports = router;
