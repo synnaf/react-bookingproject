@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import './CreateBooking.scss'; 
 import BookingInformation from "../bookingInformation/BookingInformation";
 import Guest from "../../models/Guest";
 import Booking from "../../models/Booking";
 import GuestInformation from "../guest-information/GuestInformation";
 import axios from "axios";
+
 
 export default function CreateBooking() {
   //VÅRT TABLE-STATE, kommer bestå av ett boka-objekt.
@@ -15,6 +17,7 @@ export default function CreateBooking() {
   const [guestExist, setGuestExist] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
+  
 
   //FUNKTION FÖR ATT SPARA BOKNINGEN
   function saveBooking(booking: Booking) {
@@ -27,7 +30,6 @@ export default function CreateBooking() {
     setGuest(g);
     setIsSaved(true);
   }
-
 
   function createReservation() {
     if (tableReservation && guest) {
@@ -48,30 +50,31 @@ export default function CreateBooking() {
         });
       setIsConfirmed(true);
       setIsSaved(!isSaved);
+      
     }
   }
-
 
   function saveNotes(n: string) {
     tableReservation.notes = n; 
     console.log(tableReservation);
-    // skriver ut notes från barnet, uppdatera objektet bookings med rätt värde 
   }
 
   return (
     <React.Fragment>
       {isConfirmed ? (
-        <div>
+        <div className="confirmed-booking">
           <h2>Tack för din bokning {guest.firstName}!</h2>
         </div>
       ) : (
         <div>
-          <BookingInformation addBooking={saveBooking}></BookingInformation>
-          <GuestInformation addGuest={saveGuest} addNotes={saveNotes}></GuestInformation>
+          { tableReservation.date === "" 
+          ? <BookingInformation addBooking={saveBooking}></BookingInformation>
+          : <GuestInformation addGuest={saveGuest} addNotes={saveNotes}></GuestInformation>
+          }
         </div>
       )}
       {isSaved ? (
-        <div className="confirmation-container">
+        <div className="confirmation-container" id="confirm">
           <h3>Stämmer dessa uppgifter?</h3>
           <p>Datum: {tableReservation.date} </p>
           <p>Tid: {tableReservation.time} </p>
@@ -81,9 +84,8 @@ export default function CreateBooking() {
           </p>
           <p>Telefonnummer: {guest.phoneNumber}</p>
           <p>Email: {guest.email}</p>
-
           <button type="button" onClick={createReservation}>
-            BEKRÄFTA!
+            BEKRÄFTA
           </button>
         </div>
       ) : (
@@ -92,3 +94,5 @@ export default function CreateBooking() {
     </React.Fragment>
   );
 }
+
+

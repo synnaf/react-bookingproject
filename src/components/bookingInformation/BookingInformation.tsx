@@ -2,6 +2,7 @@ import React, { useState, ChangeEvent, useReducer } from "react";
 import "./BookingInformation.scss";
 import axios from "axios";
 import Booking from "../../models/Booking";
+import { isDate } from "util";
 
 export interface IBookingInformationProps {
   addBooking(booking: Booking): void;
@@ -100,13 +101,18 @@ export default function BookinInformation(props: IBookingInformationProps) {
               <option>6</option>
             </select>
           </fieldset>
-          <div className="cta-search">
-            <button type="button" onClick={createSearch}>
-              Sök
-            </button>
-          </div>
-
-
+          { test.date === "" 
+          ? <div className="cta-search">
+              <button type="button" disabled>
+                Sök
+              </button>
+            </div>
+          : <div className="cta-search">
+              <button type="button" onClick={createSearch}>
+                Sök
+              </button>
+            </div>
+          }
           { fullyBooked //hämta in bokningslistan? 
           ? <h1>fullbokat</h1>
           : findTime ? (
@@ -121,7 +127,7 @@ export default function BookinInformation(props: IBookingInformationProps) {
                       name="time"
                       value="18"
                       onChange={update}
-                      onInput={() => sendBooking()}
+                      onInput={() => setTimeout(sendBooking, 500)}
                     />
                     <label htmlFor="18">18.00</label>
                   </div>
@@ -138,7 +144,7 @@ export default function BookinInformation(props: IBookingInformationProps) {
                       name="time"
                       value="21"
                       onChange={update}
-                      onInput={() => sendBooking()}
+                      onInput={() => setTimeout(sendBooking, 500)}
                     />
                     <label htmlFor="21">21.00</label>
                   </div>
@@ -149,7 +155,7 @@ export default function BookinInformation(props: IBookingInformationProps) {
                 )}
               </fieldset>
             </div>
-          ) : <p>test</p>
+          ) : null
           }
         </form>
       </div>

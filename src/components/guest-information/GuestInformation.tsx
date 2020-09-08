@@ -18,6 +18,7 @@ export default function GuestInformation(props: IGuestInformationProps) {
   const [emailInput, setEmailInput] = useState("");
   const [gId, setGId] = useState(0);
   const [isValid, setIsvalid] = useState(false);
+  const [contactFormRender, setContactFormRender] = useState(false); 
 
   const [newGuest, setNewGuest] = useReducer(
     (state: Guest, newState: Guest) => ({ ...state, ...newState }),
@@ -26,6 +27,8 @@ export default function GuestInformation(props: IGuestInformationProps) {
 
   function findGuest() {
     console.log(emailInput);
+    setContactFormRender(true); 
+
     axios.get("http://localhost:3001/guests/").then((g) => {
       console.log(g.data);
       let allGuests = g.data;
@@ -95,7 +98,7 @@ export default function GuestInformation(props: IGuestInformationProps) {
       : setIsvalid(false);
   }
 
-  function handleGdpr(e: any) {
+  function handleGdpr(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.checked === true) {
       return setGdpr(true);
     } else {
@@ -115,14 +118,14 @@ export default function GuestInformation(props: IGuestInformationProps) {
     }
   }
 
-  function addNotes(e: any) {
+  function addNotes(e: ChangeEvent<HTMLTextAreaElement>) {
     props.addNotes(e.target.value); 
   }
 
   return (
     <div className="placeholder">
       <form className="email-input-form">
-        <fieldset className="email-input-container">
+        <fieldset className="email-input">
           <label htmlFor="email">Fyll i e-mailadress</label>
           <input
             type="email"
@@ -131,24 +134,30 @@ export default function GuestInformation(props: IGuestInformationProps) {
             onChange={updateEmailInputValue}
             onKeyPress={checkIfEnterPressed}
           />
-        </fieldset> 
-        <div>
+        </fieldset>
+        {  emailInput === ""
+        ?
+        <div className="cta-find-time">
+          <button type="button" disabled>
+            Nästa
+          </button>
+        </div>
+        : 
+        <div className="cta-find-time">
           <button type="button" onClick={findGuest}>
             Nästa
           </button>
         </div>
+        } 
       </form>
-
-       {/* Rendera resten av formuläret om email finns */}
-
-      <div className="form-container">
-        <div className="booking-info">
-        <h2>Kontaktuppgifter</h2>
-        </div>
-        <form>
+       { contactFormRender 
+        ? <div className="form-container">
+            <div className="booking-info">
+              <h2>Kontaktuppgifter</h2>
+            </div>
+            <form>
           {isGuest ? (
             <fieldset className="input-container">
-
               <label>Mail</label>
                 <input
                   type="email"
@@ -231,11 +240,9 @@ export default function GuestInformation(props: IGuestInformationProps) {
             <span>Jag godkänner att mina uppgifter sparas enligt GDPR</span>
           </fieldset>
           {isValid ? (
-            /* skicka datan till föräldern vid knapptryckning */
             <div className="cta-book">
               <button
                 type="button"
-                disabled={gdpr === false}
                 onClick={() => createGuest()}
               >
                 Boka
@@ -251,12 +258,11 @@ export default function GuestInformation(props: IGuestInformationProps) {
               Boka
             </button>
           </div>
-            // <div className="unvalid-form-msg">
-            //   <p>Formuläret är ej korrekt ifyllt!</p>
-            // </div>
           )}
         </form>
       </div>
+      : null 
+       } 
     </div>
   );
 }

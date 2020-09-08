@@ -1,4 +1,5 @@
 import React, { useEffect } from "react"; 
+import './DeletedBooking.scss'; 
 import axios from 'axios'; 
 
 export default function DeletedBooking() {
@@ -10,8 +11,8 @@ export default function DeletedBooking() {
 
   return (
     <React.Fragment>
-        <div className="placeholder">
-            Du har avbokat :(
+        <div className="deleted-booking">
+            <h4>Du har avbokat :(</h4>
             <a href="/home">Tillbaka till startsidan</a> 
         </div>
     </React.Fragment>
