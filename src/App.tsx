@@ -5,6 +5,7 @@ import CreateBooking from "./components/createBooking/CreateBooking";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.scss";
 import OneBooking from "./components/oneBooking/OneBooking";
+import DeletedBooking from "./components/deletedBooking/DeletedBooking";
 
 function App() {
   return (

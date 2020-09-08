@@ -7,7 +7,7 @@ import axios from "axios";
 
 export default function CreateBooking() {
   //VÅRT TABLE-STATE, kommer bestå av ett boka-objekt.
-  const [reservation, setReservation] = useState(new Booking());
+  const [tableReservation, setTableReservation] = useState(new Booking());
 
   //VÅR GUEST-STATE, kommer bestå av ett gäst-objekt
   const [guest, setGuest] = useState(new Guest());
@@ -18,7 +18,7 @@ export default function CreateBooking() {
 
   //FUNKTION FÖR ATT SPARA BOKNINGEN
   function saveBooking(booking: Booking) {
-    setReservation(booking);
+    setTableReservation(booking);
   }
 
   //FUNKTION FÖR ATT SPARA GÄSTEN
@@ -28,14 +28,16 @@ export default function CreateBooking() {
     setIsSaved(true);
   }
 
+
   function createReservation() {
-    if (reservation && guest) {
+    if (tableReservation && guest) {
       let newReservation = {
         guest: guest,
-        reservation: reservation,
+        reservation: tableReservation, 
         guestExist: guestExist,
       };
       console.log("NYTT OBJEKT ÄR", newReservation);
+
       axios
         .post(
           "http://localhost:3001/bookings/availability/addbooking",
@@ -48,6 +50,14 @@ export default function CreateBooking() {
       setIsSaved(!isSaved);
     }
   }
+
+
+  function saveNotes(n: string) {
+    tableReservation.notes = n; 
+    console.log(tableReservation);
+    // skriver ut notes från barnet, uppdatera objektet bookings med rätt värde 
+  }
+
   return (
     <React.Fragment>
       {isConfirmed ? (
@@ -57,15 +67,15 @@ export default function CreateBooking() {
       ) : (
         <div>
           <BookingInformation addBooking={saveBooking}></BookingInformation>
-          <GuestInformation addGuest={saveGuest}></GuestInformation>
+          <GuestInformation addGuest={saveGuest} addNotes={saveNotes}></GuestInformation>
         </div>
       )}
       {isSaved ? (
         <div className="confirmation-container">
           <h3>Stämmer dessa uppgifter?</h3>
-          <p>Datum: {reservation.date} </p>
-          <p>Tid: {reservation.time} </p>
-          <p>Antal gäster: {reservation.seats} </p>
+          <p>Datum: {tableReservation.date} </p>
+          <p>Tid: {tableReservation.time} </p>
+          <p>Antal gäster: {tableReservation.seats} </p>
           <p>
             Gäst: {guest.firstName} {guest.lastName}
           </p>

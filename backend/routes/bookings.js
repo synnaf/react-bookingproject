@@ -54,14 +54,14 @@ router.route("/availability/addbooking").post((req, res) => {
     .then((data) => res.send(data))
     .then(
       transport.sendMail({
-        to: "fanny.varnbrinkforsman@medieinstitutet.se",
-        from: "f.vforsman@gmail.com",
-        subject: "Ändra ditt lösenord!",
+        to: req.body.guest.email,
+        from: "<noreply>@restaurang.se",
+        subject: "Bokningsbekräftelse",
         html: `
       <h2>Tack för din bokning!<h2>
-      <p>Du är välkommen: </p>
-      <h5>Klicka på länken för att avboka!<h5>
-      http://localhost:3000/bookings/${newBooking.bookingId} 
+      <p>Du har bokat: ${req.body.reservation.date}, för: ${newBooking.seats} personer<p>
+      <h5>Klicka på länken för att avboka:<h5>
+      <a href="http://localhost:3000/delete/${newBooking.bookingId}">Avboka :(</a> 
       `,
       })
     )
@@ -70,7 +70,7 @@ router.route("/availability/addbooking").post((req, res) => {
 
 // HÄMTA EN BOKNING MED ANGIVEN BOOKINGID
 router.route("/:bookingId").get((req, res) => {
-  const selectedBooking = Booking.findOne({
+  Booking.findOne({
     bookingId: req.params.bookingId,
   })
     .then((booking) => res.json(booking))
