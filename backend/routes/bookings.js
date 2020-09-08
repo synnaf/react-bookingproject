@@ -2,12 +2,17 @@ let Booking = require("../models/booking.model");
 let Guest = require("../models/guest.model");
 const router = require("express").Router();
 
-//mailet för bokningen 
+//mailet för bokningen
 const nodemailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
-const transport = nodemailer.createTransport(sendgridTransport({
-  auth: {api_key: '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'}
-})); 
+const transport = nodemailer.createTransport(
+  sendgridTransport({
+    auth: {
+      api_key:
+        "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",
+    },
+  })
+);
 
 // HÄMTA ALLA BOKNINGAR (BOOKINGS) I DB
 router.route("/").get((req, res) => {
@@ -47,30 +52,41 @@ router.route("/availability/addbooking").post((req, res) => {
   newBooking
     .save()
     .then((data) => res.send(data))
-    .then(transport.sendMail({
-      to: 'fanny.varnbrinkforsman@medieinstitutet.se',
-      from: "f.vforsman@gmail.com",
-      subject: "Ändra ditt lösenord!",
-      html: `
+    .then(
+      transport.sendMail({
+        to: "fanny.varnbrinkforsman@medieinstitutet.se",
+        from: "f.vforsman@gmail.com",
+        subject: "Ändra ditt lösenord!",
+        html: `
       <h2>Tack för din bokning!<h2>
       <p>Du är välkommen: </p>
       <h5>Klicka på länken för att avboka!<h5>
       http://localhost:3000/bookings/${newBooking.bookingId} 
-      `
-    }))
+      `,
+      })
+    )
     .catch((err) => res.status(400).json("Error:" + err));
+});
+
+// HÄMTA EN BOKNING MED ANGIVEN BOOKINGID
+router.route("/:bookingId").get((req, res) => {
+  const selectedBooking = Booking.findOne({
+    bookingId: req.params.bookingId,
+  })
+    .then((booking) => res.json(booking))
+    .catch((err) => res.status(400).json("Error in get bookingId: " + err));
 });
 
 // RADERA EN BOKNING
 router.route("/delete/:bookingId").delete(async (req, res) => {
-  //lägg in här så att den tar bort 
+  //lägg in här så att den tar bort
   /* if() ett email finns
   
     else() {
 
     }
 
-  */ 
+  */
   try {
     const booking = await Booking.deleteOne({
       bookingId: req.params.bookingId,
@@ -82,13 +98,20 @@ router.route("/delete/:bookingId").delete(async (req, res) => {
   }
 });
 
-router.route("/:bookingId").get((req, res) => {
-  const selectedBooking = Booking.findOne({
+// UPPDATERA EN BOKNING
+router.put("/update/:bookingId", (req, res, next) => {
+  Booking.findOne({
     bookingId: req.params.bookingId,
   })
-    .then((booking) => res.json(booking))
-    .catch((err) => res.status(400).json("Error in get bookingId: " + err));
-  console.log(selectedBooking);
+    .then(
+      (foundBooking) =>
+        foundBooking.updateOne({
+          seats: req.body.booking.seats,
+          notes: req.body.booking.notes,
+        }),
+      console.log(req.body.booking.notes)
+    )
+    .catch((e) => res.status(400).json("Error:" + e));
 });
 
 module.exports = router;

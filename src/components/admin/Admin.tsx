@@ -1,5 +1,6 @@
 import React, { useState, useEffect, MouseEvent } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function Admin() {
   function deleteBooking(e: MouseEvent<HTMLButtonElement>) {
@@ -17,16 +18,6 @@ export default function Admin() {
     }
   }
 
-  function updateBooking(e: MouseEvent<HTMLButtonElement>) {
-    const bookingId = e;
-    try {
-      axios.get(`http://localhost:3001/bookings/${bookingId}`).then((res) => {
-        console.log(res.data);
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  }
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
@@ -36,24 +27,20 @@ export default function Admin() {
         allBookings.data.map((booking: any) => {
           return (
             <ul key={booking._id}>
-                        
+                       
               <button
+                type="button"
                 id="delete"
                 onClick={() => deleteBooking(booking.bookingId)}
               >
-                Delete
+                Ta bort
               </button>
                         
-              <button
-                id="opdate"
-                onClick={() => updateBooking(booking.bookingId)}
-              >
-                Ändra
+              <button type="button" id="update">
+                {<Link to={`/booking/${booking.bookingId}`}>Ändra</Link>}
               </button>
-                        <li>Booking Id: {booking.bookingId}</li>
-                        <li>Seats: {booking.seats}</li>            
-              <li>Date: {booking.date.split("T")[0]}</li>
-                        
+              <li>Bokningsnummer: {booking.bookingId}</li>
+              <li>Datum: {booking.date.split("T")[0]}</li>           
             </ul>
           );
         })
@@ -65,10 +52,7 @@ export default function Admin() {
             
       <div className="ulContainer">
                 
-        <li className="ulBooking">
-                    {bookings}
-                  
-        </li>
+        <li className="ulBooking">{bookings}</li>
               
       </div>
           
