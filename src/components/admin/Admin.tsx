@@ -24,7 +24,6 @@ export default function Admin() {
 
   useEffect(() => {
     axios.get("http://localhost:3001/bookings").then((allBookings) => {
-      // console.log(allBookings.data);
       setBookings(
         allBookings.data.map((booking: any) => {
           return (

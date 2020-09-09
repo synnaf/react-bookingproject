@@ -16,7 +16,7 @@ const dbOptions = {
 
 //cors config
 let corsOptions = {
-  origin: "*", //tillåter alla requests, ändra till rätt frontEnd api
+  origin: "http://localhost:3000/*", //tillåter alla requests, ändra till rätt frontEnd api
   optionsSuccessStatus: 200,
   browsersupport: "get, put, delete",
 };
