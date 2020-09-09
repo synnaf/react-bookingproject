@@ -1,7 +1,7 @@
 import React, { useState, useEffect, MouseEvent } from "react";
 import axios from "axios";
 import "./Admin.scss";
-import { Link } from "react-router-dom";
+import { Link, BrowserRouter } from "react-router-dom";
 
 export default function Admin() {
   const [bookings, setBookings] = useState([]);
@@ -38,7 +38,7 @@ export default function Admin() {
                 </button>
                          
                 <button type="button" id="update">
-                  {<Link to={`/booking/${booking.bookingId}`}>Ändra</Link>}
+                  {<BrowserRouter><Link to={`/booking/${booking.bookingId}`}>Ändra</Link></BrowserRouter>}
                 </button>
               </div>
             </li>
