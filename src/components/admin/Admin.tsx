@@ -31,6 +31,7 @@ export default function Admin() {
               <p>Bokningsnummer: {booking.bookingId}</p>
               <p>Datum: {booking.date.split("T")[0]}</p>
               <p>Tid: {booking.time}</p>
+              <p>Antal: {booking.seats}</p>
               <p>Anteckningar: {booking.notes}</p>
               <div className="edit-btn">
                 <button
