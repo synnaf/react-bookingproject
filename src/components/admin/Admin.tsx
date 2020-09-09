@@ -3,6 +3,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 export default function Admin() {
+  const [bookings, setBookings] = useState([]);
+
   function deleteBooking(e: MouseEvent<HTMLButtonElement>) {
     const id = e;
     console.log(e);
@@ -18,16 +20,17 @@ export default function Admin() {
     }
   }
 
-  const [bookings, setBookings] = useState([]);
-
   useEffect(() => {
     axios.get("http://localhost:3001/bookings").then((allBookings) => {
       console.log(allBookings.data);
       setBookings(
         allBookings.data.map((booking: any) => {
           return (
-            <ul key={booking._id}>
-                       
+            <li key={booking._id}>
+              <p>Bokningsnummer: {booking.bookingId}</p>
+              <p>Datum: {booking.date.split("T")[0]}</p>
+              <p>Tid: {booking.time}</p>
+              <p>Anteckningar: {booking.notes}</p>
               <button
                 type="button"
                 id="delete"
@@ -39,9 +42,8 @@ export default function Admin() {
               <button type="button" id="update">
                 {<Link to={`/booking/${booking.bookingId}`}>Ändra</Link>}
               </button>
-              <li>Bokningsnummer: {booking.bookingId}</li>
-              <li>Datum: {booking.date.split("T")[0]}</li>           
-            </ul>
+                    
+            </li>
           );
         })
       );
@@ -49,13 +51,15 @@ export default function Admin() {
   }, []);
   return (
     <div className="main-container">
-            
-      <div className="ulContainer">
-                
-        <li className="ulBooking">{bookings}</li>
-              
-      </div>
-          
+       
+      {bookings.length === 0 ? (
+        <h1>Det finns inga bokningar att visa!</h1>
+      ) : (
+        <div className="ulContainer">
+          <ul className="ulBooking">{bookings}</ul>
+        </div>
+      )}
+                     
     </div>
   );
 }

@@ -25,25 +25,20 @@ function App() {
               <li>
                 <Link to="/admin">Admin</Link>             
               </li>
-                        
             </ul>
-                    
           </nav>
         </header>
         <main>
           <Switch>
             <Route path="/home">
-               
               <Home />           
             </Route>
             <Route path="/booking/:bookingId">
               <OneBooking />
             </Route>
             <Route path="/booking">
-                
               <CreateBooking />           
             </Route>
-
             <Route path="/admin">
               <Admin />           
             </Route>
