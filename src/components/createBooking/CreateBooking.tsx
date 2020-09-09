@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 export default function CreateBooking() {
   //VÅRT TABLE-STATE, kommer bestå av ett boka-objekt.
   const [tableReservation, setTableReservation] = useState(new Booking());
+  const [tableSaved, setTableSaved] = useState(false);
 
   //VÅR GUEST-STATE, kommer bestå av ett gäst-objekt
   const [guest, setGuest] = useState(new Guest());
@@ -21,6 +22,7 @@ export default function CreateBooking() {
   //FUNKTION FÖR ATT SPARA BOKNINGEN
   function saveBooking(booking: Booking) {
     setTableReservation(booking);
+    setTableSaved(true);
   }
 
   //FUNKTION FÖR ATT SPARA GÄSTEN
@@ -61,6 +63,7 @@ export default function CreateBooking() {
     setGuest(new Guest());
     setIsConfirmed(false);
     setIsSaved(false);
+    setTableSaved(false);
   }
 
   if (isConfirmed) {
@@ -102,10 +105,12 @@ export default function CreateBooking() {
     return (
       <React.Fragment>
         <BookingInformation addBooking={saveBooking}></BookingInformation>
-        <GuestInformation
-          addGuest={saveGuest}
-          addNotes={saveNotes}
-        ></GuestInformation>
+        {tableSaved ? (
+          <GuestInformation
+            addGuest={saveGuest}
+            addNotes={saveNotes}
+          ></GuestInformation>
+        ) : null}
       </React.Fragment>
     );
   }
