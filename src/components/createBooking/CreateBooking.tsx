@@ -64,7 +64,7 @@ export default function CreateBooking() {
         </div>
       ) : null}
       <div>
-        {tableReservation.date === "" ? (
+        {tableReservation.date === "" && !isSaved ? (
           <BookingInformation addBooking={saveBooking}></BookingInformation>
         ) : (
           <GuestInformation

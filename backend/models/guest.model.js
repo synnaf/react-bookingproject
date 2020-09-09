@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = require("mongoose").Schema;
 
 const schemaGuest = new Schema({
-  guestId: { type: Number, required: true, unique: true },
+  guestId: { type: Number, required: true },
   firstName: {
     type: String,
     minlength: 2,
@@ -24,5 +24,4 @@ const schemaGuest = new Schema({
 });
 
 const Guest = mongoose.model("Guest", schemaGuest);
-
 module.exports = Guest;

@@ -7,7 +7,7 @@ const schemaBooking = new Schema({
   time: { type: String, required: true },
   seats: { type: Number, required: true },
   notes: String,
-  guestId: { type: Number, required: true, unique: true },
+  guestId: { type: Number, required: true },
 });
 
 const Booking = mongoose.model("Booking", schemaBooking);
