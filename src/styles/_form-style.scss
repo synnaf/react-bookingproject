@@ -1,0 +1,39 @@
+@mixin label {
+        font-size: 14pt;
+        font-weight: bold;
+        padding-bottom:10px;
+        margin-bottom:10px;
+}
+@mixin input {
+    input {
+        align-self: center;
+        display:flex;
+        flex-direction: column; 
+        width:100%;
+    }
+}
+
+@mixin text-input {
+    padding:10px;
+    border-radius:8px;
+    border:none;
+    width:100%;
+    margin-bottom: 10px;
+    margin-top:10px;
+}
+
+@mixin form-container {
+    align-self: center;
+    display:flex;
+    flex-direction: column; 
+    background-color: whitesmoke;
+    width:90%;
+    form {
+        padding-top: 50px;
+        width:80%;
+        align-self: center;
+        display: flex;
+        align-items:center;
+        padding-bottom: 50px;
+    }
+}

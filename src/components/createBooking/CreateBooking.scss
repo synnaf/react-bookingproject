@@ -1,8 +1,23 @@
+@import '../../styles/button-style'; 
+
 .confirmed-booking {
     text-align: center;
     h2 {
         text-align: center;
         font-size: 36pt;
+    }
+    button {
+        @include main-button; 
+        width:40%;
+
+        color:white;
+        margin:10px;
+        a {
+            text-decoration: none;
+        }a:visited {
+            text-decoration: none;
+            color:white;
+        }
     }
 }
 .confirmation-container {
@@ -14,6 +29,7 @@
     justify-content: center;
     background-color:lightsalmon;
     width:90%;
+    padding-bottom:20px;
     h3 {
         align-self: center;
         font-size: 16pt; 
@@ -25,18 +41,8 @@
         padding-bottom:15px;
     }
     button {
+        @include main-button; 
         align-self: center;
-        margin:15px; //remove 
         width:30%;
-        text-align: center;
-        height:35px;
-        background-color: #4e6096;
-        border-radius:42px;
-        cursor:pointer;
-        font-size: 12pt;
-        font-weight: bold;
-        border:none;
-        text-decoration: none;
-        color:white; 
     }
 }

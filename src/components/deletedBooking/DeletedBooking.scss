@@ -1,3 +1,4 @@
+@import '../../styles/button-style'; 
 .deleted-booking {
     color:black;
     text-align: center;
@@ -7,11 +8,10 @@
     }
     a {
     text-align: none;
-    }a:hover {
-        background-color: lightsalmon;
+    @include main-button; 
     }a:visited {
         text-decoration:none;
-        color:black;
+        color:white;
     }
 
 }

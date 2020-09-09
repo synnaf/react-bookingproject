@@ -1,9 +1,8 @@
+@import '../../styles/component-style'; 
+@import '../../styles/button-style'; 
 
-    .placeholder {  
-        display:flex;
-        flex-direction: row; 
-        justify-content: center;
-        align-content: center;
+    .placeholder { 
+        @include content-container;  
         .image-container {
             display:flex;
             flex-direction: row;
@@ -18,6 +17,7 @@
             .ramen {
                 opacity:0.6;
                 width:50%;
+                height:auto;
                 border-radius:0px 0px 1111px;
                 transition: opacity 0.7s, transform 0.7s;
             }
@@ -51,30 +51,10 @@
                 padding-left:10px;
             }
             .cta-startpage {
-                transition: background-color 0.7s, transform 0.7s;
-                text-align: center;
-                align-self: center;
-                width:10%;
-                background-color: #4e6096; 
-                border-radius:42px;
-                border:none;
-                cursor:pointer;
-                font-family:Arial;
-                font-size:16px;
-                font-weight:bold;
-                padding:11px 55px;
-                text-decoration:none;
+                @include button-container; 
                 button {
-                    font-size: 14pt;
-                    font-weight: bold;
-                    border:none;
-                    text-decoration: none;
-                    background-color:transparent;
-                    color:white;
-                    width:100%;
+                    @include main-button; 
                 } 
-            }.cta-startpage:hover {
-                background-color: #9fb4f2; 
             }
         }
 
