@@ -1,15 +1,18 @@
 let Booking = require("../models/booking.model");
 let Guest = require("../models/guest.model");
 const router = require("express").Router();
-const mail_api = process.env.MAIL_KEY; 
-require("dotenv").config();
 
 //mailet för bokningen
 const nodemailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
-const transport = nodemailer.createTransport(sendgridTransport({
-  auth: {api_key: mail_api}
-})); 
+const transport = nodemailer.createTransport(
+  sendgridTransport({
+    auth: {
+      api_key:
+        "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",
+    },
+  })
+);
 
 // HÄMTA ALLA BOKNINGAR (BOOKINGS) I DB
 router.route("/").get((req, res) => {
@@ -88,8 +91,7 @@ router.route("/delete/:bookingId").delete(async (req, res) => {
     const booking = await Booking.deleteOne({
       bookingId: req.params.bookingId,
     });
-    console.log(booking);
-    res.status(200).json("Success!");
+    res.status(200).json("Deleted booking: " + booking);
   } catch (e) {
     res.status(400).json("Error:" + e);
   }

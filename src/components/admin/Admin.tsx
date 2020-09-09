@@ -1,9 +1,11 @@
 import React, { useState, useEffect, MouseEvent } from "react";
 import axios from "axios";
-import './Admin.scss'; 
+import "./Admin.scss";
 import { Link } from "react-router-dom";
 
 export default function Admin() {
+  const [bookings, setBookings] = useState([]);
+
   function deleteBooking(e: MouseEvent<HTMLButtonElement>) {
     const id = e;
     console.log(e);
@@ -19,8 +21,6 @@ export default function Admin() {
     }
   }
 
-  const [bookings, setBookings] = useState([]);
-
   useEffect(() => {
     axios.get("http://localhost:3001/bookings").then((allBookings) => {
       console.log(allBookings.data);
@@ -28,6 +28,10 @@ export default function Admin() {
         allBookings.data.map((booking: any) => {
           return (
             <li key={booking._id} className="each-booking">
+              <p>Bokningsnummer: {booking.bookingId}</p>
+              <p>Datum: {booking.date.split("T")[0]}</p>
+              <p>Tid: {booking.time}</p>
+              <p>Anteckningar: {booking.notes}</p>
               <div className="edit-btn">
                 <button
                   type="button"
@@ -36,12 +40,12 @@ export default function Admin() {
                 >
                   Ta bort
                 </button>
-                <button type="button" id="edit">
+                          
+                <button type="button" id="update">
                   {<Link to={`/booking/${booking.bookingId}`}>Ändra</Link>}
                 </button>
-              </div>       
-              <p>Bokningsnummer: {booking.bookingId}</p>
-              <p>Datum: {booking.date.split("T")[0]}</p>           
+              </div>
+                      
             </li>
           );
         })
@@ -50,13 +54,15 @@ export default function Admin() {
   }, []);
   return (
     <div className="main-container">
-            
-      <div className="ulContainer">
-               
-        <ul className="ulBooking">{bookings}</ul>
-              
-      </div>
-          
+       
+      {bookings.length === 0 ? (
+        <h1>Det finns inga bokningar att visa!</h1>
+      ) : (
+        <div className="ulContainer">
+          <ul className="ulBooking">{bookings}</ul>
+        </div>
+      )}
+                     
     </div>
   );
 }

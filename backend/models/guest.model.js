@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = require("mongoose").Schema;
 
 const schemaGuest = new Schema({
-  guestId: { type: Number, required: true },
+  guestId: { type: Number, required: true, unique: true },
   firstName: {
     type: String,
     minlength: 2,

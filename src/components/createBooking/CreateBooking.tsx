@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import './CreateBooking.scss'; 
+import "./CreateBooking.scss";
 import BookingInformation from "../bookingInformation/BookingInformation";
 import Guest from "../../models/Guest";
 import Booking from "../../models/Booking";
 import GuestInformation from "../guest-information/GuestInformation";
 import axios from "axios";
-
 
 export default function CreateBooking() {
   //VÅRT TABLE-STATE, kommer bestå av ett boka-objekt.
@@ -17,7 +16,6 @@ export default function CreateBooking() {
   const [guestExist, setGuestExist] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
-  
 
   //FUNKTION FÖR ATT SPARA BOKNINGEN
   function saveBooking(booking: Booking) {
@@ -35,7 +33,7 @@ export default function CreateBooking() {
     if (tableReservation && guest) {
       let newReservation = {
         guest: guest,
-        reservation: tableReservation, 
+        reservation: tableReservation,
         guestExist: guestExist,
       };
       console.log("NYTT OBJEKT ÄR", newReservation);
@@ -50,12 +48,11 @@ export default function CreateBooking() {
         });
       setIsConfirmed(true);
       setIsSaved(!isSaved);
-      
     }
   }
 
   function saveNotes(n: string) {
-    tableReservation.notes = n; 
+    tableReservation.notes = n;
     console.log(tableReservation);
   }
 
@@ -67,10 +64,14 @@ export default function CreateBooking() {
         </div>
       ) : (
         <div>
-          { tableReservation.date === "" 
-          ? <BookingInformation addBooking={saveBooking}></BookingInformation>
-          : <GuestInformation addGuest={saveGuest} addNotes={saveNotes}></GuestInformation>
-          }
+          {tableReservation.date === "" ? (
+            <BookingInformation addBooking={saveBooking}></BookingInformation>
+          ) : (
+            <GuestInformation
+              addGuest={saveGuest}
+              addNotes={saveNotes}
+            ></GuestInformation>
+          )}
         </div>
       )}
       {isSaved ? (
@@ -94,5 +95,3 @@ export default function CreateBooking() {
     </React.Fragment>
   );
 }
-
-
