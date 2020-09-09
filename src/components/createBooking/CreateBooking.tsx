@@ -15,10 +15,6 @@ export default function CreateBooking() {
   const [isSaved, setIsSaved] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
 
-  const guestInfo = (ref: any) => {
-    ref.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
   function saveBooking(booking: Booking) {
     setTableReservation(booking);
     setTableSaved(true);
@@ -100,12 +96,10 @@ export default function CreateBooking() {
       <React.Fragment>
         <BookingInformation addBooking={saveBooking}></BookingInformation>
         {tableSaved ? (
-          <div ref={guestInfo}>
-            <GuestInformation
-              addGuest={saveGuest}
-              addNotes={saveNotes}
-            ></GuestInformation>
-          </div>
+          <GuestInformation
+            addGuest={saveGuest}
+            addNotes={saveNotes}
+          ></GuestInformation>
         ) : null}
       </React.Fragment>
     );
