@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function Admin() {
   const [bookings, setBookings] = useState([]);
+  const [hasDeleted, setHasDeleted] = useState(false);
 
   function deleteBooking(e: MouseEvent<HTMLButtonElement>) {
     const id = e;
@@ -13,7 +14,7 @@ export default function Admin() {
       axios
         .delete(`http://localhost:3001/bookings/delete/${id}`)
         .then((res) => {
-          console.log(res);
+          setHasDeleted(true);
           console.log(res.data);
         });
     } catch (e) {
@@ -52,7 +53,7 @@ export default function Admin() {
         })
       );
     });
-  }, []);
+  }, [hasDeleted]);
   return (
     <div className="main-container">
        
