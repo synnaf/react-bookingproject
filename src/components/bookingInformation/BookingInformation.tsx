@@ -14,10 +14,10 @@ export default function BookinInformation(props: IBookingInformationProps) {
   const [findTime, setFindTime] = useState(false);
   const [fullyBooked, setFullyBooked] = useState(false);
 
-  const [test, setTest] = useReducer(
-    (test: Booking, newTest: Booking) => ({
-      ...test,
-      ...newTest,
+  const [bookingInfo, setBookingInfo] = useReducer(
+    (bookingInfo: Booking, newBookingInfo: Booking) => ({
+      ...bookingInfo,
+      ...newBookingInfo,
     }),
     new Booking()
   );
@@ -25,15 +25,15 @@ export default function BookinInformation(props: IBookingInformationProps) {
   function update(e: ChangeEvent<any>) {
     let element = e.target.name;
     let value = e.target.value;
-    setTest({ [element]: value } as any);
+    setBookingInfo({ [element]: value } as any);
   }
 
   //FUNKTION FÖR: hantera värdena när man trycker på knappen
   function createSearch() {
     setFindTime(true);
 
-    let selectedDate = test.date;
-    let selectedSeats = test.seats;
+    let selectedDate = bookingInfo.date;
+    let selectedSeats = bookingInfo.seats;
 
     //vi mappar ut för kl.18 och kl.21
     axios.get("http://localhost:3001/bookings/").then((currentBookings) => {
@@ -67,8 +67,8 @@ export default function BookinInformation(props: IBookingInformationProps) {
   }
 
   function sendBooking() {
-    console.log(test);
-    props.addBooking(test);
+  
+    props.addBooking(bookingInfo);
   }
 
   return (
@@ -90,7 +90,7 @@ export default function BookinInformation(props: IBookingInformationProps) {
               <option>6</option>
             </select>
           </fieldset>
-          {test.date === "" ? (
+          {bookingInfo.date === "" ? (
             <div className="cta-search">
               <button type="button" disabled>
                 Sök

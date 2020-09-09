@@ -55,7 +55,7 @@ router.route("/availability/addbooking").post((req, res) => {
     .then(
       transport.sendMail({
         to: req.body.guest.email,
-        from: "<noreply>@restaurang.se",
+        from: "f.vforsman@gmail.com",
         subject: "Bokningsbekräftelse",
         html: `
       <h2>Tack för din bokning!<h2>
