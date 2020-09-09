@@ -5,10 +5,11 @@ import React, {
   ChangeEvent,
   useReducer,
 } from "react";
-import './OneBooking.scss'; 
+import "./OneBooking.scss";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Booking from "../../models/Booking";
+import { Link } from "react-router-dom";
 
 export default function OneBooking() {
   const [isDeleted, setIsDeleted] = useState(false);
@@ -64,13 +65,29 @@ export default function OneBooking() {
   if (isDeleted) {
     return (
       <div>
-        <h1>Tack, din bokning är borttagen!</h1>
+        <h1>Tack, bokningen #{bookingId} är borttagen!</h1>
+        <button type="button">
+          {<Link to={"/admin"}>Tillbaka till admin</Link>}
+        </button>
       </div>
     );
   }
 
   if (isUpdated) {
-    return <div>Bokning #{bookingId} har uppdaterats!</div>;
+    return (
+      <div>
+        <h1>Bokning #{bookingId} har uppdaterats!</h1>
+        <div>
+          <p>Datum: {booking.date.split("T")[0]}</p>
+          <p>Tid: {booking.time}</p>
+          <p>Antal: {booking.seats}</p>
+          <p>Anteckningar: {booking.notes}</p>
+        </div>
+        <button type="button">
+          {<Link to={"/admin"}>Tillbaka till admin</Link>}
+        </button>
+      </div>
+    );
   } else {
     return (
       <React.Fragment>
