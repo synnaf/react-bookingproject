@@ -22,10 +22,11 @@ export default function BookinInformation(props: IBookingInformationProps) {
     notes: "",
     guestId: 33,
   };
-  const [test, setTest] = useReducer(
-    (test: Booking, newTest: Booking) => ({
-      ...test,
-      ...newTest,
+
+  const [bookingInfo, setBookingInfo] = useReducer(
+    (bookingInfo: Booking, newBookingInfo: Booking) => ({
+      ...bookingInfo,
+      ...newBookingInfo,
     }),
     defaultValue
   );
@@ -33,7 +34,7 @@ export default function BookinInformation(props: IBookingInformationProps) {
   function update(e: ChangeEvent<any>) {
     let element = e.target.name;
     let value = e.target.value;
-    setTest({ [element]: value } as any);
+    setBookingInfo({ [element]: value } as any);
   }
 
 
@@ -42,8 +43,7 @@ export default function BookinInformation(props: IBookingInformationProps) {
 
     setFindTime(true); 
    
-    let selectedDate = test.date;
-    let selectedSeats = test.seats;
+    let selectedDate = bookingInfo.date;
 
     //vi mappar ut för kl.18 och kl.21
     axios.get("http://localhost:3001/bookings/").then((currentBookings) => {
@@ -77,8 +77,8 @@ export default function BookinInformation(props: IBookingInformationProps) {
   }
 
   function sendBooking() {
-    console.log(test);
-    props.addBooking(test);
+    console.log(bookingInfo);
+    props.addBooking(bookingInfo);
   }
 
   return (
@@ -100,7 +100,7 @@ export default function BookinInformation(props: IBookingInformationProps) {
               <option>6</option>
             </select>
           </fieldset>
-          { test.date === "" 
+          { bookingInfo.date === "" 
           ? <div className="cta-search">
               <button type="button" disabled>
                 Sök
