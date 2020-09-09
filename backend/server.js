@@ -14,9 +14,8 @@ const dbOptions = {
   useCreateIndex: true,
 };
 
-//cors config
 let corsOptions = {
-  origin: "*", //tillåter alla requests, ändra till rätt frontEnd api
+  origin: "*",
   optionsSuccessStatus: 200,
   browsersupport: "get, put, delete",
 };

@@ -11,27 +11,21 @@ export interface IGuestInformationProps {
 
 export default function GuestInformation(props: IGuestInformationProps) {
   const [gdpr, setGdpr] = useState(false);
-
   const [isGuest, setIsGuest] = useState(false);
   const [registeredGuest, setRegisteredGuest] = useState(new Guest());
-
   const [emailInput, setEmailInput] = useState("");
-  const [emailConfirmed, setEmailConfirmed] = useState(false);
   const [gId, setGId] = useState(0);
   const [isValid, setIsvalid] = useState(false);
   const [contactFormRender, setContactFormRender] = useState(false);
-
   const [newGuest, setNewGuest] = useReducer(
     (state: Guest, newState: Guest) => ({ ...state, ...newState }),
     new Guest()
   );
 
   function findGuest() {
-    console.log(emailInput);
     setContactFormRender(true);
 
     axios.get("http://localhost:3001/guests/").then((g) => {
-      console.log(g.data);
       let allGuests = g.data;
       let selectedGuest = allGuests.find(
         (guest: Guest) => guest.email === emailInput
@@ -39,11 +33,9 @@ export default function GuestInformation(props: IGuestInformationProps) {
       if (selectedGuest) {
         setRegisteredGuest({ ...selectedGuest });
         setIsGuest(true);
-        console.log(selectedGuest);
         return;
       }
       if (!selectedGuest) {
-        console.log("Guest needs to be added");
         setGId(Math.floor(Math.random() * 10000) + 1);
         setIsGuest(false);
       }
@@ -59,7 +51,6 @@ export default function GuestInformation(props: IGuestInformationProps) {
 
   function updateEmailInputValue(e: ChangeEvent<HTMLInputElement>) {
     setEmailInput(e.target.value);
-    console.log(emailInput);
   }
 
   function updateInputValue(e: ChangeEvent<HTMLInputElement>) {
@@ -108,14 +99,11 @@ export default function GuestInformation(props: IGuestInformationProps) {
   }
 
   function createGuest() {
-    console.log("GDPR is approved");
     if (isGuest) {
       props.addGuest(registeredGuest, isGuest);
-      console.log(registeredGuest);
     }
     if (!isGuest) {
       props.addGuest(newGuest, isGuest);
-      console.log(newGuest);
     }
   }
 
@@ -137,7 +125,7 @@ export default function GuestInformation(props: IGuestInformationProps) {
                 <input
                   type="email"
                   name="email"
-                  defaultValue={registeredGuest.email}
+                  defaultValue={registeredGuest.email || ""}
                   disabled
                 />
 
@@ -145,7 +133,7 @@ export default function GuestInformation(props: IGuestInformationProps) {
                 <input
                   type="text"
                   name="firstName"
-                  defaultValue={registeredGuest.firstName}
+                  value={registeredGuest.firstName || " "}
                   disabled
                 />
 
@@ -153,7 +141,7 @@ export default function GuestInformation(props: IGuestInformationProps) {
                 <input
                   type="text"
                   name="lastName"
-                  defaultValue={registeredGuest.lastName}
+                  value={registeredGuest.lastName || " "}
                   disabled
                 />
 
@@ -161,7 +149,7 @@ export default function GuestInformation(props: IGuestInformationProps) {
                 <input
                   type="text"
                   name="phoneNumber"
-                  defaultValue={registeredGuest.phoneNumber}
+                  defaultValue={registeredGuest.phoneNumber || " "}
                   disabled
                 />
               </fieldset>
@@ -182,7 +170,6 @@ export default function GuestInformation(props: IGuestInformationProps) {
                   value={newGuest.firstName}
                   formNoValidate
                   onChange={updateInputValue}
-                  //onBlur={handleValidation}
                 />
                 <p>{newGuest.errors.errFirstName}</p>
                 <label>Efternamn</label>
@@ -192,7 +179,6 @@ export default function GuestInformation(props: IGuestInformationProps) {
                   value={newGuest.lastName}
                   formNoValidate
                   onChange={updateInputValue}
-                  //onBlur={handleValidation}
                 />
                 <p>{newGuest.errors.errLastName}</p>
                 <label>Mobilnummer</label>
@@ -202,7 +188,6 @@ export default function GuestInformation(props: IGuestInformationProps) {
                   value={newGuest.phoneNumber}
                   formNoValidate
                   onChange={updateInputValue}
-                  //onBlur={handleValidation}
                 />
                 <p>{newGuest.errors.errPhoneNumber}</p>
               </fieldset>

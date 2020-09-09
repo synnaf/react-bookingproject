@@ -1,110 +1,112 @@
-@import '../../styles/component-style';
-@import '../../styles/button-style'; 
-@import '../../styles/form-style'; 
+@import "../../styles/component-style";
+@import "../../styles/button-style";
+@import "../../styles/form-style";
 
 @media only screen and (max-width: 600px) {
-    .placeholder{
-         .form-container {
-             width:90%;
-             form {
-                 width:90%;
-                 .cta-book {
-                     cursor:touch;
-                     font-size: 16pt;
-                 }
-             }
-         }
-    } 
-
- }
-
-    .placeholder {
-        @include form-container; 
-        justify-content: center;
-        align-content: center;
-        .email-input-form {
-            @include form-container; 
-            padding-top:0px;
-            .email-input {
-                padding-top:0px;
-                width:60%;
-                align-self: center;
-                text-align: left;
-                border:none;
-                label {
-                    @include label; 
-                }
-                input {
-                    margin-top:10px;
-                    padding:10px;
-                    border-radius:8px;
-                    border:none;
-                    width:100%;
-                }
-            } 
-            .cta-find-time {
-                @include button-container; 
-                button {
-                    @include main-button;
-                }button:disabled {
-                   @include button-disabled;
-                }
-            }
+  .placeholder {
+    .form-container {
+      width: 90%;
+      form {
+        width: 90%;
+        .cta-book {
+          cursor: touch;
+          font-size: 16pt;
         }
-
-        .form-container{
-            @include form-container; 
-            .booking-info {
-                align-self: center;
-                text-align: center;                
-            }
-            h2{
-                text-align: center;
-                padding:10px;
-            }
-            form {
-                @include form-container; 
-                padding:0;
-                display:flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                .input-container {
-                   width:60%;
-                    border:none;
-                    label {
-                        @include label; 
-                    }
-                    input {
-                        @include text-input; 
-                    }:disabled {
-                        font-style: oblique;
-                        background-color: rgb(191, 214, 221);
-                    }
-                }
-                .additional-info{
-                    width: 80%;
-                    border:none;
-                    label {
-                        @include label; 
-                    }
-                    textarea {
-                        @include text-input; 
-                    }
-                }
-                .cta-book{
-                    @include button-container; 
-                    button {
-                        @include main-button; 
-                    }button:disabled {
-                        @include button-disabled;
-                    }button:hover {
-                        background-color: lightsalmon;
-                    }
-                }
-            }
-        }
+      }
     }
+  }
+}
 
+.placeholder {
+  @include form-container;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  align-content: center;
+  .email-input-form {
+    @include form-container;
+    padding-top: 0px;
+    .email-input {
+      padding-top: 0px;
+      width: 60%;
+      align-self: center;
+      text-align: left;
+      border: none;
+      label {
+        @include label;
+      }
+      input {
+        margin-top: 10px;
+        padding: 10px;
+        border-radius: 8px;
+        border: none;
+        width: 100%;
+      }
+    }
+    .cta-find-time {
+      @include button-container;
+      button {
+        @include main-button;
+      }
+      button:disabled {
+        @include button-disabled;
+      }
+    }
+  }
 
-
+  .form-container {
+    @include form-container;
+    .booking-info {
+      align-self: center;
+      text-align: center;
+    }
+    h2 {
+      text-align: center;
+      padding: 10px;
+    }
+    form {
+      @include form-container;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .input-container {
+        width: 60%;
+        border: none;
+        label {
+          @include label;
+        }
+        input {
+          @include text-input;
+        }
+        :disabled {
+          font-style: oblique;
+          background-color: rgb(191, 214, 221);
+        }
+      }
+      .additional-info {
+        width: 80%;
+        border: none;
+        label {
+          @include label;
+        }
+        textarea {
+          @include text-input;
+        }
+      }
+      .cta-book {
+        @include button-container;
+        button {
+          @include main-button;
+        }
+        button:disabled {
+          @include button-disabled;
+        }
+        button:hover {
+          background-color: lightsalmon;
+        }
+      }
+    }
+  }
+}

@@ -25,7 +25,6 @@ export default function OneBooking() {
     axios
       .get(`http://localhost:3001/bookings/${bookingId}`)
       .then((axiosRes) => {
-        console.log(axiosRes.data);
         setBooking(axiosRes.data);
       });
   }, [bookingId]);
@@ -35,15 +34,11 @@ export default function OneBooking() {
     try {
       axios
         .delete(`http://localhost:3001/bookings/delete/${bookingId}`)
-        .then((res) => {
-          console.log(res);
-          console.log(res.data);
+        .then(() => {
+          setIsDeleted(true);
+          setBooking(new Booking());
         });
-    } catch (e) {
-      console.log(e);
-    }
-    setIsDeleted(true);
-    setBooking(new Booking());
+    } catch (e) {}
   }
 
   function updateInputValue(e: ChangeEvent<any>) {
@@ -58,14 +53,14 @@ export default function OneBooking() {
       .put(`http://localhost:3001/bookings/update/${bookingId}`, {
         booking,
       })
-      .then((res) => console.log(res));
+      .then(() => {});
     setIsUpdated(true);
   }
 
   if (isDeleted) {
     return (
       <div className="edit-booking">
-        <h1>Tack, bokningen #{bookingId} är borttagen!</h1>
+        <h1>Bokning #{bookingId} är borttagen!</h1>
         <button type="button">
           {<Link to={"/admin"}>Tillbaka till admin</Link>}
         </button>

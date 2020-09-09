@@ -5,26 +5,20 @@ import { Link } from "react-router-dom";
 
 export default function Admin() {
   const [bookings, setBookings] = useState([]);
-  const [hasDeleted, setHasDeleted] = useState(false);
-
+  const [isDeleted, setIsDeleted] = useState(false);
   function deleteBooking(e: MouseEvent<HTMLButtonElement>) {
     const id = e;
-    console.log(e);
     try {
       axios
         .delete(`http://localhost:3001/bookings/delete/${id}`)
         .then((res) => {
-          setHasDeleted(true);
-          console.log(res.data);
+          setIsDeleted(true);
         });
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   }
 
   useEffect(() => {
     axios.get("http://localhost:3001/bookings").then((allBookings) => {
-      console.log(allBookings.data);
       setBookings(
         allBookings.data.map((booking: any) => {
           return (
@@ -42,21 +36,20 @@ export default function Admin() {
                 >
                   Ta bort
                 </button>
-                          
+                         
                 <button type="button" id="update">
                   {<Link to={`/booking/${booking.bookingId}`}>Ändra</Link>}
                 </button>
               </div>
-                      
             </li>
           );
         })
       );
+      setIsDeleted(false);
     });
-  }, [hasDeleted]);
+  }, [isDeleted]);
   return (
     <div className="main-container">
-       
       {bookings.length === 0 ? (
         <h1>Det finns inga bokningar att visa!</h1>
       ) : (
@@ -64,7 +57,6 @@ export default function Admin() {
           <ul className="ulBooking">{bookings}</ul>
         </div>
       )}
-                     
     </div>
   );
 }

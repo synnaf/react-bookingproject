@@ -8,24 +8,22 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 export default function CreateBooking() {
-  //VÅRT TABLE-STATE, kommer bestå av ett boka-objekt.
   const [tableReservation, setTableReservation] = useState(new Booking());
   const [tableSaved, setTableSaved] = useState(false);
-
-  //VÅR GUEST-STATE, kommer bestå av ett gäst-objekt
   const [guest, setGuest] = useState(new Guest());
-
   const [guestExist, setGuestExist] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
 
-  //FUNKTION FÖR ATT SPARA BOKNINGEN
+  const guestInfo = (ref: any) => {
+    ref.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   function saveBooking(booking: Booking) {
     setTableReservation(booking);
     setTableSaved(true);
   }
 
-  //FUNKTION FÖR ATT SPARA GÄSTEN
   function saveGuest(g: Guest, ge: boolean) {
     setGuestExist(ge);
     setGuest(g);
@@ -39,24 +37,20 @@ export default function CreateBooking() {
         reservation: tableReservation,
         guestExist: guestExist,
       };
-      console.log("NYTT OBJEKT ÄR", newReservation);
-
       axios
         .post(
           "http://localhost:3001/bookings/availability/addbooking",
           newReservation
         )
         .then(() => {
-          console.log(newReservation.guest.email, "has been sent");
+          setIsConfirmed(true);
+          setIsSaved(!isSaved);
         });
-      setIsConfirmed(true);
-      setIsSaved(!isSaved);
     }
   }
 
   function saveNotes(n: string) {
     tableReservation.notes = n;
-    console.log(tableReservation);
   }
 
   function refreshBooking() {
@@ -106,10 +100,12 @@ export default function CreateBooking() {
       <React.Fragment>
         <BookingInformation addBooking={saveBooking}></BookingInformation>
         {tableSaved ? (
-          <GuestInformation
-            addGuest={saveGuest}
-            addNotes={saveNotes}
-          ></GuestInformation>
+          <div ref={guestInfo}>
+            <GuestInformation
+              addGuest={saveGuest}
+              addNotes={saveNotes}
+            ></GuestInformation>
+          </div>
         ) : null}
       </React.Fragment>
     );

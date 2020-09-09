@@ -8,7 +8,6 @@ export interface IBookingInformationProps {
 }
 
 export default function BookinInformation(props: IBookingInformationProps) {
-  // TVÅ ST STATES VARS UPPDRAG ÄR ATT villkora rendering
   const [isAvailable18, setIsAvailable18] = useState(true);
   const [isAvailable21, setIsAvailable21] = useState(true);
   const [findTime, setFindTime] = useState(false);
@@ -28,25 +27,19 @@ export default function BookinInformation(props: IBookingInformationProps) {
     setBookingInfo({ [element]: value } as any);
   }
 
-  //FUNKTION FÖR: hantera värdena när man trycker på knappen
   function createSearch() {
     setFindTime(true);
 
     let selectedDate = bookingInfo.date;
-    let selectedSeats = bookingInfo.seats;
 
-    //vi mappar ut för kl.18 och kl.21
     axios.get("http://localhost:3001/bookings/").then((currentBookings) => {
       let allBookings = currentBookings.data;
       let newArr = allBookings.filter((chosenDate: any) =>
         chosenDate.date.includes(selectedDate)
       );
 
-      // kontrollera längden för valt datum
       if (newArr.length > 29) {
         setFindTime(false);
-        console.log("fullbokat!!!");
-        console.log(newArr);
         setFullyBooked(true);
       } else {
         setFindTime(true);
@@ -67,7 +60,6 @@ export default function BookinInformation(props: IBookingInformationProps) {
   }
 
   function sendBooking() {
-  
     props.addBooking(bookingInfo);
   }
 
@@ -103,7 +95,7 @@ export default function BookinInformation(props: IBookingInformationProps) {
               </button>
             </div>
           )}
-          {fullyBooked ? ( //hämta in bokningslistan?
+          {fullyBooked ? (
             <h1>fullbokat</h1>
           ) : findTime ? (
             <div className="time-container">
