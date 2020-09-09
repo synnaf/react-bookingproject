@@ -5,6 +5,7 @@ import React, {
   ChangeEvent,
   useReducer,
 } from "react";
+import './OneBooking.scss'; 
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Booking from "../../models/Booking";

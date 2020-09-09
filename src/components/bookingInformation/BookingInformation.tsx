@@ -2,7 +2,6 @@ import React, { useState, ChangeEvent, useReducer } from "react";
 import "./BookingInformation.scss";
 import axios from "axios";
 import Booking from "../../models/Booking";
-import { isDate } from "util";
 
 export interface IBookingInformationProps {
   addBooking(booking: Booking): void;

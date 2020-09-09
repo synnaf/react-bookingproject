@@ -1,5 +1,6 @@
 import React, { useState, useEffect, MouseEvent } from "react";
 import axios from "axios";
+import "./Admin.scss";
 import { Link } from "react-router-dom";
 
 export default function Admin() {
@@ -26,23 +27,25 @@ export default function Admin() {
       setBookings(
         allBookings.data.map((booking: any) => {
           return (
-            <li key={booking._id}>
+            <li key={booking._id} className="each-booking">
               <p>Bokningsnummer: {booking.bookingId}</p>
               <p>Datum: {booking.date.split("T")[0]}</p>
               <p>Tid: {booking.time}</p>
               <p>Anteckningar: {booking.notes}</p>
-              <button
-                type="button"
-                id="delete"
-                onClick={() => deleteBooking(booking.bookingId)}
-              >
-                Ta bort
-              </button>
-                        
-              <button type="button" id="update">
-                {<Link to={`/booking/${booking.bookingId}`}>Ändra</Link>}
-              </button>
-                    
+              <div className="edit-btn">
+                <button
+                  type="button"
+                  id="delete"
+                  onClick={() => deleteBooking(booking.bookingId)}
+                >
+                  Ta bort
+                </button>
+                          
+                <button type="button" id="update">
+                  {<Link to={`/booking/${booking.bookingId}`}>Ändra</Link>}
+                </button>
+              </div>
+                      
             </li>
           );
         })

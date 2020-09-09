@@ -36,8 +36,11 @@ function App() {
             <Route path="/booking/:bookingId">
               <OneBooking />
             </Route>
+            <Route path="/delete/:bookingId">
+              <DeletedBooking />
+            </Route>
             <Route path="/booking">
-              <CreateBooking />           
+              <CreateBooking />            
             </Route>
             <Route path="/admin">
               <Admin />           
