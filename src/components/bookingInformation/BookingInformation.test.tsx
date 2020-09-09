@@ -1,12 +1,11 @@
 import React from 'react';
-import { render, fireEvent, getByDisplayValue, getByRole } from '@testing-library/react';
+import { render, getByPlaceholderText, getByLabelText } from '@testing-library/react';
 import BookingInformation from './BookingInformation';
 import CreateBooking from '../createBooking/CreateBooking'; 
-import Enzyme, {shallow } from 'enzyme'; 
+import userEvent from '@testing-library/user-event'
 
-jest.mock("../services/bookingService"); 
 
-  
+
 test('Find the first instances of the booking form', () => {
 const {container, getByText } = render(<BookingInformation addBooking={CreateBooking} />); 
 
@@ -17,54 +16,14 @@ let searchButton = getByText('Sök');
 expect(datePicker).toBeInTheDocument(); 
 expect(bookingForm).toBeVisible(); 
 expect(searchButton).toBeInTheDocument(); 
-
-//vad vill vi som användare se? 
-//sök-knappen
-//formulärfälten - Datum, Antal 
-  
-});
-
-test('Render the next part of the form, when date has available seats', () => {
-    const {container, getByLabelText, getByText } = render(<BookinInformation addBooking={CreateBooking} />); 
-    
  
-    fireEvent.click(getByText('Sök')); 
-    let secondPartOfForm = getByText('Välj tid'); 
-    
-    //Välj datum, välj antal, klicka på sök: 
-    expect(secondPartOfForm).toBeVisible(); 
-      
 });
 
-test('Find functions', () => {
-    expect(BookingInformation.addBooking(l)).toBe('l'); 
-})
+test('When button is clicked, next element should no be rendered', () => {
 
-/// vårt api-test, mock-test, 
-test('fetches fake data', (done) => {
-    const wrapper = shallow(<BookingInformation addBooking={CreateBooking} />); 
-    //render our component 
-    // const wrapper = render(<BookingInformation></BookingInformation>)
+    const {container, getByText } = render(<BookingInformation addBooking={CreateBooking} />);
+    let searchButton = getByText('Sök'); 
+    userEvent.click(searchButton)
+    expect(searchButton).toBeDisabled(); 
 
-    //vi väntar på att vårt promise to resolve, innan vi kan testa resultatet 
-    setTimeout(()=> {
-
-        // KONTROLLERA HÄR HUR VI GÖR UTAN ENZYME, WRAPPER ÄR ENZYME 
-        wrapper.update(); 
-
-        //kontrollera vårt state
-        const state = wrapper.instance().state; 
-        expect(state.term).toEqual("Mountains"); 
-        expect(state.status).toEqual("Done"); 
-        expect(state.images.length).toEqual(1); 
-
-        // förvänta oss att rendera datalistan, ett objekt finns i listan
-        expect(wrapper.find("listofdata").length).toEqual(1); 
-
-        //när testet är avlustat 
-        done(); 
-    }); 
-    
-})
-
-// await waitFor(() => expect(mockAPI).toHaveBeenCalledTimes(1))
+}); 

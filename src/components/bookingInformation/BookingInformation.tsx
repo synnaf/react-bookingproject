@@ -76,8 +76,8 @@ export default function BookinInformation(props: IBookingInformationProps) {
       <div className="form-container">
         <form>
           <fieldset className="input-container">
-            <label>Välj datum</label>
-            <input type="date" onChange={update} name="date" />
+            <label id="date">Välj datum</label>
+            <input type="date" onChange={update} name="date" aria-label="date" />
           </fieldset>
           <fieldset className="select-container">
             <label>Välj antal</label>

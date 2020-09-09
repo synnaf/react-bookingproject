@@ -14,7 +14,7 @@ describe('render a list of bookings', () => {
 
             expect(axios.get).toHaveBeenCalled();
         
-            await wait(() => {
+             wait(() => {
                 let divId = getAllByText(/booking Id: /i);
                 let divSeats = getAllByText(/seats: /i);
                 let divDate = getAllByText(/date: /i);
@@ -28,6 +28,6 @@ describe('render a list of bookings', () => {
                 expect(divDate[1]).toBeInTheDocument();
                 expect(divDate[2]).toBeInTheDocument();
             debug();
-        });
+        })  
     });
 });    
