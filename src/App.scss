@@ -1,40 +1,39 @@
 .App {
   display:flex;
   flex-direction: column;
+  
   .navbar{
+    text-align: left;
+    width:100%;
     nav {
-      width:100%;
+      background-color: whitesmoke;
+      margin-top:20px;
+      text-align: center;
       ul {
-        display: flex;
+        display:flex;
         flex-direction: row;
-        justify-content: center;
-        // text-align:center;
-        overflow:hidden;
+        justify-content: start;
         margin: 0;
-        padding: 0;
+        padding:0;
         list-style: none;
         width:100%;
         li {
-          width: 100%;
-          padding:8px;
-          border-bottom:8px solid whitesmoke;
+          width: 50%;
           cursor:pointer;
           a {
-            width: 100%;
-            font-size: 16pt;
+            border-left:2px solid black;
+            padding:5px 20px 5px 10px;
+            width:100%;
+            font-size: 22pt;
             text-decoration: none;
           }a:visited {
             color:black;
           }a:hover{
             color: white;
             transition: background-color 1.5s, transform 1s;
-            border-bottom:8px solid whitesmoke;
-          }
-          }li:hover {
             background-color: rgba(247, 66, 0, 0.925); 
-            transition: background-color 1.5s, transform 1s;
-            border-bottom:none;
-          } 
+          }
+          }
       }
       
     }
@@ -59,7 +58,7 @@
         ul {
           li {
             cursor:touch;
-            height: 10%;
+          
             a {
               width: 100%;
               font-size: 16pt;

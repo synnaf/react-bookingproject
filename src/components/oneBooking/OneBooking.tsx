@@ -64,7 +64,7 @@ export default function OneBooking() {
 
   if (isDeleted) {
     return (
-      <div>
+      <div className="edit-booking">
         <h1>Tack, bokningen #{bookingId} är borttagen!</h1>
         <button type="button">
           {<Link to={"/admin"}>Tillbaka till admin</Link>}
@@ -75,7 +75,7 @@ export default function OneBooking() {
 
   if (isUpdated) {
     return (
-      <div>
+      <div className="edit-booking">
         <h1>Bokning #{bookingId} har uppdaterats!</h1>
         <div>
           <p>Datum: {booking.date.split("T")[0]}</p>

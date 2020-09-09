@@ -1,91 +1,70 @@
-@import '../../styles/component-style.scss';
-   
+@import '../../styles/component-style';
+@import '../../styles/button-style'; 
+@import '../../styles/form-style'; 
+
+@media only screen and (max-width: 600px) {
+    .placeholder{
+         .form-container {
+             width:90%;
+             form {
+                 width:90%;
+                 .cta-book {
+                     cursor:touch;
+                     font-size: 16pt;
+                 }
+             }
+         }
+    } 
+
+ }
+
     .placeholder {
-        display:flex;
-        flex-direction: column; 
+        @include form-container; 
         justify-content: center;
         align-content: center;
         .email-input-form {
-            align-self: center;
-            display:flex;
-            flex-direction: column; 
-            background-color: whitesmoke;
-            width:90%;
+            @include form-container; 
+            padding-top:0px;
             .email-input {
-                padding-top: 50px;
+                padding-top:0px;
                 width:60%;
                 align-self: center;
                 text-align: left;
                 border:none;
                 label {
-                    font-size: 14pt;
-                    font-weight: bold;
+                    @include label; 
                 }
                 input {
+                    margin-top:10px;
                     padding:10px;
                     border-radius:8px;
-                    border:2px solid black;
+                    border:none;
                     width:100%;
                 }
             } 
             .cta-find-time {
-                width:30%;
-                align-self: center;
-                text-align: center;
-                margin-bottom: 50px;
+                @include button-container; 
                 button {
-                    width:100%;
-                    align-self: center;
-                }
-                :disabled {
-                    border-radius: 42px;
-                    background-color: lightslategrey;
+                    @include main-button;
+                }button:disabled {
+                   @include button-disabled;
                 }
             }
-            div {
-                padding:0px;
-                margin-top:15px; //remove 
-                transition: background-color 0.7s, transform 0.7s;
-                width:30%;
-                text-align: center;
-                height:35px;
-                background-color: #4e6096;
-                border-radius:42px;
-                cursor:pointer;
-                text-decoration:none;
-                button {
-                    cursor:pointer;
-                    align-self: center;
-                    height:100%;
-                    width:100%;
-                    font-size: 12pt;
-                    font-weight: bold;
-                    border:none;
-                    text-decoration: none;
-                    background-color:transparent;
-                    color:white; 
-                }
-            }
-
         }
 
-
         .form-container{
-            align-self: center;
-            display:flex;
-            flex-direction: column;
-            background-color: whitesmoke;
-            width:90%;
+            @include form-container; 
             .booking-info {
-                padding-top:50px;
                 align-self: center;
                 text-align: center;                
             }
             h2{
                 text-align: center;
+                padding:10px;
             }
             form {
-                padding-bottom: 50px;
+                @include form-container; 
+                padding:0;
                 display:flex;
                 flex-direction: column;
                 justify-content: center;
@@ -94,82 +73,38 @@
                    width:60%;
                     border:none;
                     label {
-                        font-size: 16pt;
-                        font-weight: bold;
+                        @include label; 
                     }
                     input {
-                        padding:10px;
-                        border-radius:8px;
-                        border:none;
-                        width:100%;
-                        margin-bottom: 10px;
-                        margin-top:10px;
+                        @include text-input; 
+                    }:disabled {
+                        font-style: oblique;
+                        background-color: rgb(191, 214, 221);
                     }
                 }
                 .additional-info{
                     width: 80%;
                     border:none;
                     label {
-                        font-size: 16pt;
-                        font-weight: bold;
+                        @include label; 
                     }
                     textarea {
-                        padding:10px;
-                        border-radius:8px;
-                        border:none;
-                        width:100%;
-                        margin-bottom: 10px;
-                        margin-top:10px;
+                        @include text-input; 
                     }
                 }
                 .cta-book{
-                    padding:0px;
-                    margin-top:15px; //remove 
-                    transition: background-color 0.7s, transform 0.7s;
-                    width:30%;
-                    text-align: center;
-                    height:35px;
-                    background-color: #4e6096;
-                    border-radius:42px;
-                    cursor:pointer;
-                    text-decoration:none;
+                    @include button-container; 
                     button {
-                        cursor:pointer;
-                        align-self: center;
-                        height:100%;
-                        width:100%;
-                        font-size: 12pt;
-                        font-weight: bold;
-                        border:none;
-                        text-decoration: none;
-                        background-color:transparent;
-                        color:white; 
+                        @include main-button; 
                     }button:disabled {
-                        cursor:none;
-                        border-radius: 42px;
-                        background-color: lightslategrey;
+                        @include button-disabled;
+                    }button:hover {
+                        background-color: lightsalmon;
                     }
-                }.cta-book:hover {
-                    background-color: lightsalmon;
                 }
             }
         }
     }
 
-    @media only screen and (max-width: 600px) {
-       .placeholder{
-            .form-container {
-                width:90%;
-                form {
-                    width:90%;
-                    .cta-book {
-                        cursor:touch;
-                        font-size: 16pt;
-                    }
-                }
-            }
-       } 
-
-    }
 
 

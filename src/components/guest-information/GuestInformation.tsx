@@ -128,7 +128,7 @@ export default function GuestInformation(props: IGuestInformationProps) {
       {contactFormRender ? (
         <div className="form-container">
           <div className="booking-info">
-            <h2>Kontaktuppgifter</h2>
+            <h2>Kontaktuppgifter:</h2>
           </div>
           <form>
             {isGuest ? (
