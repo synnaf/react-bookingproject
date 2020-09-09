@@ -12,38 +12,28 @@ export default function BookinInformation(props: IBookingInformationProps) {
   const [isAvailable18, setIsAvailable18] = useState(true);
   const [isAvailable21, setIsAvailable21] = useState(true);
   const [findTime, setFindTime] = useState(false);
-  const [fullyBooked, setFullyBooked] = useState(false); 
+  const [fullyBooked, setFullyBooked] = useState(false);
 
-  let defaultValue: Booking = {
-    bookingId: 0,
-    time: "",
-    date: "",
-    seats: 0,
-    notes: "",
-    guestId: 33,
-  };
-  const [test, setTest] = useReducer(
-    (test: Booking, newTest: Booking) => ({
-      ...test,
-      ...newTest,
+  const [bookingInfo, setBookingInfo] = useReducer(
+    (bookingInfo: Booking, newBookingInfo: Booking) => ({
+      ...bookingInfo,
+      ...newBookingInfo,
     }),
-    defaultValue
+    new Booking()
   );
 
   function update(e: ChangeEvent<any>) {
     let element = e.target.name;
     let value = e.target.value;
-    setTest({ [element]: value } as any);
+    setBookingInfo({ [element]: value } as any);
   }
-
 
   //FUNKTION FÖR: hantera värdena när man trycker på knappen
   function createSearch() {
+    setFindTime(true);
 
-    setFindTime(true); 
-   
-    let selectedDate = test.date;
-    let selectedSeats = test.seats;
+    let selectedDate = bookingInfo.date;
+    let selectedSeats = bookingInfo.seats;
 
     //vi mappar ut för kl.18 och kl.21
     axios.get("http://localhost:3001/bookings/").then((currentBookings) => {
@@ -57,7 +47,7 @@ export default function BookinInformation(props: IBookingInformationProps) {
         setFindTime(false);
         console.log("fullbokat!!!");
         console.log(newArr);
-        setFullyBooked(true); 
+        setFullyBooked(true);
       } else {
         setFindTime(true);
         setFullyBooked(false);
@@ -77,8 +67,8 @@ export default function BookinInformation(props: IBookingInformationProps) {
   }
 
   function sendBooking() {
-    console.log(test);
-    props.addBooking(test);
+  
+    props.addBooking(bookingInfo);
   }
 
   return (
@@ -100,16 +90,22 @@ export default function BookinInformation(props: IBookingInformationProps) {
               <option>6</option>
             </select>
           </fieldset>
-          <div className="cta-search">
-            <button type="button" onClick={createSearch}>
-              Sök
-            </button>
-          </div>
-
-
-          { fullyBooked //hämta in bokningslistan? 
-          ? <h1>fullbokat</h1>
-          : findTime ? (
+          {bookingInfo.date === "" ? (
+            <div className="cta-search">
+              <button type="button" disabled>
+                Sök
+              </button>
+            </div>
+          ) : (
+            <div className="cta-search">
+              <button type="button" onClick={createSearch}>
+                Sök
+              </button>
+            </div>
+          )}
+          {fullyBooked ? ( //hämta in bokningslistan?
+            <h1>fullbokat</h1>
+          ) : findTime ? (
             <div className="time-container">
               <fieldset className="find-time">
                 <h4>Välj tid:</h4>
@@ -121,7 +117,7 @@ export default function BookinInformation(props: IBookingInformationProps) {
                       name="time"
                       value="18"
                       onChange={update}
-                      onInput={() => sendBooking()}
+                      onInput={() => setTimeout(sendBooking, 500)}
                     />
                     <label htmlFor="18">18.00</label>
                   </div>
@@ -138,7 +134,7 @@ export default function BookinInformation(props: IBookingInformationProps) {
                       name="time"
                       value="21"
                       onChange={update}
-                      onInput={() => sendBooking()}
+                      onInput={() => setTimeout(sendBooking, 500)}
                     />
                     <label htmlFor="21">21.00</label>
                   </div>
@@ -149,8 +145,7 @@ export default function BookinInformation(props: IBookingInformationProps) {
                 )}
               </fieldset>
             </div>
-          ) : <p>test</p>
-          }
+          ) : null}
         </form>
       </div>
     </div>

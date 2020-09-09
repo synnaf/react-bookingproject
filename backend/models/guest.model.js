@@ -24,5 +24,4 @@ const schemaGuest = new Schema({
 });
 
 const Guest = mongoose.model("Guest", schemaGuest);
-
 module.exports = Guest;

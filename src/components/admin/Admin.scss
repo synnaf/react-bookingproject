@@ -1,38 +1,124 @@
-@import '../../styles/component-style.scss';
 
 .main-container {
     display:flex;
     flex-direction: column;
     align-items: center;
-    width:100%;
-    
-    // .placeholder {
-    //     @include content-container; 
-    //     background-color: whitesmoke;
-    
-    //     display: flex;
-    //     flex-direction: column; 
-    //     justify-content: center;
-    //     align-items: center;
-    // }
-}
-
-.ulContainer {
-    display: flex;
-    // flex-direction: row;
-    width: 90%;
-    text-decoration: none;
-
-
+    .ulContainer {
+    list-style-type: none;
+    width:80%;
     .ulBooking {
         display: flex;
-        display: inline-block;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
         color: red;
-        text-decoration: none;
+        padding:0;
+        width:100%;
+        .each-booking {
+            width:30%;
+            text-align: center;
+            display:flex;
+            flex-direction: row;
+            justify-content:space-evenly;
+            flex-wrap:wrap-reverse;
+            background-color: whitesmoke;
+            margin:10px;
+            p {
+                font-size: 10pt;
+                width:100%;
+                margin:0;
+            }
+            .edit-btn {
+                margin-top:20px;
+                margin-bottom:20px;
+                border:none;
+                width:100%;
+                button {
+                    margin:5px;
+                    color:black;
+                    background-color: lightsteelblue;
+                    text-decoration: none;
+                    width:30%;
+                    border-radius: 42px;
+                    border:none;
+                    padding:5px;
+                    a {
+                        text-decoration: none;
+                        color:black;
+                    }a:visited {
+                        text-decoration: none;
+                        color:black;
+                    }
+                } button:hover {
+                cursor:pointer;
+                box-shadow: 2px 3px 8px lightgray;
+            }
+        }
+    }
+
+    }
     }
 }
 
-#id {
-    background-color: grey;
+@media only screen and (max-width: 650px) {
+    .main-container {
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        .ulContainer {
+        list-style-type: none;
+        width:100%;
+        .ulBooking {
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+            color: red;
+            padding:0;
+            width:100%;
+            .each-booking {
+                width:70%;
+                text-align: center;
+                display:flex;
+                flex-direction: row;
+                justify-content:space-evenly;
+                flex-wrap:wrap-reverse;
+                background-color: whitesmoke;
+                margin:10px;
+                p {
+                    font-size: 10pt;
+                    width:100%;
+                    margin:0;
+                }
+                .edit-btn {
+                    margin-top:20px;
+                    margin-bottom:20px;
+                    border:none;
+                    width:100%;
+                    button {
+                        margin:5px;
+                        color:black;
+                        background-color: lightsteelblue;
+                        text-decoration: none;
+                        width:30%;
+                        border-radius: 42px;
+                        border:none;
+                        padding:5px;
+                        a {
+                            text-decoration: none;
+                            color:black;
+                        }a:visited {
+                            text-decoration: none;
+                            color:black;
+                        }
+                    } button:hover {
+                    cursor:pointer;
+                    box-shadow: 2px 3px 8px lightgray;
+                }
+            }
+        }
+    
+        }
+        }
+    }
+    
 }
-

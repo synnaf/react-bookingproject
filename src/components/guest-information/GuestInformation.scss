@@ -6,8 +6,16 @@
         justify-content: center;
         align-content: center;
         .email-input-form {
-            fieldset {
-                width:80%;
+            align-self: center;
+            display:flex;
+            flex-direction: column; 
+            background-color: whitesmoke;
+            width:90%;
+            .email-input {
+                padding-top: 50px;
+                width:60%;
+                align-self: center;
+                text-align: left;
                 border:none;
                 label {
                     font-size: 14pt;
@@ -16,10 +24,24 @@
                 input {
                     padding:10px;
                     border-radius:8px;
-                    border:1px solid blue;
+                    border:2px solid black;
                     width:100%;
                 }
             } 
+            .cta-find-time {
+                width:30%;
+                align-self: center;
+                text-align: center;
+                margin-bottom: 50px;
+                button {
+                    width:100%;
+                    align-self: center;
+                }
+                :disabled {
+                    border-radius: 42px;
+                    background-color: lightslategrey;
+                }
+            }
             div {
                 padding:0px;
                 margin-top:15px; //remove 
@@ -122,6 +144,10 @@
                         text-decoration: none;
                         background-color:transparent;
                         color:white; 
+                    }button:disabled {
+                        cursor:none;
+                        border-radius: 42px;
+                        background-color: lightslategrey;
                     }
                 }.cta-book:hover {
                     background-color: lightsalmon;
@@ -133,9 +159,9 @@
     @media only screen and (max-width: 600px) {
        .placeholder{
             .form-container {
-                width:100%;
+                width:90%;
                 form {
-                    width:100%;
+                    width:90%;
                     .cta-book {
                         cursor:touch;
                         font-size: 16pt;

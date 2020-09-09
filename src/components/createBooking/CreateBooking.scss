@@ -1,0 +1,42 @@
+.confirmed-booking {
+    text-align: center;
+    h2 {
+        text-align: center;
+        font-size: 36pt;
+    }
+}
+.confirmation-container {
+    margin-top:50px;
+    display:flex;
+    flex-direction: column; 
+    text-align: left;
+    align-self: center;
+    justify-content: center;
+    background-color:lightsalmon;
+    width:90%;
+    h3 {
+        align-self: center;
+        font-size: 16pt; 
+    }
+    p {
+        align-self: center;
+        font-size: 14pt;
+        margin:0;
+        padding-bottom:15px;
+    }
+    button {
+        align-self: center;
+        margin:15px; //remove 
+        width:30%;
+        text-align: center;
+        height:35px;
+        background-color: #4e6096;
+        border-radius:42px;
+        cursor:pointer;
+        font-size: 12pt;
+        font-weight: bold;
+        border:none;
+        text-decoration: none;
+        color:white; 
+    }
+}
