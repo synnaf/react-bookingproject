@@ -6,7 +6,7 @@ import Guest from "../../models/Guest";
 
 export interface IGuestInformationProps {
   addGuest(guest: Guest, isGuest: boolean): void;
-  addNotes(notes: string): void;  
+  addNotes(notes: string): void;
 }
 
 export default function GuestInformation(props: IGuestInformationProps) {
@@ -16,9 +16,10 @@ export default function GuestInformation(props: IGuestInformationProps) {
   const [registeredGuest, setRegisteredGuest] = useState(new Guest());
 
   const [emailInput, setEmailInput] = useState("");
+  const [emailConfirmed, setEmailConfirmed] = useState(false);
   const [gId, setGId] = useState(0);
   const [isValid, setIsvalid] = useState(false);
-  const [contactFormRender, setContactFormRender] = useState(false); 
+  const [contactFormRender, setContactFormRender] = useState(false);
 
   const [newGuest, setNewGuest] = useReducer(
     (state: Guest, newState: Guest) => ({ ...state, ...newState }),
@@ -27,7 +28,7 @@ export default function GuestInformation(props: IGuestInformationProps) {
 
   function findGuest() {
     console.log(emailInput);
-    setContactFormRender(true); 
+    setContactFormRender(true);
 
     axios.get("http://localhost:3001/guests/").then((g) => {
       console.log(g.data);
@@ -119,150 +120,145 @@ export default function GuestInformation(props: IGuestInformationProps) {
   }
 
   function addNotes(e: ChangeEvent<HTMLTextAreaElement>) {
-    props.addNotes(e.target.value); 
+    props.addNotes(e.target.value);
   }
 
   return (
     <div className="placeholder">
-      <form className="email-input-form">
-        <fieldset className="email-input">
-          <label htmlFor="email">Fyll i e-mailadress</label>
-          <input
-            type="email"
-            name="email"
-            value={emailInput || ""}
-            onChange={updateEmailInputValue}
-            onKeyPress={checkIfEnterPressed}
-          />
-        </fieldset>
-        {  emailInput === ""
-        ?
-        <div className="cta-find-time">
-          <button type="button" disabled>
-            Nästa
-          </button>
-        </div>
-        : 
-        <div className="cta-find-time">
-          <button type="button" onClick={findGuest}>
-            Nästa
-          </button>
-        </div>
-        } 
-      </form>
-       { contactFormRender 
-        ? <div className="form-container">
-            <div className="booking-info">
-              <h2>Kontaktuppgifter</h2>
-            </div>
-            <form>
-          {isGuest ? (
-            <fieldset className="input-container">
-              <label>Mail</label>
+      {contactFormRender ? (
+        <div className="form-container">
+          <div className="booking-info">
+            <h2>Kontaktuppgifter</h2>
+          </div>
+          <form>
+            {isGuest ? (
+              <fieldset className="input-container">
+                <label>Mail</label>
                 <input
                   type="email"
                   name="email"
                   defaultValue={registeredGuest.email}
-                 disabled
+                  disabled
                 />
 
-              <label>Förnamn</label>
-              <input
-                type="text"
-                name="firstName"
-                defaultValue={registeredGuest.firstName}
-                disabled
-              />
+                <label>Förnamn</label>
+                <input
+                  type="text"
+                  name="firstName"
+                  defaultValue={registeredGuest.firstName}
+                  disabled
+                />
 
-              <label>Efternamn</label>
-              <input
-                type="text"
-                name="lastName"
-                defaultValue={registeredGuest.lastName}
-                disabled
-              />
+                <label>Efternamn</label>
+                <input
+                  type="text"
+                  name="lastName"
+                  defaultValue={registeredGuest.lastName}
+                  disabled
+                />
 
-              <label>Telefonnr</label>
-              <input
-                type="text"
-                name="phoneNumber"
-                defaultValue={registeredGuest.phoneNumber}
-                disabled
-              />
+                <label>Telefonnr</label>
+                <input
+                  type="text"
+                  name="phoneNumber"
+                  defaultValue={registeredGuest.phoneNumber}
+                  disabled
+                />
+              </fieldset>
+            ) : (
+              <fieldset className="input-container">
+                <label>Mail</label>
+                <input
+                  type="email"
+                  name="email"
+                  defaultValue={emailInput}
+                  disabled
+                />
 
+                <label>Förnamn</label>
+                <input
+                  type="text"
+                  name="firstName"
+                  value={newGuest.firstName}
+                  formNoValidate
+                  onChange={updateInputValue}
+                  //onBlur={handleValidation}
+                />
+                <p>{newGuest.errors.errFirstName}</p>
+                <label>Efternamn</label>
+                <input
+                  type="text"
+                  name="lastName"
+                  value={newGuest.lastName}
+                  formNoValidate
+                  onChange={updateInputValue}
+                  //onBlur={handleValidation}
+                />
+                <p>{newGuest.errors.errLastName}</p>
+                <label>Mobilnummer</label>
+                <input
+                  type="text"
+                  name="phoneNumber"
+                  value={newGuest.phoneNumber}
+                  formNoValidate
+                  onChange={updateInputValue}
+                  //onBlur={handleValidation}
+                />
+                <p>{newGuest.errors.errPhoneNumber}</p>
+              </fieldset>
+            )}
+            <fieldset className="additional-info">
+              <label>Övrig information:</label>
+              <textarea onChange={addNotes}></textarea>
+              <input type="checkbox" name="gdpr" onChange={handleGdpr} />
+              <span>Jag godkänner att mina uppgifter sparas enligt GDPR</span>
             </fieldset>
-          ) : (
-            <fieldset className="input-container">
-              <label>Mail</label>
-              <input
-                type="email"
-                name="email"
-                defaultValue={emailInput}
-                disabled
-              />
-
-              <label>Förnamn</label>
-              <input
-                type="text"
-                name="firstName"
-                value={newGuest.firstName}
-                formNoValidate
-                onChange={updateInputValue}
-                //onBlur={handleValidation}
-              />
-              <p>{newGuest.errors.errFirstName}</p>
-              <label>Efternamn</label>
-              <input
-                type="text"
-                name="lastName"
-                value={newGuest.lastName}
-                formNoValidate
-                onChange={updateInputValue}
-                //onBlur={handleValidation}
-              />
-              <p>{newGuest.errors.errLastName}</p>
-              <label>Mobilnummer</label>
-              <input
-                type="text"
-                name="phoneNumber"
-                value={newGuest.phoneNumber}
-                formNoValidate
-                onChange={updateInputValue}
-                //onBlur={handleValidation}
-              />
-              <p>{newGuest.errors.errPhoneNumber}</p>
-            </fieldset>
-          )}
-          <fieldset className="additional-info">
-            <label>Övrig information:</label>
-            <textarea onChange={addNotes}></textarea>
-            <input type="checkbox" name="gdpr" onChange={handleGdpr} />
-            <span>Jag godkänner att mina uppgifter sparas enligt GDPR</span>
+            {isValid ? (
+              <div className="cta-book">
+                <button type="button" onClick={() => createGuest()}>
+                  Boka
+                </button>
+              </div>
+            ) : (
+              <div className="cta-book">
+                <button
+                  type="button"
+                  disabled={gdpr === false}
+                  onClick={() => createGuest()}
+                >
+                  Boka
+                </button>
+              </div>
+            )}
+          </form>
+        </div>
+      ) : (
+        <form className="email-input-form">
+          <fieldset className="email-input">
+            <label htmlFor="email">Fyll i e-mailadress</label>
+            <input
+              type="email"
+              name="email"
+              value={emailInput || ""}
+              onChange={updateEmailInputValue}
+              onKeyPress={checkIfEnterPressed}
+            />
           </fieldset>
-          {isValid ? (
-            <div className="cta-book">
-              <button
-                type="button"
-                onClick={() => createGuest()}
-              >
-                Boka
+          {emailInput === "" ? (
+            <div className="cta-find-time">
+              <button type="button" disabled>
+                Nästa
               </button>
             </div>
           ) : (
-            <div className="cta-book">
-            <button
-              type="button"
-              disabled={gdpr === false}
-              onClick={() => createGuest()}
-            >
-              Boka
-            </button>
-          </div>
+            <div className="cta-find-time">
+              <button type="button" onClick={findGuest}>
+                Nästa
+              </button>
+            </div>
           )}
         </form>
-      </div>
-      : null 
-       } 
+      )}
     </div>
   );
 }

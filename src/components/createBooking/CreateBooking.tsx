@@ -5,6 +5,7 @@ import Guest from "../../models/Guest";
 import Booking from "../../models/Booking";
 import GuestInformation from "../guest-information/GuestInformation";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function CreateBooking() {
   //VÅRT TABLE-STATE, kommer bestå av ett boka-objekt.
@@ -56,23 +57,30 @@ export default function CreateBooking() {
     console.log(tableReservation);
   }
 
-  return (
-    <React.Fragment>
-      {isConfirmed ? (
+  function refreshBooking() {
+    setGuest(new Guest());
+    setIsConfirmed(false);
+    setIsSaved(false);
+  }
+
+  if (isConfirmed) {
+    return (
+      <React.Fragment>
         <div className="confirmed-booking">
           <h2>Tack för din bokning {guest.firstName}!</h2>
+          <p>Bokningsbekräftelse har skickats till {guest.email} </p>
+          <button type="button" onClick={refreshBooking}>
+            Gör ny bokning!
+          </button>
+          <button type="button">{<Link to={"/"}>Startsida</Link>}</button>
         </div>
-      ) : (
-        <React.Fragment>
-          <BookingInformation addBooking={saveBooking}></BookingInformation>
-          <GuestInformation
-            addGuest={saveGuest}
-            addNotes={saveNotes}
-          ></GuestInformation>
-        </React.Fragment>
-      )}
+      </React.Fragment>
+    );
+  }
 
-      {isSaved ? (
+  if (isSaved) {
+    return (
+      <React.Fragment>
         <div className="confirmation-container" id="confirm">
           <h3>Stämmer dessa uppgifter?</h3>
           <p>Datum: {tableReservation.date} </p>
@@ -83,13 +91,22 @@ export default function CreateBooking() {
           </p>
           <p>Telefonnummer: {guest.phoneNumber}</p>
           <p>Email: {guest.email}</p>
+          <p>Anteckningar: {tableReservation.notes} </p>
           <button type="button" onClick={createReservation}>
             BEKRÄFTA
           </button>
         </div>
-      ) : (
-        console.log("BOOKING YET TO BE CONFIRMED")
-      )}
-    </React.Fragment>
-  );
+      </React.Fragment>
+    );
+  } else {
+    return (
+      <React.Fragment>
+        <BookingInformation addBooking={saveBooking}></BookingInformation>
+        <GuestInformation
+          addGuest={saveGuest}
+          addNotes={saveNotes}
+        ></GuestInformation>
+      </React.Fragment>
+    );
+  }
 }
