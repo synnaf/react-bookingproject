@@ -4,15 +4,6 @@ import Guest from "../../models/Guest";
 import Booking from "../../models/Booking";
 import GuestInformation from "../guest-information/GuestInformation";
 import axios from "axios";
-<<<<<<< HEAD
-
-export function saveGuest(g: Guest, ge: boolean) {
-    setGuestExist(ge);
-    setGuest(g);
-    setIsSaved(true);
-  }
-=======
->>>>>>> bd280b13b7eea654d9ca52c885a1328cf0ab3065
 
 export default function CreateBooking() {
   //VÅRT TABLE-STATE, kommer bestå av ett boka-objekt.
@@ -90,8 +81,4 @@ export default function CreateBooking() {
       )}
     </React.Fragment>
   );
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> bd280b13b7eea654d9ca52c885a1328cf0ab3065
