@@ -81,8 +81,6 @@
                 text-align: center;
                 display:flex;
                 flex-direction: row;
-                justify-content:space-evenly;
-                flex-wrap:wrap-reverse;
                 background-color: whitesmoke;
                 margin:10px;
                 p {
@@ -90,34 +88,8 @@
                     width:100%;
                     margin:0;
                 }
-                .edit-btn {
-                    margin-top:20px;
-                    margin-bottom:20px;
-                    border:none;
-                    width:100%;
-                    button {
-                        margin:5px;
-                        color:black;
-                        background-color: lightsteelblue;
-                        text-decoration: none;
-                        width:30%;
-                        border-radius: 42px;
-                        border:none;
-                        padding:5px;
-                        a {
-                            text-decoration: none;
-                            color:black;
-                        }a:visited {
-                            text-decoration: none;
-                            color:black;
-                        }
-                    } button:hover {
-                    cursor:pointer;
-                    box-shadow: 2px 3px 8px lightgray;
-                }
-            }
         }
-    
+
         }
         }
     }
