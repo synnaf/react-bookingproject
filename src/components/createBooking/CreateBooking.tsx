@@ -62,18 +62,17 @@ export default function CreateBooking() {
         <div className="confirmed-booking">
           <h2>Tack för din bokning {guest.firstName}!</h2>
         </div>
-      ) : (
-        <div>
-          {tableReservation.date === "" ? (
-            <BookingInformation addBooking={saveBooking}></BookingInformation>
-          ) : (
-            <GuestInformation
-              addGuest={saveGuest}
-              addNotes={saveNotes}
-            ></GuestInformation>
-          )}
-        </div>
-      )}
+      ) : null}
+      <div>
+        {tableReservation.date === "" ? (
+          <BookingInformation addBooking={saveBooking}></BookingInformation>
+        ) : (
+          <GuestInformation
+            addGuest={saveGuest}
+            addNotes={saveNotes}
+          ></GuestInformation>
+        )}
+      </div>
       {isSaved ? (
         <div className="confirmation-container" id="confirm">
           <h3>Stämmer dessa uppgifter?</h3>
