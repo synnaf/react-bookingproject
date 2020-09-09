@@ -7,6 +7,7 @@ import GuestInformation from "../guest-information/GuestInformation";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+
 export default function CreateBooking() {
   //VÅRT TABLE-STATE, kommer bestå av ett boka-objekt.
   const [tableReservation, setTableReservation] = useState(new Booking());
