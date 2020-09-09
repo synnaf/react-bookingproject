@@ -1,5 +1,6 @@
 import React, { useState, useEffect, MouseEvent } from "react";
 import axios from "axios";
+import './Admin.scss'; 
 import { Link } from "react-router-dom";
 
 export default function Admin() {
@@ -26,22 +27,22 @@ export default function Admin() {
       setBookings(
         allBookings.data.map((booking: any) => {
           return (
-            <ul key={booking._id}>
-                       
-              <button
-                type="button"
-                id="delete"
-                onClick={() => deleteBooking(booking.bookingId)}
-              >
-                Ta bort
-              </button>
-                        
-              <button type="button" id="update">
-                {<Link to={`/booking/${booking.bookingId}`}>Ändra</Link>}
-              </button>
-              <li>Bokningsnummer: {booking.bookingId}</li>
-              <li>Datum: {booking.date.split("T")[0]}</li>           
-            </ul>
+            <li key={booking._id} className="each-booking">
+              <div className="edit-btn">
+                <button
+                  type="button"
+                  id="delete"
+                  onClick={() => deleteBooking(booking.bookingId)}
+                >
+                  Ta bort
+                </button>
+                <button type="button" id="edit">
+                  {<Link to={`/booking/${booking.bookingId}`}>Ändra</Link>}
+                </button>
+              </div>       
+              <p>Bokningsnummer: {booking.bookingId}</p>
+              <p>Datum: {booking.date.split("T")[0]}</p>           
+            </li>
           );
         })
       );
@@ -51,8 +52,8 @@ export default function Admin() {
     <div className="main-container">
             
       <div className="ulContainer">
-                
-        <li className="ulBooking">{bookings}</li>
+               
+        <ul className="ulBooking">{bookings}</ul>
               
       </div>
           
