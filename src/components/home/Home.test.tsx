@@ -5,11 +5,9 @@ import React from "react";
 test('render contents of homepage', () => {
         const {getByText, getByAltText} = render(<Home />);
         const bookingElement = getByText('Boka');
-        const imgElement = getByAltText('Placeholder img');
-        const loremElementOne = getByText(/Lorem/i);
+        const imgElement = getByAltText('illustration');
         const loremElementTwo = getByText(/Duis/i);
         expect(bookingElement).toBeInTheDocument();
         expect(imgElement).toBeInTheDocument();
-        expect(loremElementOne).toBeInTheDocument();
         expect(loremElementTwo).toBeInTheDocument();
 });
