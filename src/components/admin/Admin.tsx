@@ -38,7 +38,9 @@ export default function Admin() {
                 </button>
                          
                 <button type="button" id="update">
-                  {<BrowserRouter><Link to={`/booking/${booking.bookingId}`}>Ändra</Link></BrowserRouter>}
+               
+                  <Link to={`/booking/${booking.bookingId}`}>Ändra</Link>
+              
                 </button>
               </div>
             </li>
