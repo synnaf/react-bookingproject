@@ -27,6 +27,7 @@ export default function CreateBooking() {
   }
 
   function createReservation() {
+    console.log('clicked'); 
     if (tableReservation && guest) {
       let newReservation = {
         guest: guest,

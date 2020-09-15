@@ -8,11 +8,13 @@
     .ulContainer {
     list-style-type: none;
     width:80%;
+    border:1px solid black;
     .ulBooking {
         display: flex;
         flex-direction: row;
         justify-content: center;
         flex-wrap: wrap;
+        border:1px solid blue;
         color: red;
         padding:0;
         width:100%;
