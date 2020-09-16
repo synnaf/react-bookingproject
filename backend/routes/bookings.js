@@ -32,41 +32,41 @@ router.route("/availability/addbooking").post((req, res) => {
       email: req.body.guest.email,
       phoneNumber: Number(req.body.guest.phoneNumber),
     });
-    newGuest
+    return newGuest
       .save()
       .then((data) => res.send(data))
       .catch((err) => res.status(400).json("Error:" + err));
+  } else {
+      //om guestExist är true 
+      const newBooking = new Booking({
+        bookingId: Math.floor(Math.random() * 10000) + 1,
+        date: req.body.reservation.date,
+        time: req.body.reservation.time,
+        seats: req.body.reservation.seats,
+        notes: req.body.reservation.notes,
+        guestId: req.body.guest.guestId,
+      });
+      return newBooking
+        .save()
+        .then((data) => res.send(data))
+        // .then(
+        //   transport.sendMail({
+        //     to: req.body.guest.email,
+        //     from: "f.vforsman@gmail.com",
+        //     subject: "Bokningsbekräftelse",
+        //     html: `
+        //   <h2>Tack för din bokning!<h2>
+        //   <p>Du har bokat: ${req.body.reservation.date}, för: ${newBooking.seats} personer<p>
+        //   <h5>Klicka på länken för att avboka:<h5>
+        //   <a href="http://localhost:3000/delete/${newBooking.bookingId}">Avboka :(</a> 
+        //   `,
+        //   })
+        // )
+        .catch((err) => res.status(400).json("Error:" + err));
   }
   //här blir det ett fel, där felet inte hanteras? 
   //(node:22187) UnhandledPromiseRejectionWarning: Error [ERR_HTTP_HEADERS_SENT]
 
-  //om guestExist är true 
-  const newBooking = new Booking({
-    bookingId: Math.floor(Math.random() * 10000) + 1,
-    date: req.body.reservation.date,
-    time: req.body.reservation.time,
-    seats: req.body.reservation.seats,
-    notes: req.body.reservation.notes,
-    guestId: req.body.guest.guestId,
-  });
-
-  newBooking
-    .save()
-    .then((data) => res.send(data))
-    // .then(
-    //   transport.sendMail({
-    //     to: req.body.guest.email,
-    //     from: "f.vforsman@gmail.com",
-    //     subject: "Bokningsbekräftelse",
-    //     html: `
-    //   <h2>Tack för din bokning!<h2>
-    //   <p>Du har bokat: ${req.body.reservation.date}, för: ${newBooking.seats} personer<p>
-    //   <h5>Klicka på länken för att avboka:<h5>
-    //   <a href="http://localhost:3000/delete/${newBooking.bookingId}">Avboka :(</a> 
-    //   `,
-    //   })
-    // )
-    .catch((err) => res.status(400).json("Error:" + err));
 });
 
 router.route("/:bookingId").get((req, res) => {
