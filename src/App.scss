@@ -1,53 +1,59 @@
-.App {
-  display:flex;
-  flex-direction: column;
-  
-  .navbar{
-    text-align: left;
-    width:100%;
-    margin-bottom:50px;
-    nav {
-      background-color: whitesmoke;
-      margin-top:20px;
-      text-align: center;
-      ul {
-        display:flex;
-        flex-direction: row;
-        justify-content: start;
-        margin: 0;
-        padding:0;
-        list-style: none;
-        width:100%;
-        li {
-          width: 50%;
-          cursor:pointer;
-          a {
-            border-left:2px solid black;
-            padding:5px 20px 5px 10px;
-            width:100%;
-            font-size: 22pt;
-            text-decoration: none;
-          }a:visited {
-            color:black;
-          }a:hover{
-            color: white;
-            transition: background-color 1.5s, transform 1s;
-            background-color: rgba(247, 66, 0, 0.925); 
-          }
-          }
-      }
-      
-    }
-  }
-  main {
+html {
+  max-width: 100%; 
+  overflow-x: hidden; 
+  height:auto;
+  background-color:rgb(242, 206, 211); 
+
+  .App {
+    align-self: center;
     display:flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: column;  
+    .navbar{
+      text-align: left;
+      width:100%;
+      margin-bottom:50px;
+      nav {
+        background-color: whitesmoke;
+        margin-top:20px;
+        text-align: center;
+        ul {
+          display:flex;
+          flex-direction: row;
+          justify-content: start;
+          margin: 0;
+          padding:0;
+          list-style: none;
+          width:100%;
+          li {
+            width: 50%;
+            cursor:pointer;
+            a {
+              border-left:2px solid black;
+              padding:5px 20px 5px 10px;
+              width:100%;
+              font-size: 22pt;
+              text-decoration: none;
+            }a:visited {
+              color:black;
+            }a:hover{
+              color: white;
+              transition: background-color 1.5s, transform 1s;
+              background-color:red; 
+            }
+            }
+        }
+        
+      }
+    }
+    main {
+      display:flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
   }
 
 }
-
-
 
 @media only screen and (max-width: 600px) {
   .App {

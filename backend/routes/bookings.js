@@ -21,6 +21,9 @@ router.route("/").get((req, res) => {
 });
 
 router.route("/availability/addbooking").post((req, res) => {
+  console.log(req.body.guestExist); //guest är empty! så den sätter inga värden i nästa
+
+  //om guestExist är false, skapa en ny gäst  
   if (req.body.guestExist === false) {
     const newGuest = new Guest({
       guestId: req.body.guest.guestId,
@@ -29,13 +32,15 @@ router.route("/availability/addbooking").post((req, res) => {
       email: req.body.guest.email,
       phoneNumber: Number(req.body.guest.phoneNumber),
     });
-
     newGuest
       .save()
-      .then(() => console.log(newGuest))
+      .then((data) => res.send(data))
       .catch((err) => res.status(400).json("Error:" + err));
   }
+  //här blir det ett fel, där felet inte hanteras? 
+  //(node:22187) UnhandledPromiseRejectionWarning: Error [ERR_HTTP_HEADERS_SENT]
 
+  //om guestExist är true 
   const newBooking = new Booking({
     bookingId: Math.floor(Math.random() * 10000) + 1,
     date: req.body.reservation.date,
@@ -48,19 +53,19 @@ router.route("/availability/addbooking").post((req, res) => {
   newBooking
     .save()
     .then((data) => res.send(data))
-    .then(
-      transport.sendMail({
-        to: req.body.guest.email,
-        from: "f.vforsman@gmail.com",
-        subject: "Bokningsbekräftelse",
-        html: `
-      <h2>Tack för din bokning!<h2>
-      <p>Du har bokat: ${req.body.reservation.date}, för: ${newBooking.seats} personer<p>
-      <h5>Klicka på länken för att avboka:<h5>
-      <a href="http://localhost:3000/delete/${newBooking.bookingId}">Avboka :(</a> 
-      `,
-      })
-    )
+    // .then(
+    //   transport.sendMail({
+    //     to: req.body.guest.email,
+    //     from: "f.vforsman@gmail.com",
+    //     subject: "Bokningsbekräftelse",
+    //     html: `
+    //   <h2>Tack för din bokning!<h2>
+    //   <p>Du har bokat: ${req.body.reservation.date}, för: ${newBooking.seats} personer<p>
+    //   <h5>Klicka på länken för att avboka:<h5>
+    //   <a href="http://localhost:3000/delete/${newBooking.bookingId}">Avboka :(</a> 
+    //   `,
+    //   })
+    // )
     .catch((err) => res.status(400).json("Error:" + err));
 });
 

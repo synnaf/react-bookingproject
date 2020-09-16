@@ -19,20 +19,44 @@ export default function CreateBooking() {
     setTableReservation(booking);
     setTableSaved(true);
   }
+  function saveNotes(n: string) {
+    tableReservation.notes = n;
+  }
 
+  //spara gästen som finns i guestinfo 
   function saveGuest(g: Guest, ge: boolean) {
+    console.log(ge); //här finns all info
+    //värdet på ge avgör vad som ska hända sen. 
+    // om ge === false, så ska ny gäst sparas nedan 
+    //om ge === true, så ska ingen ny gäst sparas
+
     setGuestExist(ge);
     setGuest(g);
     setIsSaved(true);
+
+    //lägg en timeout här så att den körs efter några millisekunder? 
+    createReservation(g, ge); //kör create reservation efter 1 sek?
   }
 
-  function createReservation() {
-    console.log('clicked'); 
+
+
+
+  //denna funktion körs från barnet, nät addGuest körs tar vi emot två saker
+  //newGuest/registeredGuest och isGuest 
+  function createReservation(g: Guest, ge: boolean) {
+    console.log(guestExist); //hämta gäst från state 
+    console.log(guest); //hämta gäst från state som är tomt
+    //ta emot guest från saveGuest, förutsätter att det inte finns en gäst sedan innan 
+    console.log(g); 
+    //guest följer inte med hit, men lyckas ändå sparas i db? 
+    console.log(tableReservation); 
+
+    //här SKA det existera, dvs finnas innehåll
     if (tableReservation && guest) {
       let newReservation = {
-        guest: guest,
+        guest: g,
         reservation: tableReservation,
-        guestExist: guestExist,
+        guestExist: ge,
       };
       axios
         .post(
@@ -41,22 +65,21 @@ export default function CreateBooking() {
         )
         .then(() => {
           setIsConfirmed(true);
-          setIsSaved(!isSaved);
+          setIsSaved(!isSaved); //isSaved blur true så att bekfrätelsen inte visas 
         });
     }
   }
 
-  function saveNotes(n: string) {
-    tableReservation.notes = n;
-  }
 
+
+  //bokningsbekräftelse
   function refreshBooking() {
     setGuest(new Guest());
     setIsConfirmed(false);
     setIsSaved(false);
     setTableSaved(false);
   }
-
+  //bokningsbekräftelse
   if (isConfirmed) {
     return (
       <React.Fragment>
@@ -72,26 +95,13 @@ export default function CreateBooking() {
     );
   }
 
+  //returnera bekräftelse om bokningen skickats hit
+  //isSaved, vart sätts det?  
   if (isSaved) {
     return (
-      <React.Fragment>
-        <div className="confirmation-container" id="confirm">
-          <h3>Stämmer dessa uppgifter?</h3>
-          <p>Datum: {tableReservation.date} </p>
-          <p>Tid: {tableReservation.time} </p>
-          <p>Antal gäster: {tableReservation.seats} </p>
-          <p>
-            Gäst: {guest.firstName} {guest.lastName}
-          </p>
-          <p>Telefonnummer: {guest.phoneNumber}</p>
-          <p>Email: {guest.email}</p>
-          <p>Anteckningar: {tableReservation.notes} </p>
-          <button type="button" onClick={createReservation}>
-            BEKRÄFTA
-          </button>
-        </div>
-      </React.Fragment>
+     <div>hej</div>
     );
+
   } else {
     return (
       <React.Fragment>

@@ -1,64 +1,60 @@
 @import '../../styles/component-style'; 
 @import '../../styles/button-style'; 
 
-    .placeholder { 
-        @include content-container;  
+    .start-page { 
+        width:100%;
         .image-container {
-            display:flex;
-            flex-direction: row;
-            justify-content: center;
-            background-color: orangered;
-            .chef {
-                opacity:0.6;
-                width:50%;
-                border-radius:1111px 0px 0px;
-                transition: opacity 0.7s, transform 0.7s;
+            width:100%;
+            position: relative;
+            background-color: darkgreen;
+            padding:20px;
+            .detail{
+                background-color: white;
+                width:20px;
+                height:20px;
+                border-radius:50% 50%;
+            }
+            .cta-startpage {
+                @include button-container;
+                border:1px solid black;
+                border-radius:50% 50%;
+                // width:50%;
+                position:absolute;
+                top: 50%;
+                left: 50%; 
+                transform: translate(-50%, -50%);
+                background-color: lightgoldenrodyellow;
+                button {
+                    @include main-button; 
+                    border:1px solid black;
+                    border-radius:50% 50%;
+                } 
             }
             .ramen {
-                opacity:0.6;
+                opacity:0.4;
                 width:50%;
-                height:auto;
                 border-radius:0px 0px 1111px;
                 transition: opacity 0.7s, transform 0.7s;
             }
             .chef:hover {
-                opacity:1;
+                opacity:0.4;
+                animation: mymove 5s infinite;
+                
             }
             .ramen:hover {
-                opacity:1
-            }
-        }
-        .text-container {
-            margin-top:50px;
-            padding:0px 20px 0px 20px;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-evenly;
-            align-self:center;
-            width:100%;
-            img {
-                width:10%;
-           
-            }
-            p {
-                align-self:center;
-                width:30%;
-                margin:10px;
-                padding-left:10px;
-                text-align: left;
-                font-style: italic;
-                font-size: 12pt;
-                padding-left:10px;
-            }
-            .cta-startpage {
-                @include button-container; 
-                button {
-                    @include main-button; 
-                } 
+                opacity:0.4;
             }
         }
 
     }
+
+@keyframes mymove {
+    0%   { opacity:0.4;}
+    25%  { opacity:0.5;}
+    50%  { opacity:0;}
+    75%  { opacity:0.1;}
+    100% { opacity:0.9;}
+}
 
     @media only screen and (max-width: 650px) {
         .placeholder {  

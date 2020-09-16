@@ -2,47 +2,44 @@
 @import '../../styles/button-style'; 
 
 .main-container {
+    background-color: white;
     display:flex;
     flex-direction: column;
     align-items: center;
     .ulContainer {
     list-style-type: none;
     width:80%;
-    border:1px solid black;
     .ulBooking {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
-        flex-wrap: wrap;
-        border:1px solid blue;
-        color: red;
+        color:grey;
         padding:0;
         width:100%;
         .each-booking {
-            padding-top:20px;
-            width:30%;
-            text-align: center;
+            width:100%;
+            margin-bottom:10px;
+            border:2px solid black;
+            text-align: left;
             display:flex;
             flex-direction: row;
-            justify-content:center;
-            flex-wrap:wrap;
-            background-color: whitesmoke;
-            margin:10px;
+            flex-wrap:no-wrap;
+            justify-content: space-between;
             p {
                 font-size: 10pt;
-                width:100%;
-                margin:0;
+                padding-left:5px;
+                padding-right: 10px
             }
             .edit-btn {
-                margin-top:10px;
                 border:none;
-                width:100%;
+                width:20%;
+                margin:10px;
                 button {
-                    margin:5px;
+                    background-color: gainsboro;
                     color:black;
-                    border:1px solid black;
+                    border:none;
                     text-decoration: none;
-                    width:30%;
+                    width:100%;
                     border-radius: 42px;
                     padding:5px;
                     a {
@@ -65,25 +62,16 @@
 
 @media only screen and (max-width: 650px) {
     .main-container {
-        display:flex;
-        flex-direction: column;
-        align-items: center;
         .ulContainer {
-        list-style-type: none;
-        width:100%;
-        .ulBooking {
-            display: flex;
-            flex-direction: column;
-            align-content: center;
-            color: red;
-            padding:0;
-            width:100%;
+        width:90%;
+        .ulBooking { 
+        align-items: center;
             .each-booking {
-                width:70%;
                 text-align: center;
-                display:flex;
-                flex-direction: row;
-                background-color: whitesmoke;
+                width:90%;
+                flex-wrap: wrap;
+                justify-content: center;
+                padding:10px;
                 margin:10px;
                 p {
                     font-size: 10pt;
@@ -91,7 +79,6 @@
                     margin:0;
                 }
         }
-
         }
         }
     }
