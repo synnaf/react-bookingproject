@@ -1,111 +1,235 @@
 @import '../../styles/component-style'; 
 @import '../../styles/button-style'; 
 
+$sushi-color: rgba(43, 72, 43, 0.795);
+$sushi-shadow: rgba(27, 43, 28, 0.589); 
+
     .start-page { 
         width:100%;
+        display:flex;
+        flex-direction: row;
+        justify-content: center;
         .image-container {
-            width:100%;
+            width:200px;
+            height:150px;
+            border-radius:40px;
             position: relative;
-            background-color: darkgreen;
-            padding:20px;
+
             .detail{
-                background-color: white;
-                width:20px;
-                height:20px;
-                border-radius:50% 50%;
+                width:100%;
+                height:80%;
+                border-radius:40px;
+                position: relative;
+                margin-bottom: 50px;
+        
+                .small-detail {
+                    width:50px;
+                    height:50px;
+                    border-radius:50%;
+                    position: absolute;
+                    background: radial-gradient(farthest-corner at 30% 10%, rgb(255, 255, 255)10%, orangered 60%);      
+                }
+                #wasabi {
+                    top: 26%;
+                    left: 20%;
+                    animation: slide-bottom 1.8s cubic-bezier(0.600, 0.040, 0.980, 0.335) both; 
+                }
+                #wasabi-1 {
+                    top: 50%;
+                    left: 12%;
+                    width:20px;
+                    height:20px;
+                    animation: slide-bottom 2s cubic-bezier(0.600, 0.040, 0.980, 0.335) both;
+                }
+                #cucumber {
+                    height:50px;
+                    width:50px;
+                    top: 30%;
+                    left: 40%;
+                    animation: slide-bottom 2s cubic-bezier(0.900, 0.040, 0.980, 1.335) both; 
+                }
+                #cucumber-1 {
+                    top: 15%;
+                    left: 40%;
+                    width:25px;
+                    height:25px;
+                    animation: slide-bottom 2.2s cubic-bezier(0.600, 0.040, 0.980, 0.335) both;
+                }
+                #ginger{
+                    top: 25%;
+                    left: 60%;
+                    animation: 
+                        slide-bottom 2.1s cubic-bezier(0.600, 0.040, 0.980, 0.335) both; 
+                }
+                #ginger-1 {
+                    top: 20%;
+                    left: 60%;
+                    width:20px;
+                    height:20px;
+                    animation: slide-bottom 1.8s cubic-bezier(0.600, 0.040, 0.980, 0.335) both;
+                }
             }
-            .cta-startpage {
-                @include button-container;
-                border:1px solid black;
-                border-radius:50% 50%;
-                // width:50%;
-                position:absolute;
-                top: 50%;
-                left: 50%; 
-                transform: translate(-50%, -50%);
-                background-color: lightgoldenrodyellow;
-                button {
-                    @include main-button; 
-                    border:1px solid black;
-                    border-radius:50% 50%;
-                } 
+            .sushi {
+                background: linear-gradient(90deg, rgb(50, 75, 50), rgb(24, 36, 24));
+                border-top:2px solid  rgb(50, 75, 50);
+                box-shadow:3px 3px 5px 7px rgba(0, 0, 0, 0.473);
+                overflow: hidden;
+                margin: 0 auto;
+                width: 200px;
+                height: 200px;
+                border-radius: 80px/20px;
+                animation:load 2s alternate both; 
+                .cta-startpage {
+                    @include button-container;
+                    animation: scale-up 3s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+                    height:30px;
+                    margin-top:50px;
+                    text-align: center;
+                    button {
+                        @include main-button;
+                        animation: button-attention 3s cubic-bezier(0.690, 0.575, 0.965, 1.000) both;   
+                    }  
+                }
+
+                .sushi-filling {
+                    width:200px;
+                    height:20px;
+                    background: radial-gradient(rgba(179, 179, 179, 0.925) 20%, white 80%, whitesmoke 90%); 
+                    border-radius: 280px/15px;
+                }
+
+        }
+    }
+}
+
+@keyframes load {
+    0% {
+        width:0%;
+        display: none;
+    }
+    50% {
+        width:0%;
+        display: none;
+    }
+    100% {
+        width:100%;
+    }
+}
+
+@keyframes scale-up {
+    0% {
+        width:0%;
+    }
+    50% {
+        width:0%;
+    }
+    100% {
+        width:100%;
+    }
+}
+
+@keyframes button-attention {
+    0% {
+        background-color: transparent;
+    }
+    20% {
+        background-color: transparent;
+    }
+    50% {
+        background-color: transparent;
+    }
+    70% {
+        background-color: transparent;
+
+    }
+    90% {
+        // border-radius:40px;
+        background-color: blue;
+        // border:1px solid black; 
+    }
+    95% {
+        // border-radius:40px;
+        background-color: green;
+        // border:1px solid black; 
+    }
+    100% {
+        // border-radius:40px;
+        background-color: blue;
+        // border:1px solid black;
+    }
+}
+
+@keyframes slide-bottom {
+    0% {
+        transform: translateY(0);
+    }
+    20% {
+        box-shadow: 1px 0px 2px 0px rgba(0, 0, 0, 0.35);
+    }
+    50% {
+        box-shadow: 0px -1px 5px 0px rgba(0, 0, 0, 0.35);
+    }
+    70% {
+        box-shadow: 0px -2px 5px 0px rgba(0, 0, 0, 0.35);
+    }
+    100% {
+        border-radius:40px 40px 35px 30px;
+        transform: translateY(100px);
+        box-shadow:1px 1px px 1px rgba(0, 0, 0, 0.521);
+    }
+}
+    
+
+@media only screen and (max-width: 650px) {
+    .placeholder {  
+        display:flex;
+        flex-direction: row; 
+        justify-content: center;
+        align-content: center;
+        .image-container {
+            display:flex;
+            flex-direction: column;
+            align-items: left;
+            .chef {
+                width:100%;
             }
             .ramen {
-                opacity:0.4;
                 width:50%;
-                border-radius:0px 0px 1111px;
-                transition: opacity 0.7s, transform 0.7s;
             }
-            .chef:hover {
-                opacity:0.4;
-                animation: mymove 5s infinite;
-                
+        }
+        .text-container {
+            margin-top:50px;
+            padding:0px 20px 0px 20px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap:wrap-reverse;
+            justify-content: space-evenly;
+            align-self:center;
+            width:100%;
+            img {
+                width:90%;
             }
-            .ramen:hover {
-                opacity:0.4;
+            p {
+                align-self:center;
+                width:80%;
+                margin:40px;
+                padding-left:10px;
+                text-align: left;
+                font-style: italic;
+                font-size: 12pt;
+                padding-left:10px;
             }
+            .cta-startpage {
+                width:50%;
+                button {
+                    text-align: center;
+                    width:100%;
+                } 
+            }
+            
         }
 
     }
 
-@keyframes mymove {
-    0%   { opacity:0.4;}
-    25%  { opacity:0.5;}
-    50%  { opacity:0;}
-    75%  { opacity:0.1;}
-    100% { opacity:0.9;}
-}
 
-    @media only screen and (max-width: 650px) {
-        .placeholder {  
-            display:flex;
-            flex-direction: row; 
-            justify-content: center;
-            align-content: center;
-            .image-container {
-                display:flex;
-                flex-direction: column;
-                align-items: left;
-                .chef {
-                    width:100%;
-                }
-                .ramen {
-                    width:50%;
-                }
-            }
-            .text-container {
-                margin-top:50px;
-                padding:0px 20px 0px 20px;
-                display: flex;
-                flex-direction: row;
-                flex-wrap:wrap-reverse;
-                justify-content: space-evenly;
-                align-self:center;
-                width:100%;
-                img {
-                    width:90%;
-                }
-                p {
-                    align-self:center;
-                    width:80%;
-                    margin:40px;
-                    padding-left:10px;
-                    text-align: left;
-                    font-style: italic;
-                    font-size: 12pt;
-                    padding-left:10px;
-                }
-                .cta-startpage {
-                    width:50%;
-                    button {
-                        text-align: center;
-                        width:100%;
-                    } 
-                }
-              
-            }
-    
-        }
-    
- 
-     }
+}

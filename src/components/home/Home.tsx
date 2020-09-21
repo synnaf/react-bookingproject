@@ -9,21 +9,26 @@ export default function Home() {
     <div className="start-page">
       <div className="image-container">
       <div className="detail">
+        <div className="small-detail" id="wasabi-1"></div>
+        <div className="small-detail" id="cucumber-1"></div>
+        <div className="small-detail" id="ginger-1"></div>
 
+        <div className="small-detail" id="wasabi"></div>
+        <div className="small-detail" id="ginger"></div>
+        <div className="small-detail" id="cucumber"></div>
+        
       </div>
-        {/* <img src={Bowl} alt="Bowl of ramen" className="ramen" /> */}
+      <div className="sushi">
+        <div className="sushi-filling"></div>
           <div className="cta-startpage">
-            <button
-              type="button"
-              onClick={() => (window.location.href = "/booking")}
-            >
-              Boka
-            </button>
-          </div>
-        {/* <img src={Chef} alt="Sushi chef" className="chef" /> */}
-        <div className="detail">
-
-        </div>
+              <button
+                type="button"
+                onClick={() => (window.location.href = "/booking")}
+              >
+                Boka
+              </button>
+            </div>
+      </div>
       </div>
     </div>
   );
