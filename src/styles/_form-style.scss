@@ -1,5 +1,5 @@
 @mixin label {
-        font-size: 14pt;
+        font-size: 16pt;
         font-weight: bold;
         padding-bottom:10px;
         margin-bottom:10px;
@@ -10,6 +10,7 @@
         display:flex;
         flex-direction: column; 
         width:100%;
+        background-color: whitesmoke;
     }
 }
 
@@ -26,11 +27,11 @@
     align-self: center;
     display:flex;
     flex-direction: column; 
-    background-color: whitesmoke;
-    width:90%;
+    background-color: white;
+    width:70%;
     form {
         padding-top: 50px;
-        width:80%;
+        width:100%;
         align-self: center;
         display: flex;
         align-items:center;

@@ -16,10 +16,11 @@
     text-decoration: none;
     color:rgb(24, 24, 32);
     padding:11px 55px;
+    background-color: lightgreen; 
 } 
 @mixin button-hover {
     background-color: #9fb4f2; 
 }
 @mixin button-disabled {
-        background-color: lightslategrey;
+        background-color:lightgrey;
 }

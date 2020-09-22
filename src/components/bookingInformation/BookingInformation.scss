@@ -7,7 +7,7 @@
     .placeholder {
         display:flex;
         flex-direction: column; 
-        justify-content: center;
+        justify-content: center; 
         .form-container{
             width:100%;
             form {
@@ -51,33 +51,42 @@
 
 }
 
-   
     .placeholder {
         @include content-container; 
+        background-color: white !important;
+        border:2px solid rgba(128, 128, 128, 0.591);
+        box-shadow: 10px 10px  rgba(128, 128, 128, 0.591);
         .form-container{
             @include form-container; 
             form {
                 .input-container {
-                    width:80%;
+                    padding-top: 50px;
+                    width:100%;
                     border:none;
                     input {
+                        background-color: whitesmoke;
                         @include input;
                     }
                     label {
                         @include label; 
                     }
-                    
                 }
                 .select-container{
-                    width: 25%;
+                    text-align: center;
                     border:none;
-                    @include label; 
-                    select {
-                        padding:8px;
-                        min-width:40%;
-                        border-radius:8px;
+                    width:100%;
+                    label {
+                        @include label;
+                    }
+                    input {
+                        background-color: whitesmoke;
                         border:none;
-                        width:100%;
+                        width:30%;
+                        padding:10px;
+                        border-radius:8px;
+                        margin-bottom: 10px;
+                        margin-left:10px;
+                
                     }
                 }
                 .cta-search{
@@ -100,10 +109,10 @@
                         h4 {
                             text-align: center;
                             margin:0;
-                            font-size:16pt;
+                            font-size:14pt;
                         }
                         label {
-                            @include label; 
+                            font-size:14pt;
        
                         }
                         .available-time {
@@ -129,10 +138,12 @@
                         }
                     }
                     .cta-form {
-                        @include button-container; 
+                        // @include button-container; 
+                        background-color: transparent;
                         button {
-                            @include main-button;  
-                        }:disabled {
+                             @include main-button; 
+                        }
+                        button:disabled {
                             @include button-disabled; 
                         }
                     }
