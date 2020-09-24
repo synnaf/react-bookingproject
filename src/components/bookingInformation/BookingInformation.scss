@@ -3,7 +3,7 @@
 @import '../../styles/form-style'; 
 
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 700px) {
     .placeholder {
         display:flex;
         flex-direction: column; 
@@ -42,6 +42,22 @@
                         height:100%;
                         font-size: 16pt;
                     }
+                }
+                .time-container {
+                    width:100%;
+                    align-content: baseline;
+                    .available-time {
+                        width:100%;
+                        
+                        input {
+                           
+                        }
+                        label {
+                       
+                            font-weight: bold;
+                        }
+                    }
+
                 }
 
             }

@@ -9,6 +9,7 @@ import DeletedBooking from "./components/deletedBooking/DeletedBooking";
 
 function App() {
   return (
+
     <div className="App">
       <Router>
         <header className="navbar">
@@ -52,6 +53,7 @@ function App() {
         </main>
       </Router>
     </div>
+
   );
 }
 export default App;

@@ -1,25 +1,124 @@
 @import '../../styles/component-style'; 
 @import '../../styles/button-style'; 
 
-$sushi-color: rgba(43, 72, 43, 0.795);
-$sushi-shadow: rgba(27, 43, 28, 0.589); 
+@media only screen and (max-width: 700px) {
+  
+.start-page { 
+        width:100%;
+        display:flex;
+        flex-direction: column;
+        align-self: center;
+        .image-container {
+            align-self: center;
+            width:200px;
+            height:150px;
+            border-radius:40px;
+            margin-top: 100px;
+            margin-bottom:50px;
+            .detail{
+                width:70%;
+                height:80%;
+                position: absolute;
+                .small-detail {
+                    width:50px;
+                    height:50px;
+                    border-radius:50%;
+                    position: absolute;
+                    background: radial-gradient(farthest-corner at 30% 10%, #ffeadb 10%, #ff7e67 60%);      
+                }
+                #wasabi {
+                    bottom:117%; 
+                    left:45%;
+                    animation: slide-bottom 1.8s cubic-bezier(0.600, 0.040, 0.980, 0.335) both; 
+                }
+                #wasabi-1 {
+                    bottom:117%;
+                    left:10%;
+                    width:20px;
+                    height:20px;
+                    animation: slide-bottom 2s cubic-bezier(0.600, 0.040, 0.980, 0.335) both;
+                }
+                #cucumber {
+                    bottom:117%;
+                    left:30%;
+                    height:50px;
+                    width:50px;
+                    animation: slide-bottom 2s cubic-bezier(0.900, 0.040, 0.980, 1.335) both; 
+                }
+                #cucumber-1 {
+                    bottom:123%;
+                    left:25%;
+                    width:25px;
+                    height:25px;
+                    animation: slide-bottom 2.2s cubic-bezier(0.600, 0.040, 0.980, 0.335) both;
+                }
+                #ginger{
+                    bottom:117%;
+                    left:15%;
+                    animation: 
+                        slide-bottom 2.1s cubic-bezier(0.600, 0.040, 0.980, 0.335) both; 
+                }
+                #ginger-1 {
+                    bottom:119%;
+                    left:50%;
+                    width:20px;
+                    height:20px;
+                    animation: slide-bottom 1.8s cubic-bezier(0.600, 0.040, 0.980, 0.335) both;
+                }
+            }
+            .sushi {
+                background: linear-gradient(90deg, #68b0ab, #006a71);
+                border-top:2px solid  #68b0ab;
+                overflow: hidden;
+                margin: 0 auto;
+                width: 200px;
+                height: 200px;
+                border-radius: 80px/20px;
+                animation: glow 3s ease-in-out infinite alternate;
+                }
+                .sushi-filling {
+                    width:200px;
+                    height:20px;
+                    background: radial-gradient(rgba(179, 179, 179, 0.925) 20%, white 80%, whitesmoke 90%); 
+                    border-radius: 280px/15px;
+                }
+        }
+        .main-text-container {
+            align-self: center;
+            width:80%;
+            text-align: center;
+            box-shadow: 0px 50px #ff7e67;
+            margin:10px;
+            h1 {
+                text-align: center;
+                color:#ff7e67 ;
+                font-size: 36pt;
+            }
+            .cta-startpage {
+                height:30px;
+                margin-top:50px;
+                text-align: center;
+                margin-bottom:50px;
+                button {
+                    @include main-button;
+                    animation: button-attention 2.3s cubic-bezier(0.690, 0.575, 0.965, 1.000) both;   
+                }  
+            }
+        }
+}
 
-    .start-page { 
+}
+
+.start-page { 
         width:100%;
         display:flex;
         flex-direction: row;
         justify-content: space-evenly;
-        .main-text-container {
-            width:400px;
-            margin-top:50px;
-            padding:10px;
-        }
         .image-container {
             width:200px;
             height:150px;
             border-radius:40px;
             position: relative;
-
             .detail{
                 width:100%;
                 height:80%;
@@ -32,7 +131,7 @@ $sushi-shadow: rgba(27, 43, 28, 0.589);
                     height:50px;
                     border-radius:50%;
                     position: absolute;
-                    background: radial-gradient(farthest-corner at 30% 10%, rgb(255, 255, 255)10%, orangered 60%);      
+                    background: radial-gradient(farthest-corner at 30% 10%, #ffeadb 10%, #ff7e67 60%);      
                 }
                 #wasabi {
                     top: 26%;
@@ -75,36 +174,41 @@ $sushi-shadow: rgba(27, 43, 28, 0.589);
                 }
             }
             .sushi {
-                background: linear-gradient(90deg, rgb(50, 75, 50), rgb(24, 36, 24));
-                border-top:2px solid  rgb(50, 75, 50);
-                box-shadow:3px 3px 5px 7px rgba(0, 0, 0, 0.473);
+                background: linear-gradient(90deg, #68b0ab, #006a71);
+                border-top:2px solid  #68b0ab;
                 overflow: hidden;
                 margin: 0 auto;
                 width: 200px;
                 height: 200px;
                 border-radius: 80px/20px;
-                animation:load 2s alternate both; 
-                .cta-startpage {
-                    @include button-container;
-                    animation: scale-up 3s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-                    height:30px;
-                    margin-top:50px;
-                    text-align: center;
-                    button {
-                        @include main-button;
-                        animation: button-attention 3s cubic-bezier(0.690, 0.575, 0.965, 1.000) both;   
-                    }  
+                animation: glow 3s ease-in-out infinite alternate;
                 }
-
                 .sushi-filling {
                     width:200px;
                     height:20px;
                     background: radial-gradient(rgba(179, 179, 179, 0.925) 20%, white 80%, whitesmoke 90%); 
                     border-radius: 280px/15px;
                 }
-
         }
-    }
+        .main-text-container {
+            width:50%;
+            text-align: left;
+            box-shadow: 0px 50px #ff7e67;
+            h1 {
+                text-align: center;
+                color:#ff7e67 ;
+                font-size: 56pt;
+            }
+            .cta-startpage {
+                height:30px;
+                margin-top:50px;
+                text-align: center;
+                button {
+                    @include main-button;
+                    animation: button-attention 2.3s cubic-bezier(0.690, 0.575, 0.965, 1.000) both;   
+                }  
+            }
+        }
 }
 
 @keyframes load {
@@ -120,50 +224,27 @@ $sushi-shadow: rgba(27, 43, 28, 0.589);
         width:100%;
     }
 }
-
-@keyframes scale-up {
-    0% {
-        width:0%;
-    }
-    50% {
-        width:0%;
-    }
-    100% {
-        width:100%;
+@keyframes glow {
+    to {
+      box-shadow: 10px 0 20px #eeeeee, 0 0 30px  #ff9a76, 0 0 40px #ffeadb, 0 0 50px #ffeadb, 
+                   0 0 60px #ffeadb, 0 0 70px #ff9a76, 0 0 80px #ffeadb;
     }
 }
 
 @keyframes button-attention {
     0% {
+        opacity: 0;
         background-color: transparent;
-    }
-    20% {
-        background-color: transparent;
-    }
-    50% {
-        background-color: transparent;
-    }
-    70% {
-        background-color: transparent;
-
     }
     90% {
-        // border-radius:40px;
-        background-color: blue;
-        // border:1px solid black; 
-    }
-    95% {
-        // border-radius:40px;
-        background-color: green;
-        // border:1px solid black; 
+        border:2px solid black;
     }
     100% {
-        // border-radius:40px;
-        background-color: blue;
-        // border:1px solid black;
+        background-color: white;
+        border:2px solid black;
+        box-shadow: 10px 10px black;
     }
 }
-
 @keyframes slide-bottom {
     0% {
         transform: translateY(0);
@@ -184,57 +265,3 @@ $sushi-shadow: rgba(27, 43, 28, 0.589);
     }
 }
     
-
-@media only screen and (max-width: 650px) {
-    .placeholder {  
-        display:flex;
-        flex-direction: row; 
-        justify-content: center;
-        align-content: center;
-        .image-container {
-            display:flex;
-            flex-direction: column;
-            align-items: left;
-            .chef {
-                width:100%;
-            }
-            .ramen {
-                width:50%;
-            }
-        }
-        .text-container {
-            margin-top:50px;
-            padding:0px 20px 0px 20px;
-            display: flex;
-            flex-direction: row;
-            flex-wrap:wrap-reverse;
-            justify-content: space-evenly;
-            align-self:center;
-            width:100%;
-            img {
-                width:90%;
-            }
-            p {
-                align-self:center;
-                width:80%;
-                margin:40px;
-                padding-left:10px;
-                text-align: left;
-                font-style: italic;
-                font-size: 12pt;
-                padding-left:10px;
-            }
-            .cta-startpage {
-                width:50%;
-                button {
-                    text-align: center;
-                    width:100%;
-                } 
-            }
-            
-        }
-
-    }
-
-
-}

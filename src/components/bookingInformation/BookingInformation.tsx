@@ -2,6 +2,7 @@ import React, { useState, ChangeEvent, useReducer } from "react";
 import "./BookingInformation.scss";
 import axios from "axios";
 import Booking from "../../models/Booking";
+import { Spring } from "react-spring/renderprops";
 
 export interface IBookingInformationProps {
   addBooking(booking: Booking): void;
@@ -12,6 +13,7 @@ export default function BookinInformation(props: IBookingInformationProps) {
   const [isAvailable21, setIsAvailable21] = useState(true);
   const [findTime, setFindTime] = useState(false);
   const [fullyBooked, setFullyBooked] = useState(false);
+  
 
   const [bookingInfo, setBookingInfo] = useReducer(
     (bookingInfo: Booking, newBookingInfo: Booking) => ({
@@ -91,77 +93,89 @@ export default function BookinInformation(props: IBookingInformationProps) {
   }
 
   return (
-    <div className="placeholder">
-      <div className="form-container">
-        <form>
-          <fieldset className="input-container">
-            <label id="date">Välj datum:</label>
-            <input type="date" onChange={update} name="date" aria-label="date" />
-          </fieldset>
 
-          <fieldset className="select-container">
-            <label>Välj antal:</label>
-            <input type="number" placeholder="1" onChange={update} name="seats" min="1"/>
-          </fieldset>
-          {bookingInfo.date === "" ? (
-            <div className="cta-search">
-              <button type="button" disabled>
-                Sök
-              </button>
-            </div>
-          ) : (
-            <div className="cta-search">
-              <button type="button" onClick={createSearch}>
-                Sök
-              </button>
-            </div>
-          )}
-          {fullyBooked ? (
-            <h1>Tyvärr, vi är fullbokade. Välj en annan dag!</h1>
-          ) : findTime ? (
-            <div className="time-container">
-              <fieldset className="find-time">
-                <h4>Välj tid:</h4>
-                {isAvailable18 && findTime ? (
-                  <div className="available-time">
-                    <input
-                      type="radio"
-                      id="18"
-                      name="time"
-                      value="18"
-                      onChange={update}
-                      onInput={() => setTimeout(sendBooking, 500)}
-                    />
-                    <label htmlFor="18">18.00</label>
-                  </div>
-                ) : (
-                  <div className="not-available">
-                    <h4>18.00 FULLT</h4>
-                  </div>
-                )}
-                {isAvailable21 && findTime ? (
-                  <div className="available-time">
-                    <input
-                      type="radio"
-                      id="21"
-                      name="time"
-                      value="21"
-                      onChange={update}
-                      onInput={() => setTimeout(sendBooking, 500)}
-                    />
-                    <label htmlFor="21">21.00</label>
-                  </div>
-                ) : (
-                  <div className="not-available">
-                    <h4>21.00 FULLT</h4>
-                  </div>
-                )}
+    <Spring
+    from={{opacity: 0}}
+    to={{ opacity: 1}}
+    config={{delay: 700, duration: 700}}
+    > 
+      {props => (
+        <div className="placeholder" style={props}>
+          <div className="form-container">
+            <form>
+              <fieldset className="input-container">
+                <label id="date">Välj datum:</label>
+                <input type="date" onChange={update} name="date" aria-label="date" />
               </fieldset>
-            </div>
-          ) : null}
 
-        </form>
-      </div>
-    </div>
+              <fieldset className="select-container">
+                <label>Välj antal:</label>
+                <input type="number" placeholder="1" onChange={update} name="seats" min="1"/>
+              </fieldset>
+              {bookingInfo.date === "" ? (
+                <div className="cta-search">
+                  <button type="button" disabled>
+                    Sök
+                  </button>
+                </div>
+              ) : (
+                <div className="cta-search">
+                  <button type="button" onClick={createSearch}>
+                    Sök
+                  </button>
+                </div>
+              )}
+            
+            {fullyBooked ? (
+                <h1>Tyvärr, vi är fullbokade. Välj en annan dag!</h1>
+              ) : findTime ? (
+                
+                <div className="time-container">
+                  <fieldset className="find-time">
+                    <h4>Välj tid:</h4>
+                    {isAvailable18 && findTime ? (
+                      <div className="available-time">
+                        <input
+                          type="radio"
+                          id="18"
+                          name="time"
+                          value="18"
+                          onChange={update}
+                          onInput={() => setTimeout(sendBooking, 500)}
+                        />
+                        <label htmlFor="18">18.00</label>
+                      </div>
+                    ) : (
+                      <div className="not-available">
+                        <h4>18.00 FULLT</h4>
+                      </div>
+                    )}
+                    {isAvailable21 && findTime ? (
+                      <div className="available-time">
+                        <input
+                          type="radio"
+                          id="21"
+                          name="time"
+                          value="21"
+                          onChange={update}
+                          onInput={() => setTimeout(sendBooking, 500)}
+                        />
+                        <label htmlFor="21">21.00</label>
+                      </div>
+                    ) : (
+                      <div className="not-available">
+                        <h4>21.00 FULLT</h4>
+                      </div>
+                    )}
+                  </fieldset>
+                </div>
+
+              ) : null}
+            </form>
+          </div>
+        </div>
+      )}
+    </Spring>
+
   );
 }
